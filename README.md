@@ -1,5 +1,7 @@
 https://github.com/MiniApollo/kickstart.emacs/assets/72389030/5c66130d-66b9-459b-a26d-210f3f937459
 
+#NOTE: this repo under develop!
+
 # Table of Contents
 
 1.  [Introduction](#orgb229cbd)
