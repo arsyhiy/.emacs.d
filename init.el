@@ -178,12 +178,49 @@
   ("<C-wheel-down>" . text-scale-decrease))
 
 (use-package doom-modeline
-  :init (doom-modeline-mode 1)
-  :custom
-  (doom-modeline-height 25)     ;; Sets modeline height
-  (doom-modeline-bar-width 5)   ;; Sets right bar width
-  (doom-modeline-persp-name t)  ;; Adds perspective name to modeline
-  (doom-modeline-persp-icon t)) ;; Adds folder icon next to persp name
+          ;;:straight t
+          :init (doom-modeline-mode)
+          :custom
+
+          ;; Whether display icons in the mode-line.
+          ;; While using the server mode in GUI, should set the value explicitly. 
+          (doom-modeline-major-mode-icon t)
+      
+          ;; Whether display the colorful icon for `major-mode'.
+          ;; It respects `nerd-icons-color-icons'.
+          (doom-modeline-major-mode-color-icon t)
+ 
+          ;; Whether display the lsp icon. It respects option `doom-modeline-icon'.
+          (doom-modeline-lsp-icon t)
+
+          ;; Whether display the modern icons for modals.
+          (doom-modeline-modal-modern-icon nil)
+
+          ;; How tall the mode-line should be. It's only respected in GUI.
+          ;; If the actual char height is larger, it respects the actual height.
+          (doom-modeline-height 35)
+   
+          ;; Whether display the time icon. It respects option `doom-modeline-icon'.
+          (doom-modeline-time-icon t)
+
+          ;; Whether display the live icons of time.
+          ;; It respects option `doom-modeline-icon' and option `doom-modeline-time-icon'.
+          (doom-modeline-time-live-icon t)
+
+          ;; Whether display the buffer encoding.
+          (doom-modeline-buffer-encoding t)
+
+          ;; Whether display the indentation information.
+          (doom-modeline-indent-info t)
+
+          ;; The maximum displayed length of the branch name of version control.
+          (doom-modeline-vcs-max-length 15)
+
+          ;; The function to display the branch name.
+          (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)
+
+     
+)
 
 (use-package projectile
   :init
@@ -450,3 +487,15 @@
 
 ;; To disable shortcut "jump" indicators for each section, set
 (setq dashboard-show-shortcuts nil)
+
+(if (eq window-system 'ns)
+    (toggle-frame-maximized)
+  (toggle-frame-fullscreen))
+
+(use-package nerd-icons
+  ;; :custom
+  ;; The Nerd Font you want to use in GUI
+  ;; "Symbols Nerd Font Mono" is the default and is recommended
+  ;; but you can use any other Nerd Font if you want
+  ;; (nerd-icons-font-family "Symbols Nerd Font Mono")
+  )
