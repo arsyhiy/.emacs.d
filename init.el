@@ -1,12 +1,3 @@
-;; Kickstart.emacs is *not* a distribution.
-;; It's a template for your own configuration.
-
-;; It is *recommeded* to configure it from the *config.org* file.
-;; The goal is that you read every line, top-to-bottom, understand
-;; what your configuration is doing, and modify it to suit your needs.
-
-;; You can delete this when you're done. It's your config now. :)
-
 ;; The default is 800 kilobytes. Measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
 
@@ -167,8 +158,6 @@
 (use-package gruvbox-theme
   :config
   (load-theme 'gruvbox-dark-medium t)) ;; We need to add t to trust this package
-
-(add-to-list 'default-frame-alist '(alpha-background . 90)) ;; For all new frames henceforth
 
 (set-face-attribute 'default nil                                                     
                     :font "JetBrainsMonoNL Nerd Font" ;; Set your favorite type of font or download JetBrains Mono

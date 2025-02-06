@@ -6,7 +6,6 @@
 #+Options: toc:2
 
 * Table Of Contents :toc:
-- [[#introduction][Introduction]]
 - [[#important-to-load-first][Important to load first]]
   - [[#startup-performance][Startup Performance]]
   - [[#auto-tangle-configuration-file][Auto-tangle Configuration file]]
@@ -16,7 +15,6 @@
   - [[#good-defaults][Good Defaults]]
 - [[#appearance][Appearance]]
   - [[#set-theme][Set Theme]]
-  - [[#transparency][Transparency]]
   - [[#fonts][Fonts]]
   - [[#modeline][Modeline]]
 - [[#development][Development]]
@@ -41,18 +39,6 @@
   - [[#rainbow-delimiters][Rainbow Delimiters]]
   - [[#which-key][Which-Key]]
 - [[#runtime-performance][Runtime Performance]]
-
-* Introduction
-#+begin_src emacs-lisp
-    ;; Kickstart.emacs is *not* a distribution.
-    ;; It's a template for your own configuration.
-
-    ;; It is *recommeded* to configure it from the *config.org* file.
-    ;; The goal is that you read every line, top-to-bottom, understand
-    ;; what your configuration is doing, and modify it to suit your needs.
-
-    ;; You can delete this when you're done. It's your config now. :)
-#+end_src
 
 * Important to load first
 ** Startup Performance
@@ -271,11 +257,6 @@ Use consult-theme to easily try out themes (*Epilepsy* Warning).
       (load-theme 'gruvbox-dark-medium t)) ;; We need to add t to trust this package
 #+end_src
 
-** Transparency
-With Emacs version 29, true transparency has been added.
-#+begin_src emacs-lisp
-    (add-to-list 'default-frame-alist '(alpha-background . 90)) ;; For all new frames henceforth
-#+end_src
 
 ** Fonts
 *** Setting fonts
