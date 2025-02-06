@@ -5,8 +5,9 @@
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
 #+Startup: showeverything
 #+Options: toc:2
-
 * Table Of Contents :toc:
+- [[#global-variables][global variables]]
+  - [[#global-variables-1][Global variables]]
 - [[#important-to-load-first][Important to load first]]
   - [[#startup-performance][Startup Performance]]
   - [[#auto-tangle-configuration-file][Auto-tangle Configuration file]]
@@ -32,7 +33,7 @@
   - [[#nerd-icons][Nerd Icons]]
   - [[#git][Git]]
   - [[#corfu][Corfu]]
-  - [[#cape][Cape]]
+  - [[#company][Company]]
   - [[#orderless][Orderless]]
   - [[#vertico-and-marginalia][Vertico and Marginalia]]
   - [[#consult][Consult]]
@@ -43,6 +44,15 @@
 - [[#dashboard][Dashboard]]
 - [[#full-screan][full screan]]
 - [[#nerd-icons-color-icons][nerd-icons-color-icons]]
+- [[#utilitys][utilitys]]
+
+* global variables 
+** Global variables
+#+BEGIN_SRC emacs-lisp
+(setq
+ globals--leader-key   "<SPC>"                    ; Leader prefix key used for most bindings
+ )
+#+END_SRC
 
 * Important to load first
 ** Startup Performance
@@ -250,6 +260,15 @@ To search and replace, use query-replace-regexp to replace one by one C-M-% (SPC
               nil nil t)
       )
 #+end_src
+
+Default to utf-8 encoding.
+
+   #+begin_src emacs-lisp
+     (set-default-coding-systems 'utf-8)
+     (set-language-environment "UTF-8")
+     (prefer-coding-system 'utf-8)
+     (set-terminal-coding-system 'utf-8)
+   #+end_src
 
 * Appearance
 ** Set Theme
@@ -565,37 +584,52 @@ Notes:
       :init (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 #+end_src
 
-** Cape
-Provides Completion At Point Extensions which can be used in combination with Corfu, Company or the default completion UI.
-Notes:
-- The functions that are added later will be the first in the completion list.
-- Take care when adding Capfs (Completion-at-point-functions) to the list since each of the Capfs adds a small runtime cost.
-Read the [[https://github.com/minad/cape#configuration][configuration section]] in Cape's readme for more information.
-#+begin_src emacs-lisp
-    (use-package cape
-      :after corfu
-      :init
-      ;; Add to the global default value of `completion-at-point-functions' which is
-      ;; used by `completion-at-point'.  The order of the functions matters, the
-      ;; first function returning a result wins.  Note that the list of buffer-local
-      ;; completion functions takes precedence over the global list.
-      ;; The functions that are added later will be the first in the list
+** Company
+   Modular in-buffer completion framework.
 
-      (add-to-list 'completion-at-point-functions #'cape-dabbrev) ;; Complete word from current buffers
-      (add-to-list 'completion-at-point-functions #'cape-dict) ;; Dictionary completion
-      (add-to-list 'completion-at-point-functions #'cape-file) ;; Path completion
-      (add-to-list 'completion-at-point-functions #'cape-elisp-block) ;; Complete elisp in Org or Markdown mode
-      (add-to-list 'completion-at-point-functions #'cape-keyword) ;; Keyword/Snipet completion
+   #+begin_src emacs-lisp
+              (use-package company
+                :defer 2
+                :diminish
+                :custom
+                (company-begin-commands '(self-insert-command))
 
-      ;;(add-to-list 'completion-at-point-functions #'cape-abbrev) ;; Complete abbreviation
-      ;;(add-to-list 'completion-at-point-functions #'cape-history) ;; Complete from Eshell, Comint or minibuffer history
-      ;;(add-to-list 'completion-at-point-functions #'cape-line) ;; Complete entire line from current buffer
-      ;;(add-to-list 'completion-at-point-functions #'cape-elisp-symbol) ;; Complete Elisp symbol
-      ;;(add-to-list 'completion-at-point-functions #'cape-tex) ;; Complete Unicode char from TeX command, e.g. \hbar
-      ;;(add-to-list 'completion-at-point-functions #'cape-sgml) ;; Complete Unicode char from SGML entity, e.g., &alpha
-      ;;(add-to-list 'completion-at-point-functions #'cape-rfc1345) ;; Complete Unicode char using RFC 1345 mnemonics
-      )
-#+end_src
+                ;; This is one of the values (together with company-idle-delay),
+                ;; based on which Company auto-stars looking up completion candidates. 
+                ;; This option configures how many characters have to be typed in by a user before candidates start to be collected and displayed.
+                ;; An often choice nowadays is to configure this option to a lower number than the default value of 3. 
+                (company-minimum-prefix-length 1)
+
+                ;; This is the second of the options that configure Company’s auto-start behavior (together with company-minimum-prefix-length).
+                ;; The value of this option defines how fast Company is going to react to the typed input,
+                ;; such that setting company-idle-delay to 0 makes Company react immediately, nil disables auto-starting,
+                ;; and a larger value postpones completion auto-start for that number of seconds. For an even fancier setup,
+                ;; set this option value to a predicate function, as shown in the following example: 
+                (company-idle-delay 0)
+
+                (company-show-numbers t)
+
+                ;; This option allows to specify in which major modes company-mode can be enabled by (global-company-mode).
+                ;; The default value of t enables Company in all major modes.
+                ;; Setting company-global-modes to nil equal in action to toggling off global-company-mode.
+                ;; Providing a list of major modes results in having company-mode enabled in the listed modes only.
+                (global-company-mode t)
+                
+                ;; An annotation is a string that carries additional information about a candidate; such as a data type, function arguments,
+                ;; or whatever a backend appoints to be a valuable piece of information about a candidate. By default,
+                ;; the annotations are shown right beside the candidates. Setting the option value to t aligns annotations to the right side of the tooltip 
+                (company-tooltip-align-annotations t)           
+
+                ;; Controls the maximum number of the candidates shown simultaneously in the tooltip (the default value is 10).
+                ;; When the number of the available candidates is larger than this option’s value, Company paginates the results. 
+                (company-tooltip-limit 4)    
+)
+
+              (use-package company-box
+                :after company
+                :diminish
+                :hook (company-mode . company-box-mode))
+   #+end_src
 
 ** Orderless
 Completion style that divides the pattern into space-separated components, and matches candidates that match all of the components in any order.
@@ -784,4 +818,11 @@ We also increase Read Process Output Max so emacs can read more data.
   ;; but you can use any other Nerd Font if you want
   ;; (nerd-icons-font-family "Symbols Nerd Font Mono")
   )
+#+END_SRC
+
+* utilitys 
+#+BEGIN_SRC emacs-lisp
+ (defun open-config-file ()
+  (interactive)
+  (find-file (expand-file-name "config.org" user-emacs-directory)))
 #+END_SRC
