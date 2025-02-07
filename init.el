@@ -1,9 +1,18 @@
+;; The default is 800 kilobytes. Measured in bytes.
+(setq gc-cons-threshold (* 50 1000 1000))
+
+;; Make gc pauses faster by decreasing the threshold.
+(setq gc-cons-threshold (* 2 1000 1000))
+;; Increase the amount of data which Emacs reads from the process
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+
 (setq
  globals--leader-key   "<SPC>"                    ; Leader prefix key used for most bindings
  )
 
-;; The default is 800 kilobytes. Measured in bytes.
-(setq gc-cons-threshold (* 50 1000 1000))
+(defun open-config-file ()
+ (interactive)
+ (find-file (expand-file-name "config.org" user-emacs-directory)))
 
 (defun start/org-babel-tangle-config ()
   "Automatically tangle our Emacs.org config file when we save it. Credit to Emacs From Scratch for this one!"
@@ -21,6 +30,173 @@
                          ("org" . "https://orgmode.org/elpa/")
                          ("elpa" . "https://elpa.gnu.org/packages/")
                          ("nongnu" . "https://elpa.nongnu.org/nongnu/"))) ;; For Eat Terminal
+
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+(use-package company
+                :defer 2
+                :diminish
+                :custom
+                (company-begin-commands '(self-insert-command))
+
+                ;; This is one of the values (together with company-idle-delay),
+                ;; based on which Company auto-stars looking up completion candidates. 
+                ;; This option configures how many characters have to be typed in by a user before candidates start to be collected and displayed.
+                ;; An often choice nowadays is to configure this option to a lower number than the default value of 3. 
+                (company-minimum-prefix-length 1)
+
+                ;; This is the second of the options that configure Company’s auto-start behavior (together with company-minimum-prefix-length).
+                ;; The value of this option defines how fast Company is going to react to the typed input,
+                ;; such that setting company-idle-delay to 0 makes Company react immediately, nil disables auto-starting,
+                ;; and a larger value postpones completion auto-start for that number of seconds. For an even fancier setup,
+                ;; set this option value to a predicate function, as shown in the following example: 
+                (company-idle-delay 0)
+
+                (company-show-numbers t)
+
+                ;; This option allows to specify in which major modes company-mode can be enabled by (global-company-mode).
+                ;; The default value of t enables Company in all major modes.
+                ;; Setting company-global-modes to nil equal in action to toggling off global-company-mode.
+                ;; Providing a list of major modes results in having company-mode enabled in the listed modes only.
+                (global-company-mode t)
+                
+                ;; An annotation is a string that carries additional information about a candidate; such as a data type, function arguments,
+                ;; or whatever a backend appoints to be a valuable piece of information about a candidate. By default,
+                ;; the annotations are shown right beside the candidates. Setting the option value to t aligns annotations to the right side of the tooltip 
+                (company-tooltip-align-annotations t)           
+
+                ;; Controls the maximum number of the candidates shown simultaneously in the tooltip (the default value is 10).
+                ;; When the number of the available candidates is larger than this option’s value, Company paginates the results. 
+                (company-tooltip-limit 4)    
+)
+
+              (use-package company-box
+                :after company
+                :diminish
+                :hook (company-mode . company-box-mode))
+
+(use-package python-mode
+ :ensure t
+ :hook (python-mode . lsp-deferred)
+ :custom
+ ;; NOTE: Set these if Python 3 is called "python3" on your system!
+ ;; (python-shell-interpreter "python3")
+ ;; (dap-python-executable "python3")
+ (dap-python-debugger 'debugpy)
+ :config
+ (require 'dap-python))
+
+(defun efs/lsp-mode-setup ()
+  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+  (lsp-headerline-breadcrumb-mode))
+
+(use-package lsp-mode
+  :commands (lsp lsp-deferred)
+  :hook (lsp-mode . efs/lsp-mode-setup)
+  :init
+  (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+  :config
+  (lsp-enable-which-key-integration t))
+
+(use-package dashboard
+  :demand t
+  :init
+  (add-hook 'dashboard-mode-hook (lambda () (setq show-trailing-whitespace nil)))
+  :custom
+  (dashboard-center-content t)
+  (dashboard-set-heading-icons t)
+  (dashboard-set-file-icons t)
+  (dashboard-set-navigator t)
+  :config
+  (dashboard-setup-startup-hook))
+
+(use-package nerd-icons
+  :if (display-graphic-p))
+
+(use-package nerd-icons-dired
+  :hook (dired-mode . (lambda () (nerd-icons-dired-mode t))))
+
+(use-package nerd-icons-ibuffer
+  :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
+
+(set-face-attribute 'default nil                                                     
+                    :font "JetBrainsMonoNL Nerd Font" ;; Set your favorite type of font or download JetBrains Mono
+                    :height 120
+                    :weight 'medium)
+;; This sets the default font on all graphical frames created after restarting Emacs.
+;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
+;; are not right unless I also add this method of setting the default font.
+
+;;(add-to-list 'default-frame-alist '(font . "JetBrains Mono")) ;; Set your favorite font
+(setq-default line-spacing 0.12)
+
+(if (eq window-system 'ns)
+    (toggle-frame-maximized)
+  (toggle-frame-fullscreen))
+
+(use-package doom-modeline
+          ;;:straight t
+          :init (doom-modeline-mode)
+          :custom
+
+          ;; Whether display icons in the mode-line.
+          ;; While using the server mode in GUI, should set the value explicitly. 
+          (doom-modeline-major-mode-icon t)
+      
+          ;; Whether display the colorful icon for `major-mode'.
+          ;; It respects `nerd-icons-color-icons'.
+          (doom-modeline-major-mode-color-icon t)
+ 
+          ;; Whether display the lsp icon. It respects option `doom-modeline-icon'.
+          (doom-modeline-lsp-icon t)
+
+          ;; Whether display the modern icons for modals.
+          (doom-modeline-modal-modern-icon nil)
+
+          ;; How tall the mode-line should be. It's only respected in GUI.
+          ;; If the actual char height is larger, it respects the actual height.
+          (doom-modeline-height 35)
+   
+          ;; Whether display the time icon. It respects option `doom-modeline-icon'.
+          (doom-modeline-time-icon t)
+
+          ;; Whether display the live icons of time.
+          ;; It respects option `doom-modeline-icon' and option `doom-modeline-time-icon'.
+          (doom-modeline-time-live-icon t)
+
+          ;; Whether display the buffer encoding.
+          (doom-modeline-buffer-encoding t)
+
+          ;; Whether display the indentation information.
+          (doom-modeline-indent-info t)
+
+          ;; The maximum displayed length of the branch name of version control.
+          (doom-modeline-vcs-max-length 15)
+
+          ;; The function to display the branch name.
+          (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)
+
+     
+)
+
+(use-package acme-theme
+  :straight t
+  :config
+  (load-theme 'acme t))
 
 (use-package evil
   :init ;; Execute code Before a package is loaded
@@ -164,72 +340,12 @@
 (prefer-coding-system 'utf-8)
 (set-terminal-coding-system 'utf-8)
 
-(use-package gruvbox-theme
-  :config
-  (load-theme 'gruvbox-dark-medium t)) ;; We need to add t to trust this package
-
-(set-face-attribute 'default nil                                                     
-                    :font "JetBrainsMonoNL Nerd Font" ;; Set your favorite type of font or download JetBrains Mono
-                    :height 120
-                    :weight 'medium)
-;; This sets the default font on all graphical frames created after restarting Emacs.
-;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
-;; are not right unless I also add this method of setting the default font.
-
-;;(add-to-list 'default-frame-alist '(font . "JetBrains Mono")) ;; Set your favorite font
-(setq-default line-spacing 0.12)
-
 (use-package emacs
   :bind
   ("C-+" . text-scale-increase)
   ("C--" . text-scale-decrease)
   ("<C-wheel-up>" . text-scale-increase)
   ("<C-wheel-down>" . text-scale-decrease))
-
-(use-package doom-modeline
-          ;;:straight t
-          :init (doom-modeline-mode)
-          :custom
-
-          ;; Whether display icons in the mode-line.
-          ;; While using the server mode in GUI, should set the value explicitly. 
-          (doom-modeline-major-mode-icon t)
-      
-          ;; Whether display the colorful icon for `major-mode'.
-          ;; It respects `nerd-icons-color-icons'.
-          (doom-modeline-major-mode-color-icon t)
- 
-          ;; Whether display the lsp icon. It respects option `doom-modeline-icon'.
-          (doom-modeline-lsp-icon t)
-
-          ;; Whether display the modern icons for modals.
-          (doom-modeline-modal-modern-icon nil)
-
-          ;; How tall the mode-line should be. It's only respected in GUI.
-          ;; If the actual char height is larger, it respects the actual height.
-          (doom-modeline-height 35)
-   
-          ;; Whether display the time icon. It respects option `doom-modeline-icon'.
-          (doom-modeline-time-icon t)
-
-          ;; Whether display the live icons of time.
-          ;; It respects option `doom-modeline-icon' and option `doom-modeline-time-icon'.
-          (doom-modeline-time-live-icon t)
-
-          ;; Whether display the buffer encoding.
-          (doom-modeline-buffer-encoding t)
-
-          ;; Whether display the indentation information.
-          (doom-modeline-indent-info t)
-
-          ;; The maximum displayed length of the branch name of version control.
-          (doom-modeline-vcs-max-length 15)
-
-          ;; The function to display the branch name.
-          (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)
-
-     
-)
 
 (use-package projectile
   :init
@@ -239,22 +355,6 @@
   (projectile-switch-project-action #'projectile-dired) ;; Open dired when switching to a project
   (projectile-project-search-path '("~/projects/" "~/work/" ("~/github" . 1)))) ;; . 1 means only search the first subdirectory level for projects
 ;; Use Bookmarks for smaller, not standard projects
-
-;;(use-package eglot
-;;  :ensure nil ;; Don't install eglot because it's now built-in
-;;  :hook ((c-mode c++-mode ;; Autostart lsp servers for a given mode
-;;                 lua-mode) ;; Lua-mode needs to be installed
-;;         . eglot-ensure)
-;;  :custom
-;;  ;; Good default
-;;  (eglot-events-buffer-size 0) ;; No event buffers (Lsp server logs)
-;;  (eglot-autoshutdown t);; Shutdown unused servers.
-;;  (eglot-report-progress nil) ;; Disable lsp server logs (Don't show lsp messages at the bottom, java)
-;;  ;; Manual lsp servers
-;;  :config
-;;  (add-to-list 'eglot-server-programs
-;;               `(lua-mode . ("PATH_TO_THE_LSP_FOLDER/bin/lua-language-server" "-lsp"))) ;; Adds our lua lsp server to eglot's server list
-;;  )
 
 (use-package yasnippet-snippets
   :hook (prog-mode . yas-minor-mode))
@@ -295,15 +395,6 @@
 
 ;; (start/hello)
 
-(use-package nerd-icons
-  :if (display-graphic-p))
-
-(use-package nerd-icons-dired
-  :hook (dired-mode . (lambda () (nerd-icons-dired-mode t))))
-
-(use-package nerd-icons-ibuffer
-  :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
-
 (use-package magit
   :commands magit-status)
 
@@ -343,48 +434,6 @@
   :after corfu
   :init (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
-(use-package company
-                :defer 2
-                :diminish
-                :custom
-                (company-begin-commands '(self-insert-command))
-
-                ;; This is one of the values (together with company-idle-delay),
-                ;; based on which Company auto-stars looking up completion candidates. 
-                ;; This option configures how many characters have to be typed in by a user before candidates start to be collected and displayed.
-                ;; An often choice nowadays is to configure this option to a lower number than the default value of 3. 
-                (company-minimum-prefix-length 1)
-
-                ;; This is the second of the options that configure Company’s auto-start behavior (together with company-minimum-prefix-length).
-                ;; The value of this option defines how fast Company is going to react to the typed input,
-                ;; such that setting company-idle-delay to 0 makes Company react immediately, nil disables auto-starting,
-                ;; and a larger value postpones completion auto-start for that number of seconds. For an even fancier setup,
-                ;; set this option value to a predicate function, as shown in the following example: 
-                (company-idle-delay 0)
-
-                (company-show-numbers t)
-
-                ;; This option allows to specify in which major modes company-mode can be enabled by (global-company-mode).
-                ;; The default value of t enables Company in all major modes.
-                ;; Setting company-global-modes to nil equal in action to toggling off global-company-mode.
-                ;; Providing a list of major modes results in having company-mode enabled in the listed modes only.
-                (global-company-mode t)
-                
-                ;; An annotation is a string that carries additional information about a candidate; such as a data type, function arguments,
-                ;; or whatever a backend appoints to be a valuable piece of information about a candidate. By default,
-                ;; the annotations are shown right beside the candidates. Setting the option value to t aligns annotations to the right side of the tooltip 
-                (company-tooltip-align-annotations t)           
-
-                ;; Controls the maximum number of the candidates shown simultaneously in the tooltip (the default value is 10).
-                ;; When the number of the available candidates is larger than this option’s value, Company paginates the results. 
-                (company-tooltip-limit 4)    
-)
-
-              (use-package company-box
-                :after company
-                :diminish
-                :hook (company-mode . company-box-mode))
-
 (use-package orderless
   :custom
   (completion-styles '(orderless basic))
@@ -420,7 +469,7 @@
         register-preview-function #'consult-register-format)
 
   ;; Optionally tweak the register preview window.
-  ;; This adds thin lines, sorting and hides the mode line of the window.
+;; This adds thin lines, sorting and hides the mode line of the window.
   (advice-add #'register-preview :override #'consult-register-window)
 
   ;; Use Consult to select xref locations with preview
@@ -477,56 +526,3 @@
   (which-key-idle-delay 0.8)       ;; Set the time delay (in seconds) for the which-key popup to appear
   (which-key-max-description-length 25)
   (which-key-allow-imprecise-window-fit nil)) ;; Fixes which-key window slipping out in Emacs Daemon
-
-;; Make gc pauses faster by decreasing the threshold.
-(setq gc-cons-threshold (* 2 1000 1000))
-;; Increase the amount of data which Emacs reads from the process
-(setq read-process-output-max (* 1024 1024)) ;; 1mb
-
-;; use-package with Elpaca:
-(use-package dashboard
-  :config
-  (add-hook 'elpaca-after-init-hook #'dashboard-insert-startupify-lists)
-  (add-hook 'elpaca-after-init-hook #'dashboard-initialize)
-  (dashboard-setup-startup-hook))
-
-;; Set the title
-(setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
-;; Set the banner
-;;(setq dashboard-startup-banner [VALUE])
-;; Value can be:
-;;  - 'official which displays the official emacs logo.
-;;  - 'logo which displays an alternative emacs logo.
-;;  - an integer which displays one of the text banners
-;;    (see dashboard-banners-directory files).
-;;  - a string that specifies a path for a custom banner
-;;    currently supported types are gif/image/text/xbm.
-;;  - a cons of 2 strings which specifies the path of an image to use
-;;    and other path of a text file to use if image isn't supported.
-;;    (cons "path/to/image/file/image.png" "path/to/text/file/text.txt").
-;;  - a list that can display an random banner,
-;;    supported values are: string (filepath), 'official, 'logo and integers.
-
-;; Content is not centered by default. To center, set
-(setq dashboard-center-content t)
-;; vertically center content
-(setq dashboard-vertically-center-content t)
-
-;; To disable shortcut "jump" indicators for each section, set
-(setq dashboard-show-shortcuts nil)
-
-(if (eq window-system 'ns)
-    (toggle-frame-maximized)
-  (toggle-frame-fullscreen))
-
-(use-package nerd-icons
-  ;; :custom
-  ;; The Nerd Font you want to use in GUI
-  ;; "Symbols Nerd Font Mono" is the default and is recommended
-  ;; but you can use any other Nerd Font if you want
-  ;; (nerd-icons-font-family "Symbols Nerd Font Mono")
-  )
-
-(defun open-config-file ()
- (interactive)
- (find-file (expand-file-name "config.org" user-emacs-directory)))

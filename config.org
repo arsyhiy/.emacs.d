@@ -1,4 +1,3 @@
-
 #+Title: emacs config
 #+Author: Aresn
 #+Description: A starting point for Gnu Emacs with good defaults and packages that most people may want to use.
@@ -6,53 +5,48 @@
 #+Startup: showeverything
 #+Options: toc:2
 * Table Of Contents :toc:
-- [[#global-variables][global variables]]
-  - [[#global-variables-1][Global variables]]
+- [[#introduction][introduction]]
 - [[#important-to-load-first][Important to load first]]
   - [[#startup-performance][Startup Performance]]
-  - [[#auto-tangle-configuration-file][Auto-tangle Configuration file]]
-  - [[#use-package][Use Package]]
+  - [[#runtime-performance][Runtime Performance]]
+  - [[#global-variables][Global variables]]
+- [[#utilitys][utilitys]]
+- [[#auto-tangle-configuration-file][Auto-tangle Configuration file]]
+- [[#use-package][Use Package]]
+  - [[#straightel][straight.el]]
+- [[#devolepment][Devolepment]]
+  - [[#company][Company]]
+  - [[#language-modes][Language modes]]
+- [[#lsp][Lsp]]
+- [[#appearance][Appearance]]
+  - [[#dashboard][Dashboard]]
+  - [[#nerd-icons][Nerd Icons]]
+  - [[#fonts][Fonts]]
+  - [[#full-screan][full screan]]
+  - [[#modeline][Modeline]]
+  - [[#set-theme][Set Theme]]
   - [[#evil-mode][Evil Mode]]
   - [[#general-keybindings][General Keybindings]]
   - [[#good-defaults][Good Defaults]]
-- [[#appearance][Appearance]]
-  - [[#set-theme][Set Theme]]
-  - [[#fonts][Fonts]]
-  - [[#modeline][Modeline]]
 - [[#development][Development]]
   - [[#projectile][Projectile]]
-  - [[#eglot][Eglot]]
   - [[#yasnippet][Yasnippet]]
-  - [[#language-modes][Language modes]]
+  - [[#language-modes-1][Language modes]]
   - [[#terminal][Terminal]]
 - [[#multi-file-example][Multi File Example]]
   - [[#adding-the-lisp-directory-to-load-path][Adding the lisp directory to load-path]]
   - [[#sourcing-the-files][Sourcing the files]]
   - [[#using-the-file][Using the file]]
-- [[#other-packages][Other Packages]]
-  - [[#nerd-icons][Nerd Icons]]
   - [[#git][Git]]
   - [[#corfu][Corfu]]
-  - [[#company][Company]]
   - [[#orderless][Orderless]]
   - [[#vertico-and-marginalia][Vertico and Marginalia]]
   - [[#consult][Consult]]
   - [[#diminish][Diminish]]
   - [[#rainbow-delimiters][Rainbow Delimiters]]
   - [[#which-key][Which-Key]]
-- [[#runtime-performance][Runtime Performance]]
-- [[#dashboard][Dashboard]]
-- [[#full-screan][full screan]]
-- [[#nerd-icons-color-icons][nerd-icons-color-icons]]
-- [[#utilitys][utilitys]]
 
-* global variables 
-** Global variables
-#+BEGIN_SRC emacs-lisp
-(setq
- globals--leader-key   "<SPC>"                    ; Leader prefix key used for most bindings
- )
-#+END_SRC
+* introduction
 
 * Important to load first
 ** Startup Performance
@@ -62,7 +56,31 @@ Make startup faster by reducing the frequency of garbage collection. This will b
     (setq gc-cons-threshold (* 50 1000 1000))
 #+end_src
 
-** Auto-tangle Configuration file
+** Runtime Performance
+Dial the GC threshold back down so that garbage collection happens more frequently but in less time.
+We also increase Read Process Output Max so emacs can read more data.
+#+begin_src emacs-lisp
+    ;; Make gc pauses faster by decreasing the threshold.
+    (setq gc-cons-threshold (* 2 1000 1000))
+    ;; Increase the amount of data which Emacs reads from the process
+    (setq read-process-output-max (* 1024 1024)) ;; 1mb
+#+end_src
+
+** Global variables
+#+BEGIN_SRC emacs-lisp
+(setq
+ globals--leader-key   "<SPC>"                    ; Leader prefix key used for most bindings
+ )
+#+END_SRC
+
+* utilitys 
+#+BEGIN_SRC emacs-lisp
+ (defun open-config-file ()
+  (interactive)
+  (find-file (expand-file-name "config.org" user-emacs-directory)))
+#+END_SRC
+
+* Auto-tangle Configuration file
 Auto-Tangle Org configuration file for better startup times.
 If you want to use this don't forget to add this to the top of the org document (#+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes)
 
@@ -84,17 +102,7 @@ automatically exports the configuration here to the associated output files.
     (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'start/org-babel-tangle-config)))
 #+end_src
 
-** Use Package
-We use the default package manager package.el with use-package. Alternative package managers (straight.el, elpaca, etc.) are useful if you want to
-install packages from git repositories, if you want a specific, not very popular package that is not available on elpa or melpa,
-or you want UI (elpaca) and other things.
-
-If you are interested in these other package managers, check out their git repositories or search for more package managers.
-In my experience Package.el is not slow and gets the job done.
-
-To update/upgrade packages, use the package-upgrade-all command.
-Check out the use-package [[https://www.gnu.org/software/emacs/manual/use-package.html][documentation]] to see how to use it.
-With Emacs 29 use-package is now built-in.
+* Use Package
 #+begin_src emacs-lisp
     (require 'use-package-ensure) ;; Load use-package-always-ensure
     (setq use-package-always-ensure t) ;; Always ensures that a package is installed
@@ -103,6 +111,222 @@ With Emacs 29 use-package is now built-in.
                              ("elpa" . "https://elpa.gnu.org/packages/")
                              ("nongnu" . "https://elpa.nongnu.org/nongnu/"))) ;; For Eat Terminal
 #+end_src
+
+** straight.el
+#+BEGIN_SRC emacs-lisp
+ (defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+#+END_SRC
+* Devolepment 
+
+** Company
+   Modular in-buffer completion framework.
+   #+begin_src emacs-lisp
+              (use-package company
+                :defer 2
+                :diminish
+                :custom
+                (company-begin-commands '(self-insert-command))
+
+                ;; This is one of the values (together with company-idle-delay),
+                ;; based on which Company auto-stars looking up completion candidates. 
+                ;; This option configures how many characters have to be typed in by a user before candidates start to be collected and displayed.
+                ;; An often choice nowadays is to configure this option to a lower number than the default value of 3. 
+                (company-minimum-prefix-length 1)
+
+                ;; This is the second of the options that configure Company’s auto-start behavior (together with company-minimum-prefix-length).
+                ;; The value of this option defines how fast Company is going to react to the typed input,
+                ;; such that setting company-idle-delay to 0 makes Company react immediately, nil disables auto-starting,
+                ;; and a larger value postpones completion auto-start for that number of seconds. For an even fancier setup,
+                ;; set this option value to a predicate function, as shown in the following example: 
+                (company-idle-delay 0)
+
+                (company-show-numbers t)
+
+                ;; This option allows to specify in which major modes company-mode can be enabled by (global-company-mode).
+                ;; The default value of t enables Company in all major modes.
+                ;; Setting company-global-modes to nil equal in action to toggling off global-company-mode.
+                ;; Providing a list of major modes results in having company-mode enabled in the listed modes only.
+                (global-company-mode t)
+                
+                ;; An annotation is a string that carries additional information about a candidate; such as a data type, function arguments,
+                ;; or whatever a backend appoints to be a valuable piece of information about a candidate. By default,
+                ;; the annotations are shown right beside the candidates. Setting the option value to t aligns annotations to the right side of the tooltip 
+                (company-tooltip-align-annotations t)           
+
+                ;; Controls the maximum number of the candidates shown simultaneously in the tooltip (the default value is 10).
+                ;; When the number of the available candidates is larger than this option’s value, Company paginates the results. 
+                (company-tooltip-limit 4)    
+)
+
+              (use-package company-box
+                :after company
+                :diminish
+                :hook (company-mode . company-box-mode))
+   #+end_src
+
+** Language modes
+
+*** python mode
+#+BEGIN_SRC emacs-lisp
+ (use-package python-mode
+  :ensure t
+  :hook (python-mode . lsp-deferred)
+  :custom
+  ;; NOTE: Set these if Python 3 is called "python3" on your system!
+  ;; (python-shell-interpreter "python3")
+  ;; (dap-python-executable "python3")
+  (dap-python-debugger 'debugpy)
+  :config
+  (require 'dap-python))
+#+END_SRC
+
+* Lsp
+#+BEGIN_SRC emacs-lisp
+(defun efs/lsp-mode-setup ()
+  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+  (lsp-headerline-breadcrumb-mode))
+
+(use-package lsp-mode
+  :commands (lsp lsp-deferred)
+  :hook (lsp-mode . efs/lsp-mode-setup)
+  :init
+  (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+  :config
+  (lsp-enable-which-key-integration t))
+#+END_SRC
+
+
+* Appearance
+
+** Dashboard
+#+BEGIN_SRC emacs-lisp
+    (use-package dashboard
+      :demand t
+      :init
+      (add-hook 'dashboard-mode-hook (lambda () (setq show-trailing-whitespace nil)))
+      :custom
+      (dashboard-center-content t)
+      (dashboard-set-heading-icons t)
+      (dashboard-set-file-icons t)
+      (dashboard-set-navigator t)
+      :config
+      (dashboard-setup-startup-hook))
+#+END_SRC
+
+** Nerd Icons
+For icons and more helpful UI.
+This is an icon set that can be used with dired, ibuffer and other Emacs programs.
+
+Don't forget to use nerd-icons-install-fonts.
+
+We use Nerd icons because it has more, better icons and all-the-icons only supports GUI.
+While nerd-icons supports both GUI and TUI.
+#+begin_src emacs-lisp
+    (use-package nerd-icons
+      :if (display-graphic-p))
+
+    (use-package nerd-icons-dired
+      :hook (dired-mode . (lambda () (nerd-icons-dired-mode t))))
+
+    (use-package nerd-icons-ibuffer
+      :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
+#+end_src
+
+** Fonts
+#+begin_src emacs-lisp
+    (set-face-attribute 'default nil                                                     
+                        :font "JetBrainsMonoNL Nerd Font" ;; Set your favorite type of font or download JetBrains Mono
+                        :height 120
+                        :weight 'medium)
+    ;; This sets the default font on all graphical frames created after restarting Emacs.
+    ;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
+    ;; are not right unless I also add this method of setting the default font.
+
+    ;;(add-to-list 'default-frame-alist '(font . "JetBrains Mono")) ;; Set your favorite font
+    (setq-default line-spacing 0.12)
+#+end_src
+
+** full screan
+#+begin_src emacs-lisp
+(if (eq window-system 'ns)
+    (toggle-frame-maximized)
+  (toggle-frame-fullscreen))
+#+END_SRC
+
+** Modeline
+Replace the default modeline with a prettier more useful.
+#+begin_src emacs-lisp
+        (use-package doom-modeline
+          ;;:straight t
+          :init (doom-modeline-mode)
+          :custom
+
+          ;; Whether display icons in the mode-line.
+          ;; While using the server mode in GUI, should set the value explicitly. 
+          (doom-modeline-major-mode-icon t)
+      
+          ;; Whether display the colorful icon for `major-mode'.
+          ;; It respects `nerd-icons-color-icons'.
+          (doom-modeline-major-mode-color-icon t)
+ 
+          ;; Whether display the lsp icon. It respects option `doom-modeline-icon'.
+          (doom-modeline-lsp-icon t)
+
+          ;; Whether display the modern icons for modals.
+          (doom-modeline-modal-modern-icon nil)
+
+          ;; How tall the mode-line should be. It's only respected in GUI.
+          ;; If the actual char height is larger, it respects the actual height.
+          (doom-modeline-height 35)
+   
+          ;; Whether display the time icon. It respects option `doom-modeline-icon'.
+          (doom-modeline-time-icon t)
+
+          ;; Whether display the live icons of time.
+          ;; It respects option `doom-modeline-icon' and option `doom-modeline-time-icon'.
+          (doom-modeline-time-live-icon t)
+
+          ;; Whether display the buffer encoding.
+          (doom-modeline-buffer-encoding t)
+
+          ;; Whether display the indentation information.
+          (doom-modeline-indent-info t)
+
+          ;; The maximum displayed length of the branch name of version control.
+          (doom-modeline-vcs-max-length 15)
+
+          ;; The function to display the branch name.
+          (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)
+
+     
+)
+#+end_src
+ 
+** Set Theme
+#+begin_src emacs-lisp
+(use-package acme-theme
+  :straight t
+  :config
+  (load-theme 'acme t))
+#+end_src
+
+
+==================================================================================
+
 
 ** Evil Mode
 An extensible vi/vim layer for Emacs. Because…let’s face it. The Vim keybindings are just plain better.
@@ -270,32 +494,6 @@ Default to utf-8 encoding.
      (set-terminal-coding-system 'utf-8)
    #+end_src
 
-* Appearance
-** Set Theme
-Set gruvbox theme, if you want some themes try out doom-themes.
-Use consult-theme to easily try out themes (*Epilepsy* Warning).
-#+begin_src emacs-lisp
-    (use-package gruvbox-theme
-      :config
-      (load-theme 'gruvbox-dark-medium t)) ;; We need to add t to trust this package
-#+end_src
-
-
-** Fonts
-*** Setting fonts
-#+begin_src emacs-lisp
-    (set-face-attribute 'default nil                                                     
-                        :font "JetBrainsMonoNL Nerd Font" ;; Set your favorite type of font or download JetBrains Mono
-                        :height 120
-                        :weight 'medium)
-    ;; This sets the default font on all graphical frames created after restarting Emacs.
-    ;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
-    ;; are not right unless I also add this method of setting the default font.
-
-    ;;(add-to-list 'default-frame-alist '(font . "JetBrains Mono")) ;; Set your favorite font
-    (setq-default line-spacing 0.12)
-#+end_src
-
 *** Zooming In/Out
 You can use the bindings C-+ C-- for zooming in/out. You can also use CTRL plus the mouse wheel for zooming in/out.
 #+begin_src emacs-lisp
@@ -306,106 +504,21 @@ You can use the bindings C-+ C-- for zooming in/out. You can also use CTRL plus 
       ("<C-wheel-up>" . text-scale-increase)
       ("<C-wheel-down>" . text-scale-decrease))
 #+end_src
-
-** Modeline
-Replace the default modeline with a prettier more useful.
-#+begin_src emacs-lisp
-        (use-package doom-modeline
-          ;;:straight t
-          :init (doom-modeline-mode)
-          :custom
-
-          ;; Whether display icons in the mode-line.
-          ;; While using the server mode in GUI, should set the value explicitly. 
-          (doom-modeline-major-mode-icon t)
-      
-          ;; Whether display the colorful icon for `major-mode'.
-          ;; It respects `nerd-icons-color-icons'.
-          (doom-modeline-major-mode-color-icon t)
- 
-          ;; Whether display the lsp icon. It respects option `doom-modeline-icon'.
-          (doom-modeline-lsp-icon t)
-
-          ;; Whether display the modern icons for modals.
-          (doom-modeline-modal-modern-icon nil)
-
-          ;; How tall the mode-line should be. It's only respected in GUI.
-          ;; If the actual char height is larger, it respects the actual height.
-          (doom-modeline-height 35)
-   
-          ;; Whether display the time icon. It respects option `doom-modeline-icon'.
-          (doom-modeline-time-icon t)
-
-          ;; Whether display the live icons of time.
-          ;; It respects option `doom-modeline-icon' and option `doom-modeline-time-icon'.
-          (doom-modeline-time-live-icon t)
-
-          ;; Whether display the buffer encoding.
-          (doom-modeline-buffer-encoding t)
-
-          ;; Whether display the indentation information.
-          (doom-modeline-indent-info t)
-
-          ;; The maximum displayed length of the branch name of version control.
-          (doom-modeline-vcs-max-length 15)
-
-          ;; The function to display the branch name.
-          (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)
-
      
-)
-#+end_src
-      
 
 * Development
 ** Projectile
 Project interaction library for Emacs.
 #+begin_src emacs-lisp
-    (use-package projectile
-      :init
-      (projectile-mode)
-      :custom
-      (projectile-run-use-comint-mode t) ;; Interactive run dialog when running projects inside emacs (like giving input)
-      (projectile-switch-project-action #'projectile-dired) ;; Open dired when switching to a project
-      (projectile-project-search-path '("~/projects/" "~/work/" ("~/github" . 1)))) ;; . 1 means only search the first subdirectory level for projects
-    ;; Use Bookmarks for smaller, not standard projects
+(use-package projectile
+  :init
+  (projectile-mode)
+  :custom
+  (projectile-run-use-comint-mode t) ;; Interactive run dialog when running projects inside emacs (like giving input)
+  (projectile-switch-project-action #'projectile-dired) ;; Open dired when switching to a project
+  (projectile-project-search-path '("~/projects/" "~/work/" ("~/github" . 1)))) ;; . 1 means only search the first subdirectory level for projects
+;; Use Bookmarks for smaller, not standard projects
 #+end_src
-
-** Eglot
-Language Server Protocol Support for Emacs. The built-in is now Eglot (with emacs 29).
-
-Eglot is fast and minimal, but requires manual setup for LSP servers (downloading).
-For more [[https://www.gnu.org/software/emacs/manual/html_mono/eglot.html][information how to use.]] One alternative to Eglot is Lsp-mode, check out the [[https://github.com/MiniApollo/kickstart.emacs/wiki][project wiki]] page for more information.
-
-Eglot is easy to set up, but the only difficult part is downloading and setting up the lsp servers.
-After that just add a hook with eglot-ensure to automatically start eglot for a given file type. And you are done.
-
-As an example to use C, C++ you need to install clangd(or ccls) and uncomment the following lines. Now the language server will start automatically when opening any c,c++ file.
-
-A harder example is Lua. Download the lua-language-server from their git repository, make the lua-language-server file executable at lua-language-server/bin.
-Uncomment the following lines and change the path to the language server executable. Now the language server will work.
-Or add the lua-language-server executable to your path.
-
-If you can use a package manager just install the lsp server and add a hook.
-Use visual block to uncomment easily in Org documents (C-v).
-#+begin_src emacs-lisp
-    ;;(use-package eglot
-    ;;  :ensure nil ;; Don't install eglot because it's now built-in
-    ;;  :hook ((c-mode c++-mode ;; Autostart lsp servers for a given mode
-    ;;                 lua-mode) ;; Lua-mode needs to be installed
-    ;;         . eglot-ensure)
-    ;;  :custom
-    ;;  ;; Good default
-    ;;  (eglot-events-buffer-size 0) ;; No event buffers (Lsp server logs)
-    ;;  (eglot-autoshutdown t);; Shutdown unused servers.
-    ;;  (eglot-report-progress nil) ;; Disable lsp server logs (Don't show lsp messages at the bottom, java)
-    ;;  ;; Manual lsp servers
-    ;;  :config
-    ;;  (add-to-list 'eglot-server-programs
-    ;;               `(lua-mode . ("PATH_TO_THE_LSP_FOLDER/bin/lua-language-server" "-lsp"))) ;; Adds our lua lsp server to eglot's server list
-    ;;  )
-#+end_src
-
 ** Yasnippet
 A template system for Emacs. And yasnippet-snippets is a snippet collection package.
 To use it write out the full keyword (or use autocompletion) and press Tab.
@@ -507,27 +620,6 @@ And now we can use everything from that file.
     ;; (start/hello)
 #+end_src
 
-* Other Packages
-All the package setups that don't need much tweaking.
-** Nerd Icons
-For icons and more helpful UI.
-This is an icon set that can be used with dired, ibuffer and other Emacs programs.
-
-Don't forget to use nerd-icons-install-fonts.
-
-We use Nerd icons because it has more, better icons and all-the-icons only supports GUI.
-While nerd-icons supports both GUI and TUI.
-#+begin_src emacs-lisp
-    (use-package nerd-icons
-      :if (display-graphic-p))
-
-    (use-package nerd-icons-dired
-      :hook (dired-mode . (lambda () (nerd-icons-dired-mode t))))
-
-    (use-package nerd-icons-ibuffer
-      :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
-#+end_src
-
 ** Git
 *** Magit
 Complete text-based user interface to Git.
@@ -584,52 +676,6 @@ Notes:
       :init (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 #+end_src
 
-** Company
-   Modular in-buffer completion framework.
-
-   #+begin_src emacs-lisp
-              (use-package company
-                :defer 2
-                :diminish
-                :custom
-                (company-begin-commands '(self-insert-command))
-
-                ;; This is one of the values (together with company-idle-delay),
-                ;; based on which Company auto-stars looking up completion candidates. 
-                ;; This option configures how many characters have to be typed in by a user before candidates start to be collected and displayed.
-                ;; An often choice nowadays is to configure this option to a lower number than the default value of 3. 
-                (company-minimum-prefix-length 1)
-
-                ;; This is the second of the options that configure Company’s auto-start behavior (together with company-minimum-prefix-length).
-                ;; The value of this option defines how fast Company is going to react to the typed input,
-                ;; such that setting company-idle-delay to 0 makes Company react immediately, nil disables auto-starting,
-                ;; and a larger value postpones completion auto-start for that number of seconds. For an even fancier setup,
-                ;; set this option value to a predicate function, as shown in the following example: 
-                (company-idle-delay 0)
-
-                (company-show-numbers t)
-
-                ;; This option allows to specify in which major modes company-mode can be enabled by (global-company-mode).
-                ;; The default value of t enables Company in all major modes.
-                ;; Setting company-global-modes to nil equal in action to toggling off global-company-mode.
-                ;; Providing a list of major modes results in having company-mode enabled in the listed modes only.
-                (global-company-mode t)
-                
-                ;; An annotation is a string that carries additional information about a candidate; such as a data type, function arguments,
-                ;; or whatever a backend appoints to be a valuable piece of information about a candidate. By default,
-                ;; the annotations are shown right beside the candidates. Setting the option value to t aligns annotations to the right side of the tooltip 
-                (company-tooltip-align-annotations t)           
-
-                ;; Controls the maximum number of the candidates shown simultaneously in the tooltip (the default value is 10).
-                ;; When the number of the available candidates is larger than this option’s value, Company paginates the results. 
-                (company-tooltip-limit 4)    
-)
-
-              (use-package company-box
-                :after company
-                :diminish
-                :hook (company-mode . company-box-mode))
-   #+end_src
 
 ** Orderless
 Completion style that divides the pattern into space-separated components, and matches candidates that match all of the components in any order.
@@ -685,7 +731,7 @@ Check out their [[https://github.com/minad/consult][git repository]] for more aw
             register-preview-function #'consult-register-format)
 
       ;; Optionally tweak the register preview window.
-      ;; This adds thin lines, sorting and hides the mode line of the window.
+    ;; This adds thin lines, sorting and hides the mode line of the window.
       (advice-add #'register-preview :override #'consult-register-window)
 
       ;; Use Consult to select xref locations with preview
@@ -757,72 +803,3 @@ Which-key is a helper utility for keychords (which key to press).
       (which-key-allow-imprecise-window-fit nil)) ;; Fixes which-key window slipping out in Emacs Daemon
 #+end_src
 
-* Runtime Performance
-Dial the GC threshold back down so that garbage collection happens more frequently but in less time.
-We also increase Read Process Output Max so emacs can read more data.
-#+begin_src emacs-lisp
-    ;; Make gc pauses faster by decreasing the threshold.
-    (setq gc-cons-threshold (* 2 1000 1000))
-    ;; Increase the amount of data which Emacs reads from the process
-    (setq read-process-output-max (* 1024 1024)) ;; 1mb
-#+end_src
-
-* Dashboard
-#+BEGIN_SRC emacs-lisp
-    ;; use-package with Elpaca:
-    (use-package dashboard
-      :config
-      (add-hook 'elpaca-after-init-hook #'dashboard-insert-startupify-lists)
-      (add-hook 'elpaca-after-init-hook #'dashboard-initialize)
-      (dashboard-setup-startup-hook))
-
-    ;; Set the title
-    (setq dashboard-banner-logo-title "Welcome to Emacs Dashboard")
-    ;; Set the banner
-    ;;(setq dashboard-startup-banner [VALUE])
-    ;; Value can be:
-    ;;  - 'official which displays the official emacs logo.
-    ;;  - 'logo which displays an alternative emacs logo.
-    ;;  - an integer which displays one of the text banners
-    ;;    (see dashboard-banners-directory files).
-    ;;  - a string that specifies a path for a custom banner
-    ;;    currently supported types are gif/image/text/xbm.
-    ;;  - a cons of 2 strings which specifies the path of an image to use
-    ;;    and other path of a text file to use if image isn't supported.
-    ;;    (cons "path/to/image/file/image.png" "path/to/text/file/text.txt").
-    ;;  - a list that can display an random banner,
-    ;;    supported values are: string (filepath), 'official, 'logo and integers.
-
-    ;; Content is not centered by default. To center, set
-    (setq dashboard-center-content t)
-    ;; vertically center content
-    (setq dashboard-vertically-center-content t)
-
-    ;; To disable shortcut "jump" indicators for each section, set
-    (setq dashboard-show-shortcuts nil)
-#+END_SRC
-
-* full screan
-#+begin_src emacs-lisp
-(if (eq window-system 'ns)
-    (toggle-frame-maximized)
-  (toggle-frame-fullscreen))
-#+END_SRC
-
-* nerd-icons-color-icons
-#+BEGIN_SRC  emacs-lisp
-(use-package nerd-icons
-  ;; :custom
-  ;; The Nerd Font you want to use in GUI
-  ;; "Symbols Nerd Font Mono" is the default and is recommended
-  ;; but you can use any other Nerd Font if you want
-  ;; (nerd-icons-font-family "Symbols Nerd Font Mono")
-  )
-#+END_SRC
-
-* utilitys 
-#+BEGIN_SRC emacs-lisp
- (defun open-config-file ()
-  (interactive)
-  (find-file (expand-file-name "config.org" user-emacs-directory)))
-#+END_SRC
