@@ -10,6 +10,10 @@
  globals--leader-key   "<SPC>"                    ; Leader prefix key used for most bindings
  )
 
+;; (require 'start-multiFileExample)
+
+;; (start/hello)
+
 (defun open-config-file ()
  (interactive)
  (find-file (expand-file-name "config.org" user-emacs-directory)))
@@ -23,6 +27,20 @@
       (org-babel-tangle))))
 
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'start/org-babel-tangle-config)))
+
+(set-default-coding-systems 'utf-8)
+(set-language-environment "UTF-8")
+(prefer-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+
+(use-package emacs
+  :bind
+  ("C-+" . text-scale-increase)
+  ("C--" . text-scale-decrease)
+  ("<C-wheel-up>" . text-scale-increase)
+  ("<C-wheel-down>" . text-scale-decrease))
+
+;; (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 (require 'use-package-ensure) ;; Load use-package-always-ensure
 (setq use-package-always-ensure t) ;; Always ensures that a package is installed
@@ -46,363 +64,6 @@
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
-
-(use-package company
-                :defer 2
-                :diminish
-                :custom
-                (company-begin-commands '(self-insert-command))
-
-                ;; This is one of the values (together with company-idle-delay),
-                ;; based on which Company auto-stars looking up completion candidates. 
-                ;; This option configures how many characters have to be typed in by a user before candidates start to be collected and displayed.
-                ;; An often choice nowadays is to configure this option to a lower number than the default value of 3. 
-                (company-minimum-prefix-length 1)
-
-                ;; This is the second of the options that configure Company’s auto-start behavior (together with company-minimum-prefix-length).
-                ;; The value of this option defines how fast Company is going to react to the typed input,
-                ;; such that setting company-idle-delay to 0 makes Company react immediately, nil disables auto-starting,
-                ;; and a larger value postpones completion auto-start for that number of seconds. For an even fancier setup,
-                ;; set this option value to a predicate function, as shown in the following example: 
-                (company-idle-delay 0)
-
-                (company-show-numbers t)
-
-                ;; This option allows to specify in which major modes company-mode can be enabled by (global-company-mode).
-                ;; The default value of t enables Company in all major modes.
-                ;; Setting company-global-modes to nil equal in action to toggling off global-company-mode.
-                ;; Providing a list of major modes results in having company-mode enabled in the listed modes only.
-                (global-company-mode t)
-                
-                ;; An annotation is a string that carries additional information about a candidate; such as a data type, function arguments,
-                ;; or whatever a backend appoints to be a valuable piece of information about a candidate. By default,
-                ;; the annotations are shown right beside the candidates. Setting the option value to t aligns annotations to the right side of the tooltip 
-                (company-tooltip-align-annotations t)           
-
-                ;; Controls the maximum number of the candidates shown simultaneously in the tooltip (the default value is 10).
-                ;; When the number of the available candidates is larger than this option’s value, Company paginates the results. 
-                (company-tooltip-limit 4)    
-)
-
-              (use-package company-box
-                :after company
-                :diminish
-                :hook (company-mode . company-box-mode))
-
-(use-package python-mode
- :ensure t
- :hook (python-mode . lsp-deferred)
- :custom
- ;; NOTE: Set these if Python 3 is called "python3" on your system!
- ;; (python-shell-interpreter "python3")
- ;; (dap-python-executable "python3")
- (dap-python-debugger 'debugpy)
- :config
- (require 'dap-python))
-
-(defun efs/lsp-mode-setup ()
-  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
-  (lsp-headerline-breadcrumb-mode))
-
-(use-package lsp-mode
-  :commands (lsp lsp-deferred)
-  :hook (lsp-mode . efs/lsp-mode-setup)
-  :init
-  (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
-  :config
-  (lsp-enable-which-key-integration t))
-
-(use-package dashboard
-  :demand t
-  :init
-  (add-hook 'dashboard-mode-hook (lambda () (setq show-trailing-whitespace nil)))
-  :custom
-  (dashboard-center-content t)
-  (dashboard-set-heading-icons t)
-  (dashboard-set-file-icons t)
-  (dashboard-set-navigator t)
-  :config
-  (dashboard-setup-startup-hook))
-
-(use-package nerd-icons
-  :if (display-graphic-p))
-
-(use-package nerd-icons-dired
-  :hook (dired-mode . (lambda () (nerd-icons-dired-mode t))))
-
-(use-package nerd-icons-ibuffer
-  :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
-
-(set-face-attribute 'default nil                                                     
-                    :font "JetBrainsMonoNL Nerd Font" ;; Set your favorite type of font or download JetBrains Mono
-                    :height 120
-                    :weight 'medium)
-;; This sets the default font on all graphical frames created after restarting Emacs.
-;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
-;; are not right unless I also add this method of setting the default font.
-
-;;(add-to-list 'default-frame-alist '(font . "JetBrains Mono")) ;; Set your favorite font
-(setq-default line-spacing 0.12)
-
-(if (eq window-system 'ns)
-    (toggle-frame-maximized)
-  (toggle-frame-fullscreen))
-
-(use-package doom-modeline
-          ;;:straight t
-          :init (doom-modeline-mode)
-          :custom
-
-          ;; Whether display icons in the mode-line.
-          ;; While using the server mode in GUI, should set the value explicitly. 
-          (doom-modeline-major-mode-icon t)
-      
-          ;; Whether display the colorful icon for `major-mode'.
-          ;; It respects `nerd-icons-color-icons'.
-          (doom-modeline-major-mode-color-icon t)
- 
-          ;; Whether display the lsp icon. It respects option `doom-modeline-icon'.
-          (doom-modeline-lsp-icon t)
-
-          ;; Whether display the modern icons for modals.
-          (doom-modeline-modal-modern-icon nil)
-
-          ;; How tall the mode-line should be. It's only respected in GUI.
-          ;; If the actual char height is larger, it respects the actual height.
-          (doom-modeline-height 35)
-   
-          ;; Whether display the time icon. It respects option `doom-modeline-icon'.
-          (doom-modeline-time-icon t)
-
-          ;; Whether display the live icons of time.
-          ;; It respects option `doom-modeline-icon' and option `doom-modeline-time-icon'.
-          (doom-modeline-time-live-icon t)
-
-          ;; Whether display the buffer encoding.
-          (doom-modeline-buffer-encoding t)
-
-          ;; Whether display the indentation information.
-          (doom-modeline-indent-info t)
-
-          ;; The maximum displayed length of the branch name of version control.
-          (doom-modeline-vcs-max-length 15)
-
-          ;; The function to display the branch name.
-          (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)
-
-     
-)
-
-(use-package acme-theme
-  :straight t
-  :config
-  (load-theme 'acme t))
-
-(use-package evil
-  :init ;; Execute code Before a package is loaded
-  (evil-mode)
-  :config ;; Execute code After a package is loaded
-  (evil-set-initial-state 'eat-mode 'insert) ;; Set initial state in eat terminal to insert mode
-  :custom ;; Customization of package custom variables
-  (evil-want-keybinding nil)    ;; Disable evil bindings in other modes (It's not consistent and not good)
-  (evil-want-C-u-scroll t)      ;; Set C-u to scroll up
-  (evil-want-C-i-jump nil)      ;; Disables C-i jump
-  (evil-undo-system 'undo-redo) ;; C-r to redo
-  (org-return-follows-link t)   ;; Sets RETURN key in org-mode to follow links
-  ;; Unmap keys in 'evil-maps. If not done, org-return-follows-link will not work
-  :bind (:map evil-motion-state-map
-              ("SPC" . nil)
-              ("RET" . nil)
-              ("TAB" . nil)))
-(use-package evil-collection
-  :after evil
-  :config
-  ;; Setting where to use evil-collection
-  (setq evil-collection-mode-list '(dired ibuffer magit corfu vertico consult))
-  (evil-collection-init))
-
-(use-package general
-  :config
-  (general-evil-setup)
-  ;; Set up 'SPC' as the leader key
-  (general-create-definer start/leader-keys
-    :states '(normal insert visual motion emacs)
-    :keymaps 'override
-    :prefix "SPC"           ;; Set leader key
-    :global-prefix "C-SPC") ;; Set global leader key
-
-  (start/leader-keys
-    "." '(find-file :wk "Find file")
-    "TAB" '(comment-line :wk "Comment lines")
-    "p" '(projectile-command-map :wk "Projectile command map"))
-
-  (start/leader-keys
-    "f" '(:ignore t :wk "Find")
-    "f c" '((lambda () (interactive) (find-file "~/.config/emacs/config.org")) :wk "Edit emacs config")
-    "f r" '(consult-recent-file :wk "Recent files")
-    "f f" '(consult-fd :wk "Fd search for files")
-    "f g" '(consult-ripgrep :wk "Ripgrep search in files")
-    "f l" '(consult-line :wk "Find line")
-    "f i" '(consult-imenu :wk "Imenu buffer locations"))
-
-  (start/leader-keys
-    "b" '(:ignore t :wk "Buffer Bookmarks")
-    "b b" '(consult-buffer :wk "Switch buffer")
-    "b k" '(kill-this-buffer :wk "Kill this buffer")
-    "b i" '(ibuffer :wk "Ibuffer")
-    "b n" '(next-buffer :wk "Next buffer")
-    "b p" '(previous-buffer :wk "Previous buffer")
-    "b r" '(revert-buffer :wk "Reload buffer")
-    "b j" '(consult-bookmark :wk "Bookmark jump"))
-
-  (start/leader-keys
-    "d" '(:ignore t :wk "Dired")
-    "d v" '(dired :wk "Open dired")
-    "d j" '(dired-jump :wk "Dired jump to current"))
-
-  (start/leader-keys
-    "e" '(:ignore t :wk "Eglot Evaluate")
-    "e e" '(eglot-reconnect :wk "Eglot Reconnect")
-    "e f" '(eglot-format :wk "Eglot Format")
-    "e l" '(consult-flymake :wk "Consult Flymake")
-    "e b" '(eval-buffer :wk "Evaluate elisp in buffer")
-    "e r" '(eval-region :wk "Evaluate elisp in region"))
-
-  (start/leader-keys
-    "g" '(:ignore t :wk "Git")
-    "g g" '(magit-status :wk "Magit status"))
-
-  (start/leader-keys
-    "h" '(:ignore t :wk "Help") ;; To get more help use C-h commands (describe variable, function, etc.)
-    "h q" '(save-buffers-kill-emacs :wk "Quit Emacs and Daemon")
-    "h r" '((lambda () (interactive)
-              (load-file "~/.config/emacs/init.el"))
-            :wk "Reload Emacs config"))
-
-  (start/leader-keys
-    "s" '(:ignore t :wk "Show")
-    "s e" '(eat :wk "Eat terminal"))
-
-  (start/leader-keys
-    "t" '(:ignore t :wk "Toggle")
-    "t t" '(visual-line-mode :wk "Toggle truncated lines (wrap)")
-    "t l" '(display-line-numbers-mode :wk "Toggle line numbers")))
-
-(use-package emacs
-  :custom
-  (menu-bar-mode nil)         ;; Disable the menu bar
-  (scroll-bar-mode nil)       ;; Disable the scroll bar
-  (tool-bar-mode nil)         ;; Disable the tool bar
-  ;;(inhibit-startup-screen t)  ;; Disable welcome screen
-
-  (delete-selection-mode t)   ;; Select text and delete it by typing.
-  (electric-indent-mode nil)  ;; Turn off the weird indenting that Emacs does by default.
-  (electric-pair-mode t)      ;; Turns on automatic parens pairing
-
-  (blink-cursor-mode nil)     ;; Don't blink cursor
-  (global-auto-revert-mode t) ;; Automatically reload file and show changes if the file has changed
-
-  ;;(dired-kill-when-opening-new-dired-buffer t) ;; Dired don't create new buffer
-  ;;(recentf-mode t) ;; Enable recent file mode
-
-  ;;(global-visual-line-mode t)           ;; Enable truncated lines
-  ;;(display-line-numbers-type 'relative) ;; Relative line numbers
-  (global-display-line-numbers-mode t)  ;; Display line numbers
-
-  (mouse-wheel-progressive-speed nil) ;; Disable progressive speed when scrolling
-  (scroll-conservatively 10) ;; Smooth scrolling
-  ;;(scroll-margin 8)
-
-  (tab-width 4)
-
-  (make-backup-files nil) ;; Stop creating ~ backup files
-  (auto-save-default nil) ;; Stop creating # auto save files
-  :hook
-  (prog-mode . (lambda () (hs-minor-mode t))) ;; Enable folding hide/show globally
-  :config
-  ;; Move customization variables to a separate file and load it, avoid filling up init.el with unnecessary variables
-  (setq custom-file (locate-user-emacs-file "custom-vars.el"))
-  (load custom-file 'noerror 'nomessage)
-  :bind (
-         ([escape] . keyboard-escape-quit) ;; Makes Escape quit prompts (Minibuffer Escape)
-         )
-  ;; Fix general.el leader key not working instantly in messages buffer with evil mode
-  :ghook ('after-init-hook
-          (lambda (&rest _)
-            (when-let ((messages-buffer (get-buffer "*Messages*")))
-              (with-current-buffer messages-buffer
-                (evil-normalize-keymaps))))
-          nil nil t)
-  )
-
-(set-default-coding-systems 'utf-8)
-(set-language-environment "UTF-8")
-(prefer-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
-
-(use-package emacs
-  :bind
-  ("C-+" . text-scale-increase)
-  ("C--" . text-scale-decrease)
-  ("<C-wheel-up>" . text-scale-increase)
-  ("<C-wheel-down>" . text-scale-decrease))
-
-(use-package projectile
-  :init
-  (projectile-mode)
-  :custom
-  (projectile-run-use-comint-mode t) ;; Interactive run dialog when running projects inside emacs (like giving input)
-  (projectile-switch-project-action #'projectile-dired) ;; Open dired when switching to a project
-  (projectile-project-search-path '("~/projects/" "~/work/" ("~/github" . 1)))) ;; . 1 means only search the first subdirectory level for projects
-;; Use Bookmarks for smaller, not standard projects
-
-(use-package yasnippet-snippets
-  :hook (prog-mode . yas-minor-mode))
-
-(use-package org
-  :ensure nil
-  :custom
-  (org-edit-src-content-indentation 4) ;; Set src block automatic indent to 4 instead of 2.
-
-  :hook
-  (org-mode . org-indent-mode) ;; Indent text
-  ;; The following prevents <> from auto-pairing when electric-pair-mode is on.
-  ;; Otherwise, org-tempo is broken when you try to <s TAB...
-  ;;(org-mode . (lambda ()
-  ;;              (setq-local electric-pair-inhibit-predicate
-  ;;                          `(lambda (c)
-  ;;                             (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
-  )
-
-(use-package toc-org
-  :commands toc-org-enable
-  :hook (org-mode . toc-org-mode))
-
-(use-package org-superstar
-  :after org
-  :hook (org-mode . org-superstar-mode))
-
-(use-package org-tempo
-  :ensure nil
-  :after org)
-
-(use-package eat
-  :hook ('eshell-load-hook #'eat-eshell-mode))
-
-;; (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-
-;; (require 'start-multiFileExample)
-
-;; (start/hello)
-
-(use-package magit
-  :commands magit-status)
-
-(use-package diff-hl
-  :hook ((dired-mode         . diff-hl-dired-mode-unless-remote)
-         (magit-pre-refresh  . diff-hl-magit-pre-refresh)
-         (magit-post-refresh . diff-hl-magit-post-refresh))
-  :init (global-diff-hl-mode))
 
 (use-package corfu
   ;; Optional customizations
@@ -508,11 +169,6 @@
   ;; (setq consult-project-function nil)
   )
 
-(use-package diminish)
-
-(use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
-
 (use-package which-key
   :init
   (which-key-mode 1)
@@ -526,3 +182,337 @@
   (which-key-idle-delay 0.8)       ;; Set the time delay (in seconds) for the which-key popup to appear
   (which-key-max-description-length 25)
   (which-key-allow-imprecise-window-fit nil)) ;; Fixes which-key window slipping out in Emacs Daemon
+
+(use-package evil
+  :init ;; Execute code Before a package is loaded
+  (evil-mode)
+  :config ;; Execute code After a package is loaded
+  :custom ;; Customization of package custom variables
+  (evil-want-keybinding nil)    ;; Disable evil bindings in other modes (It's not consistent and not good)
+  (evil-want-C-u-scroll t)      ;; Set C-u to scroll up
+  (evil-want-C-i-jump nil)      ;; Disables C-i jump
+  (evil-undo-system 'undo-redo) ;; C-r to redo
+  (org-return-follows-link t)   ;; Sets RETURN key in org-mode to follow links
+  ;; Unmap keys in 'evil-maps. If not done, org-return-follows-link will not work
+  :bind (:map evil-motion-state-map
+              ("SPC" . nil)
+              ("RET" . nil)
+              ("TAB" . nil)))
+(use-package evil-collection
+  :after evil
+  :config
+  ;; Setting where to use evil-collection
+  (setq evil-collection-mode-list '(dired ibuffer magit corfu vertico consult))
+  (evil-collection-init))
+
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package company
+                :straight
+                :defer 2
+                :diminish
+                :custom
+                (company-begin-commands '(self-insert-command))
+
+                ;; This is one of the values (together with company-idle-delay),
+                ;; based on which Company auto-stars looking up completion candidates. 
+                ;; This option configures how many characters have to be typed in by a user before candidates start to be collected and displayed.
+                ;; An often choice nowadays is to configure this option to a lower number than the default value of 3. 
+                (company-minimum-prefix-length 1)
+
+                ;; This is the second of the options that configure Company’s auto-start behavior (together with company-minimum-prefix-length).
+                ;; The value of this option defines how fast Company is going to react to the typed input,
+                ;; such that setting company-idle-delay to 0 makes Company react immediately, nil disables auto-starting,
+                ;; and a larger value postpones completion auto-start for that number of seconds. For an even fancier setup,
+                ;; set this option value to a predicate function, as shown in the following example: 
+                (company-idle-delay 0)
+
+                (company-show-numbers t)
+
+                ;; This option allows to specify in which major modes company-mode can be enabled by (global-company-mode).
+                ;; The default value of t enables Company in all major modes.
+                ;; Setting company-global-modes to nil equal in action to toggling off global-company-mode.
+                ;; Providing a list of major modes results in having company-mode enabled in the listed modes only.
+                (global-company-mode t)
+                
+                ;; An annotation is a string that carries additional information about a candidate; such as a data type, function arguments,
+                ;; or whatever a backend appoints to be a valuable piece of information about a candidate. By default,
+                ;; the annotations are shown right beside the candidates. Setting the option value to t aligns annotations to the right side of the tooltip 
+                (company-tooltip-align-annotations t)           
+
+                ;; Controls the maximum number of the candidates shown simultaneously in the tooltip (the default value is 10).
+                ;; When the number of the available candidates is larger than this option’s value, Company paginates the results. 
+                (company-tooltip-limit 4)    
+)
+
+              (use-package company-box
+                :after company
+                :diminish
+                :hook (company-mode . company-box-mode))
+
+(use-package general
+  :config
+  (general-evil-setup)
+  ;; Set up 'SPC' as the leader key
+  (general-create-definer start/leader-keys
+    :states '(normal insert visual motion emacs)
+    :keymaps 'override
+    :prefix "SPC"           ;; Set leader key
+    :global-prefix "C-SPC") ;; Set global leader key
+
+  (start/leader-keys
+    "." '(find-file :wk "Find file")
+    "TAB" '(comment-line :wk "Comment lines")
+    "p" '(projectile-command-map :wk "Projectile command map"))
+
+  (start/leader-keys
+    "f" '(:ignore t :wk "Find")
+    "f c" '((lambda () (interactive) (find-file "~/.config/emacs/config.org")) :wk "Edit emacs config")
+    "f r" '(consult-recent-file :wk "Recent files")
+    "f f" '(consult-fd :wk "Fd search for files")
+    "f g" '(consult-ripgrep :wk "Ripgrep search in files")
+    "f l" '(consult-line :wk "Find line")
+    "f i" '(consult-imenu :wk "Imenu buffer locations"))
+
+  (start/leader-keys
+    "b" '(:ignore t :wk "Buffer Bookmarks")
+    "b b" '(consult-buffer :wk "Switch buffer")
+    "b k" '(kill-this-buffer :wk "Kill this buffer")
+    "b i" '(ibuffer :wk "Ibuffer")
+    "b n" '(next-buffer :wk "Next buffer")
+    "b p" '(previous-buffer :wk "Previous buffer")
+    "b r" '(revert-buffer :wk "Reload buffer")
+    "b j" '(consult-bookmark :wk "Bookmark jump"))
+
+  (start/leader-keys
+    "d" '(:ignore t :wk "Dired")
+    "d v" '(dired :wk "Open dired")
+    "d j" '(dired-jump :wk "Dired jump to current"))
+
+  (start/leader-keys
+    "g" '(:ignore t :wk "Git")
+    "g g" '(magit-status :wk "Magit status"))
+
+  (start/leader-keys
+    "h" '(:ignore t :wk "Help") ;; To get more help use C-h commands (describe variable, function, etc.)
+    "h q" '(save-buffers-kill-emacs :wk "Quit Emacs and Daemon")
+    "h r" '((lambda () (interactive)
+              (load-file "~/.config/emacs/init.el"))
+            :wk "Reload Emacs config"))
+
+  (start/leader-keys
+    "s" '(:ignore t :wk "Show")
+    "s e" '(eat :wk "Eat terminal"))
+
+  (start/leader-keys
+    "t" '(:ignore t :wk "Toggle")
+    "t t" '(visual-line-mode :wk "Toggle truncated lines (wrap)")
+    "t l" '(display-line-numbers-mode :wk "Toggle line numbers")))
+
+(use-package python-mode
+ :straight
+ :ensure t
+ :hook (python-mode . lsp-deferred)
+ :custom
+ ;; NOTE: Set these if Python 3 is called "python3" on your system!
+ ;; (python-shell-interpreter "python3")
+ ;; (dap-python-executable "python3")
+ (dap-python-debugger 'debugpy)
+ :config
+ (require 'dap-python))
+
+(defun efs/lsp-mode-setup ()
+  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+  (lsp-headerline-breadcrumb-mode))
+
+(use-package lsp-mode
+  :straight
+  :commands (lsp lsp-deferred)
+  :hook (lsp-mode . efs/lsp-mode-setup)
+  :init
+  (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+  :config
+  (lsp-enable-which-key-integration t))
+
+(use-package org
+  :ensure nil
+  :custom
+  (org-edit-src-content-indentation 4) ;; Set src block automatic indent to 4 instead of 2.
+
+  :hook
+  (org-mode . org-indent-mode) ;; Indent text
+  ;; The following prevents <> from auto-pairing when electric-pair-mode is on.
+  ;; Otherwise, org-tempo is broken when you try to <s TAB...
+  ;;(org-mode . (lambda ()
+  ;;              (setq-local electric-pair-inhibit-predicate
+  ;;                          `(lambda (c)
+  ;;                             (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
+  )
+
+(use-package toc-org
+  :commands toc-org-enable
+  :hook (org-mode . toc-org-mode))
+
+(use-package org-superstar
+  :after org
+  :hook (org-mode . org-superstar-mode))
+
+(use-package org-tempo
+  :ensure nil
+  :after org)
+
+(use-package projectile
+  :init
+  (projectile-mode)
+  :custom
+  (projectile-run-use-comint-mode t) ;; Interactive run dialog when running projects inside emacs (like giving input)
+  (projectile-switch-project-action #'projectile-dired) ;; Open dired when switching to a project
+  (projectile-project-search-path '("~/projects/" "~/work/" ("~/github" . 1)))) ;; . 1 means only search the first subdirectory level for projects
+;; Use Bookmarks for smaller, not standard projects
+
+(use-package yasnippet-snippets
+  :hook (prog-mode . yas-minor-mode))
+
+(use-package dashboard
+  :straight
+  :demand t
+  :init
+  (add-hook 'dashboard-mode-hook (lambda () (setq show-trailing-whitespace nil)))
+  :custom
+  (dashboard-center-content t)
+  (dashboard-set-heading-icons t)
+  (dashboard-set-file-icons t)
+  (dashboard-set-navigator t)
+  :config
+  (dashboard-setup-startup-hook))
+
+(use-package nerd-icons
+  :if (display-graphic-p))
+
+(use-package nerd-icons-dired
+  :hook (dired-mode . (lambda () (nerd-icons-dired-mode t))))
+
+(use-package nerd-icons-ibuffer
+  :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
+
+(set-face-attribute 'default nil                                                     
+                    :font "JetBrainsMonoNL Nerd Font" ;; Set your favorite type of font or download JetBrains Mono
+                    :height 120
+                    :weight 'medium)
+;; This sets the default font on all graphical frames created after restarting Emacs.
+;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
+;; are not right unless I also add this method of setting the default font.
+
+;;(add-to-list 'default-frame-alist '(font . "JetBrains Mono")) ;; Set your favorite font
+(setq-default line-spacing 0.12)
+
+(if (eq window-system 'ns)
+    (toggle-frame-maximized)
+  (toggle-frame-fullscreen))
+
+(use-package doom-modeline
+          :straight t
+          :init (doom-modeline-mode)
+          :custom
+
+          ;; Whether display icons in the mode-line.
+          ;; While using the server mode in GUI, should set the value explicitly. 
+          (doom-modeline-major-mode-icon t)
+      
+          ;; Whether display the colorful icon for `major-mode'.
+          ;; It respects `nerd-icons-color-icons'.
+          (doom-modeline-major-mode-color-icon t)
+ 
+          ;; Whether display the lsp icon. It respects option `doom-modeline-icon'.
+          (doom-modeline-lsp-icon t)
+
+          ;; Whether display the modern icons for modals.
+          (doom-modeline-modal-modern-icon nil)
+
+          ;; How tall the mode-line should be. It's only respected in GUI.
+          ;; If the actual char height is larger, it respects the actual height.
+          (doom-modeline-height 35)
+   
+          ;; Whether display the time icon. It respects option `doom-modeline-icon'.
+          (doom-modeline-time-icon t)
+
+          ;; Whether display the live icons of time.
+          ;; It respects option `doom-modeline-icon' and option `doom-modeline-time-icon'.
+          (doom-modeline-time-live-icon t)
+
+          ;; Whether display the buffer encoding.
+          (doom-modeline-buffer-encoding t)
+
+          ;; Whether display the indentation information.
+          (doom-modeline-indent-info t)
+
+          ;; The maximum displayed length of the branch name of version control.
+          (doom-modeline-vcs-max-length 15)
+
+          ;; The function to display the branch name.
+          (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)
+
+     
+)
+
+(use-package acme-theme
+  :straight t
+  :config
+  (load-theme 'acme t))
+
+(use-package magit
+  :commands magit-status)
+
+(use-package diff-hl
+  :hook ((dired-mode         . diff-hl-dired-mode-unless-remote)
+         (magit-pre-refresh  . diff-hl-magit-pre-refresh)
+         (magit-post-refresh . diff-hl-magit-post-refresh))
+  :init (global-diff-hl-mode))
+
+(use-package emacs
+  :custom
+  (menu-bar-mode nil)         ;; Disable the menu bar
+  (scroll-bar-mode t)       ;; enable the scroll bar
+  (tool-bar-mode nil)         ;; Disable the tool bar
+  ;;(inhibit-startup-screen t)  ;; Disable welcome screen
+
+  (delete-selection-mode t)   ;; Select text and delete it by typing.
+  (electric-indent-mode nil)  ;; Turn off the weird indenting that Emacs does by default.
+  (electric-pair-mode t)      ;; Turns on automatic parens pairing
+
+  (blink-cursor-mode t)     ;; Don't blink cursor
+  (global-auto-revert-mode t) ;; Automatically reload file and show changes if the file has changed
+
+  ;;(dired-kill-when-opening-new-dired-buffer t) ;; Dired don't create new buffer
+  ;;(recentf-mode t) ;; Enable recent file mode
+
+  ;;(global-visual-line-mode t)           ;; Enable truncated lines
+  ;;(display-line-numbers-type 'relative) ;; Relative line numbers
+  (global-display-line-numbers-mode t)  ;; Display line numbers
+
+  (mouse-wheel-progressive-speed t) ;; Disable progressive speed when scrolling
+  (scroll-conservatively 10) ;; Smooth scrolling
+  ;;(scroll-margin 8)
+
+  (tab-width 4)
+
+  (make-backup-files nil) ;; Stop creating ~ backup files
+  (auto-save-default nil) ;; Stop creating # auto save files
+  :hook
+  (prog-mode . (lambda () (hs-minor-mode t))) ;; Enable folding hide/show globally
+  :config
+  ;; Move customization variables to a separate file and load it, avoid filling up init.el with unnecessary variables
+  (setq custom-file (locate-user-emacs-file "custom-vars.el"))
+  (load custom-file 'noerror 'nomessage)
+  :bind (
+         ([escape] . keyboard-escape-quit) ;; Makes Escape quit prompts (Minibuffer Escape)
+         )
+  ;; Fix general.el leader key not working instantly in messages buffer with evil mode
+  :ghook ('after-init-hook
+          (lambda (&rest _)
+            (when-let ((messages-buffer (get-buffer "*Messages*")))
+              (with-current-buffer messages-buffer
+                (evil-normalize-keymaps))))
+          nil nil t)
+  )
