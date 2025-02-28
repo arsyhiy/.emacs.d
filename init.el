@@ -329,11 +329,16 @@
 (use-package lsp-mode
   :straight
   :commands (lsp lsp-deferred)
-  :hook (lsp-mode . efs/lsp-mode-setup)
+  :hook ((lsp-mode . efs/lsp-mode-setup)
+        (c-mode . lsp))
+
   :init
   (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
   :config
-  (lsp-enable-which-key-integration t))
+  (lsp-enable-which-key-integration t)
+)
+
+(use-package lsp-ui)
 
 (use-package org
   :ensure nil
@@ -398,7 +403,7 @@
 
 (set-face-attribute 'default nil                                                     
                     :font "JetBrainsMonoNL Nerd Font" ;; Set your favorite type of font or download JetBrains Mono
-                    :height 120
+                    :height 140
                     :weight 'medium)
 ;; This sets the default font on all graphical frames created after restarting Emacs.
 ;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
@@ -456,10 +461,9 @@
      
 )
 
-(use-package acme-theme
-  :straight t
+(use-package ef-themes
   :config
-  (load-theme 'acme t))
+  (load-theme 'ef-spring t ))
 
 (use-package magit
   :commands magit-status)
