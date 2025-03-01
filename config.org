@@ -1,7 +1,7 @@
 
 #+Title: emacs config
 #+Author: Aresn
-#+Description: mine config
+#+Description: my config
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
 #+Startup: showeverything
 #+Options: toc:2
@@ -459,12 +459,11 @@ NOTE: кнопки я современем настрою а не в один п
 
       (start/leader-keys
         "d" '(:ignore t :wk "Dired")
-        "d v" '(dired :wk "Open dired")
+        "d v" '(dired :wk "Open dired")	
         "d j" '(dired-jump :wk "Dired jump to current"))
 
       (start/leader-keys
         "g" '(:ignore t :wk "Git")
-        "g g" '(magit-status :wk "Magit status"))
 
       (start/leader-keys
         "h" '(:ignore t :wk "Help") ;; To get more help use C-h commands (describe variable, function, etc.)
@@ -498,7 +497,9 @@ NOTE: кнопки я современем настрою а не в один п
   (dap-python-debugger 'debugpy)
   :config
   (require 'dap-python))
+
 #+END_SRC
+
 
 ** Lsp
 #+BEGIN_SRC emacs-lisp
