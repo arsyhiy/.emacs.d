@@ -5,7 +5,7 @@
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
 #+Startup: showeverything
 #+Options: toc:2
-* Table Of Contents :toc:
+* Table Of Contents 
 - [[#introduction][introduction]]
 - [[#important-to-load-first][Important to load first]]
   - [[#startup-performance][Startup Performance]]
@@ -42,6 +42,8 @@
   - [[#nerd-icons][Nerd Icons]]
   - [[#fonts][Fonts]]
   - [[#full-screan][full screan]]
+  - [[#sound][Sound]]
+  - [[#mouse][Mouse]]
   - [[#modeline][Modeline]]
   - [[#set-theme][Set Theme]]
   - [[#git][Git]]
@@ -88,6 +90,15 @@ And now we can use everything from that file.
 #+begin_src emacs-lisp
     ;; (start/hello)
 #+end_src
+
+Emacs does a lot of things at startup and here, we disable pretty much everything.
+#+begin_src emacs-lisp
+
+(setq-default
+ inhibit-startup-screen t               ; Disable start-up screen
+ inhibit-startup-message t              ; Disable startup message
+ inhibit-startup-echo-area-message t)    ; Disable initial echo message
+#+END_SRC
 
 * utilitys 
 #+BEGIN_SRC emacs-lisp
@@ -650,6 +661,39 @@ While nerd-icons supports both GUI and TUI.
   (toggle-frame-fullscreen))
 #+END_SRC
 
+** Sound
+
+Disable the bell (auditory or visual).
+
+#+begin_src emacs-lisp
+
+(setq-default visible-bell nil             ; No visual bell      
+              ring-bell-function 'ignore)  ; No bell
+
+#+end_src
+
+** Mouse :MODE:
+
+Mouse behavior can be finely controlled using the [[help:mouse-avoidance-mode][mouse-avoidance-mode]].
+
+#+begin_src emacs-lisp
+
+(setq-default mouse-yank-at-point t) ; Yank at point rather than pointer
+(mouse-avoidance-mode 'exile)        ; Avoid collision of mouse with point
+
+#+end_src
+
+** Cursor
+Record cursor position from one session ot the other
+#+begin_src emacs-lisp
+
+(setq save-place-file (expand-file-name "saveplace" user-emacs-directory)
+      save-place-forget-unreadable-files t)
+
+(save-place-mode 1)
+
+#+end_src
+
 ** Modeline
 Replace the default modeline with a prettier more useful.
 #+begin_src emacs-lisp
@@ -728,11 +772,14 @@ Highlights uncommitted changes on the left side of the window (area also known a
 #+begin_src emacs-lisp
     (use-package emacs
       :custom
+      (show-help-function nil)    ; No help text
+      (use-file-dialog nil)       ; No file dialog
+      (use-dialog-box nil)        ; No dialog box
+      (pop-up-windows nil)       ; No popup windows
       (menu-bar-mode nil)         ;; Disable the menu bar
-      (scroll-bar-mode t)       ;; enable the scroll bar
       (tool-bar-mode nil)         ;; Disable the tool bar
       ;;(inhibit-startup-screen t)  ;; Disable welcome screen
-
+      (scroll-bar-mode nil)                    ; No scroll bars
       (delete-selection-mode t)   ;; Select text and delete it by typing.
       (electric-indent-mode nil)  ;; Turn off the weird indenting that Emacs does by default.
       (electric-pair-mode t)      ;; Turns on automatic parens pairing

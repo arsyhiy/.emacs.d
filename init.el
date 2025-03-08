@@ -14,6 +14,11 @@
 
 ;; (start/hello)
 
+(setq-default
+ inhibit-startup-screen t               ; Disable start-up screen
+ inhibit-startup-message t              ; Disable startup message
+ inhibit-startup-echo-area-message t)    ; Disable initial echo message
+
 (defun open-config-file ()
  (interactive)
  (find-file (expand-file-name "config.org" user-emacs-directory)))
@@ -416,6 +421,17 @@
     (toggle-frame-maximized)
   (toggle-frame-fullscreen))
 
+(setq-default visible-bell nil             ; No visual bell      
+              ring-bell-function 'ignore)  ; No bell
+
+(setq-default mouse-yank-at-point t) ; Yank at point rather than pointer
+(mouse-avoidance-mode 'exile)        ; Avoid collision of mouse with point
+
+(setq save-place-file (expand-file-name "saveplace" user-emacs-directory)
+      save-place-forget-unreadable-files t)
+
+(save-place-mode 1)
+
 (use-package doom-modeline
           :straight t
           :init (doom-modeline-mode)
@@ -476,11 +492,14 @@
 
 (use-package emacs
   :custom
+  (show-help-function nil)    ; No help text
+  (use-file-dialog nil)       ; No file dialog
+  (use-dialog-box nil)        ; No dialog box
+  (pop-up-windows nil)       ; No popup windows
   (menu-bar-mode nil)         ;; Disable the menu bar
-  (scroll-bar-mode t)       ;; enable the scroll bar
   (tool-bar-mode nil)         ;; Disable the tool bar
   ;;(inhibit-startup-screen t)  ;; Disable welcome screen
-
+  (scroll-bar-mode nil)                    ; No scroll bars
   (delete-selection-mode t)   ;; Select text and delete it by typing.
   (electric-indent-mode nil)  ;; Turn off the weird indenting that Emacs does by default.
   (electric-pair-mode t)      ;; Turns on automatic parens pairing
