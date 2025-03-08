@@ -494,6 +494,15 @@ NOTE: кнопки я современем настрою а не в один п
         "t l" '(display-line-numbers-mode :wk "Toggle line numbers")))
 #+end_src
 
+*** Pretty self-explanatory
+
+#+begin_src emacs-lisp
+
+(setq-default use-short-answers t                     ; Replace yes/no prompts with y/n
+              confirm-nonexistent-file-or-buffer nil) ; Ok to visit non existent files
+
+#+end_src
+
 ** Language modes
 
 *** python mode

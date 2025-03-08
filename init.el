@@ -315,6 +315,9 @@
     "t t" '(visual-line-mode :wk "Toggle truncated lines (wrap)")
     "t l" '(display-line-numbers-mode :wk "Toggle line numbers")))
 
+(setq-default use-short-answers t                     ; Replace yes/no prompts with y/n
+              confirm-nonexistent-file-or-buffer nil) ; Ok to visit non existent files
+
 (use-package python-mode
  :straight
  :ensure t
