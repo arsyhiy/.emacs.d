@@ -435,6 +435,10 @@
 
 (save-place-mode 1)
 
+(setq-default scroll-conservatively 101       ; Avoid recentering when scrolling far
+              scroll-margin 2                 ; Add a margin when scrolling vertically
+              recenter-positions '(5 bottom)) ; Set re-centering positions
+
 (use-package doom-modeline
           :straight t
           :init (doom-modeline-mode)
@@ -542,3 +546,5 @@
                 (evil-normalize-keymaps))))
           nil nil t)
   )
+
+(setq-default select-enable-clipboard t) ; Merge system's and Emacs' clipboard

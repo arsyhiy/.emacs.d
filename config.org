@@ -703,6 +703,16 @@ Record cursor position from one session ot the other
 
 #+end_src
 
+** Smoother scrolling.
+
+#+begin_src emacs-lisp
+
+(setq-default scroll-conservatively 101       ; Avoid recentering when scrolling far
+              scroll-margin 2                 ; Add a margin when scrolling vertically
+              recenter-positions '(5 bottom)) ; Set re-centering positions
+
+#+end_src
+
 ** Modeline
 Replace the default modeline with a prettier more useful.
 #+begin_src emacs-lisp
@@ -828,4 +838,14 @@ Highlights uncommitted changes on the left side of the window (area also known a
                     (evil-normalize-keymaps))))
               nil nil t)
       )
+#+end_src
+
+* Clipboard :OS:
+
+Allows system and Emacs clipboard to communicate smoothly (both ways)
+
+#+begin_src emacs-lisp
+
+(setq-default select-enable-clipboard t) ; Merge system's and Emacs' clipboard
+
 #+end_src
