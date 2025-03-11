@@ -330,23 +330,37 @@
  :config
  (require 'dap-python))
 
-(defun efs/lsp-mode-setup ()
-  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
-  (lsp-headerline-breadcrumb-mode))
+;;(defun efs/lsp-mode-setup ()
+  ;;(setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+  ;;(lsp-headerline-breadcrumb-mode))
 
-(use-package lsp-mode
-  :straight
-  :commands (lsp lsp-deferred)
-  :hook ((lsp-mode . efs/lsp-mode-setup)
-        (c-mode . lsp))
+;;(use-package lsp-mode
+  ;;:straight
+  ;;:commands (lsp lsp-deferred)
+  ;;:hook ((lsp-mode . efs/lsp-mode-setup)
+  ;;      (c-mode . lsp))
 
-  :init
-  (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+  ;;:init
+  ;;(setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
+  ;;:config
+  ;;(lsp-enable-which-key-integration t)
+;;)
+
+(use-package eglot
+  :ensure nil ;; Don't install eglot because it's now built-in
+  :hook ((c-mode c++-mode ;; Autostart lsp servers for a given mode
+                 lua-mode) ;; Lua-mode needs to be installed
+         . eglot-ensure)
+  :custom
+  ;; Good default
+  (eglot-events-buffer-size 0) ;; No event buffers (Lsp server logs)
+  (eglot-autoshutdown t);; Shutdown unused servers.
+  (eglot-report-progress nil) ;; Disable lsp server logs (Don't show lsp messages at the bottom, java)
+  ;; Manual lsp servers
   :config
-  (lsp-enable-which-key-integration t)
+  (add-to-list 'eglot-server-programs
+               `(lua-mode . ("PATH_TO_THE_LSP_FOLDER/bin/lua-language-server" "-lsp"))) ;; Adds our lua lsp server to eglot's server list
 )
-
-(use-package lsp-ui)
 
 (use-package org
   :ensure nil
