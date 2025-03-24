@@ -330,37 +330,30 @@
  :config
  (require 'dap-python))
 
-;;(defun efs/lsp-mode-setup ()
-  ;;(setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
-  ;;(lsp-headerline-breadcrumb-mode))
+(defun efs/lsp-mode-setup ()
+  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+  (lsp-headerline-breadcrumb-mode))
 
-;;(use-package lsp-mode
-  ;;:straight
-  ;;:commands (lsp lsp-deferred)
-  ;;:hook ((lsp-mode . efs/lsp-mode-setup)
-  ;;      (c-mode . lsp))
+(use-package lsp-mode
+  :straight
+  :commands (lsp lsp-deferred)
+  :hook ((lsp-mode . efs/lsp-mode-setup)
+        (c-mode . lsp))
 
-  ;;:init
-  ;;(setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
-  ;;:config
-  ;;(lsp-enable-which-key-integration t)
-;;)
-
-(use-package eglot
-  :ensure nil ;; Don't install eglot because it's now built-in
-  :hook ((c-mode c++-mode ;; Autostart lsp servers for a given mode
-                 lua-mode) ;; Lua-mode needs to be installed
-         . eglot-ensure)
-  :custom
-  ;; Good default
-  (eglot-events-buffer-size 0) ;; No event buffers (Lsp server logs)
-  (eglot-autoshutdown t);; Shutdown unused servers.
-  (eglot-report-progress nil) ;; Disable lsp server logs (Don't show lsp messages at the bottom, java)
-  ;; Manual lsp servers
+  :init
+  (setq lsp-keymap-prefix "C-c l")  ;; Or 'C-l', 's-l'
   :config
-  (add-to-list 'eglot-server-programs
-               `(lua-mode . ("PATH_TO_THE_LSP_FOLDER/bin/lua-language-server" "-lsp"))) ;; Adds our lua lsp server to eglot's server list
+  (lsp-enable-which-key-integration t)
 )
+
+(use-package lsp-ui
+  :ensure
+  :commands lsp-ui-mode
+  :custom
+  (lsp-ui-sideline-show-diagnostics t)
+  (lsp-ui-sideline-show-hover t)
+  (lsp-ui-sideline-show-code-actions t)
+  (lsp-ui-sideline-update-mode t))
 
 (use-package org
   :ensure nil
@@ -424,7 +417,7 @@
   :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 
 (set-face-attribute 'default nil                                                     
-                    :font "JetBrainsMonoNL Nerd Font" ;; Set your favorite type of font or download JetBrains Mono
+                    ;;:font "JetBrainsMonoNL Nerd Font" ;; Set your favorite type of font or download JetBrains Mono
                     :height 140
                     :weight 'medium)
 ;; This sets the default font on all graphical frames created after restarting Emacs.
@@ -433,10 +426,6 @@
 
 ;;(add-to-list 'default-frame-alist '(font . "JetBrains Mono")) ;; Set your favorite font
 (setq-default line-spacing 0.12)
-
-(if (eq window-system 'ns)
-    (toggle-frame-maximized)
-  (toggle-frame-fullscreen))
 
 (setq-default visible-bell nil             ; No visual bell      
               ring-bell-function 'ignore)  ; No bell
@@ -452,55 +441,6 @@
 (setq-default scroll-conservatively 101       ; Avoid recentering when scrolling far
               scroll-margin 2                 ; Add a margin when scrolling vertically
               recenter-positions '(5 bottom)) ; Set re-centering positions
-
-(use-package doom-modeline
-          :straight t
-          :init (doom-modeline-mode)
-          :custom
-
-          ;; Whether display icons in the mode-line.
-          ;; While using the server mode in GUI, should set the value explicitly. 
-          (doom-modeline-major-mode-icon t)
-      
-          ;; Whether display the colorful icon for `major-mode'.
-          ;; It respects `nerd-icons-color-icons'.
-          (doom-modeline-major-mode-color-icon t)
- 
-          ;; Whether display the lsp icon. It respects option `doom-modeline-icon'.
-          (doom-modeline-lsp-icon t)
-
-          ;; Whether display the modern icons for modals.
-          (doom-modeline-modal-modern-icon nil)
-
-          ;; How tall the mode-line should be. It's only respected in GUI.
-          ;; If the actual char height is larger, it respects the actual height.
-          (doom-modeline-height 35)
-   
-          ;; Whether display the time icon. It respects option `doom-modeline-icon'.
-          (doom-modeline-time-icon t)
-
-          ;; Whether display the live icons of time.
-          ;; It respects option `doom-modeline-icon' and option `doom-modeline-time-icon'.
-          (doom-modeline-time-live-icon t)
-
-          ;; Whether display the buffer encoding.
-          (doom-modeline-buffer-encoding t)
-
-          ;; Whether display the indentation information.
-          (doom-modeline-indent-info t)
-
-          ;; The maximum displayed length of the branch name of version control.
-          (doom-modeline-vcs-max-length 15)
-
-          ;; The function to display the branch name.
-          (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)
-
-     
-)
-
-(use-package ef-themes
-  :config
-  (load-theme 'ef-spring t ))
 
 (use-package magit
   :commands magit-status)
