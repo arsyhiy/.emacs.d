@@ -802,12 +802,12 @@ Record cursor position from one session ot the other
 ;;)
 ;;#+end_src
  
-;;** Set Theme
-;;#+begin_src emacs-lisp
-;;(use-package ef-themes
-;;  :config
-;;  (load-theme 'ef-spring t ))
-;;#+end_src
+** Set Theme
+#+begin_src emacs-lisp
+(use-package ef-themes
+  :config
+  (load-theme 'ef-spring t ))
+#+end_src
 
 ** Git
 *** Magit

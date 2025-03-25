@@ -473,6 +473,10 @@
               scroll-margin 2                 ; Add a margin when scrolling vertically
               recenter-positions '(5 bottom)) ; Set re-centering positions
 
+(use-package ef-themes
+  :config
+  (load-theme 'ef-spring t ))
+
 (use-package magit
   :commands magit-status)
 
