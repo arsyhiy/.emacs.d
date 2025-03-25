@@ -45,7 +45,7 @@
   ("<C-wheel-up>" . text-scale-increase)
   ("<C-wheel-down>" . text-scale-decrease))
 
-;; (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+;;(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 (require 'use-package-ensure) ;; Load use-package-always-ensure
 (setq use-package-always-ensure t) ;; Always ensures that a package is installed
@@ -87,7 +87,7 @@
   ;; (corfu-scroll-margin 5)        ;; Use scroll margin
   (completion-ignore-case t)
   ;; Enable indentation+completion using the TAB key.
-  ;; `completion-at-point' is often bound to M-TAB.
+	;;`completion-at-point' is often bound to M-TAB.
   (tab-always-indent 'complete)
   (corfu-preview-current nil) ;; Don't insert completion without confirmation
   ;; Recommended: Enable Corfu globally.  This is recommended since Dabbrev can
@@ -448,14 +448,14 @@
   :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 
 (set-face-attribute 'default nil                                                     
-                    ;;:font "JetBrainsMonoNL Nerd Font" ;; Set your favorite type of font or download JetBrains Mono
+                    :font "JetBrainsMonoNL NF-12.0:bold" ;; Set your favorite type of font or download JetBrains Mono
                     :height 140
                     :weight 'medium)
 ;; This sets the default font on all graphical frames created after restarting Emacs.
 ;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
 ;; are not right unless I also add this method of setting the default font.
 
-;;(add-to-list 'default-frame-alist '(font . "JetBrains Mono")) ;; Set your favorite font
+(add-to-list 'default-frame-alist '(font . "JetBrainsMonoNL NF-12.0:bold")) ;; Set your favorite font
 (setq-default line-spacing 0.12)
 
 (setq-default visible-bell nil             ; No visual bell      
@@ -472,6 +472,49 @@
 (setq-default scroll-conservatively 101       ; Avoid recentering when scrolling far
               scroll-margin 2                 ; Add a margin when scrolling vertically
               recenter-positions '(5 bottom)) ; Set re-centering positions
+
+(use-package doom-modeline
+          :straight t
+          :init (doom-modeline-mode)
+          :custom
+
+          ;; Whether display icons in the mode-line.
+          ;; While using the server mode in GUI, should set the value explicitly. 
+          (doom-modeline-major-mode-icon t)
+      
+          ;; Whether display the colorful icon for `major-mode'.
+          ;; It respects `nerd-icons-color-icons'.
+          (doom-modeline-major-mode-color-icon t)
+ 
+          ;; Whether display the lsp icon. It respects option `doom-modeline-icon'.
+          (doom-modeline-lsp-icon t)
+
+          ;; Whether display the modern icons for modals.
+          (doom-modeline-modal-modern-icon nil)
+
+          ;; How tall the mode-line should be. It's only respected in GUI.
+          ;; If the actual char height is larger, it respects the actual height.
+          (doom-modeline-height 35)
+   
+          ;; Whether display the time icon. It respects option `doom-modeline-icon'.
+          (doom-modeline-time-icon t)
+
+          ;; Whether display the live icons of time.
+          ;; It respects option `doom-modeline-icon' and option `doom-modeline-time-icon'.
+          (doom-modeline-time-live-icon t)
+
+          ;; Whether display the buffer encoding.
+          (doom-modeline-buffer-encoding t)
+
+          ;; Whether display the indentation information.
+          (doom-modeline-indent-info t)
+
+          ;; The maximum displayed length of the branch name of version control.
+          (doom-modeline-vcs-max-length 15)
+
+          ;; The function to display the branch name.
+          (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)     
+)
 
 (use-package ef-themes
   :config
@@ -501,7 +544,7 @@
   (delete-selection-mode t)   ;; Select text and delete it by typing.
   (electric-indent-mode nil)  ;; Turn off the weird indenting that Emacs does by default.
   (electric-pair-mode t)      ;; Turns on automatic parens pairing
-
+  (select-enable-clipboard t) ; Merge system's and Emacs' clipboard
   (blink-cursor-mode t)     ;; Don't blink cursor
   (global-auto-revert-mode t) ;; Automatically reload file and show changes if the file has changed
 
@@ -516,7 +559,8 @@
   (scroll-conservatively 10) ;; Smooth scrolling
   ;;(scroll-margin 8)
 
-  (tab-width 4)
+  (tab-width 2)
+  (setq-default indent-tabs-mode nil)
 
   (make-backup-files nil) ;; Stop creating ~ backup files
   (auto-save-default nil) ;; Stop creating # auto save files
@@ -537,5 +581,3 @@
                 (evil-normalize-keymaps))))
           nil nil t)
   )
-
-(setq-default select-enable-clipboard t) ; Merge system's and Emacs' clipboard
