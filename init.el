@@ -342,6 +342,10 @@
  :config
  (require 'dap-python))
 
+(use-package pyvenv
+
+)
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
@@ -363,6 +367,8 @@
 (which-key-mode)
 (add-hook 'c-mode-hook 'lsp)
 (add-hook 'c++-mode-hook 'lsp)
+(add-hook 'python-mode-hook 'lsp)
+(add-hook 'js-mode-hook 'lsp)
 
 (setq gc-cons-threshold (* 100 1024 1024)
       read-process-output-max (* 1024 1024)
@@ -457,6 +463,10 @@
 
 (add-to-list 'default-frame-alist '(font . "JetBrainsMonoNL NF-12.0:bold")) ;; Set your favorite font
 (setq-default line-spacing 0.12)
+
+(if (window-system)
+  (set-frame-height (selected-frame)  45)
+  (set-frame-weight (selected-frame) 80))
 
 (setq-default visible-bell nil             ; No visual bell      
               ring-bell-function 'ignore)  ; No bell
