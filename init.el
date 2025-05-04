@@ -6,22 +6,30 @@
 ;; Increase the amount of data which Emacs reads from the process
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 
+(defun remove-dos-eol ()
+  "Do not show ^M in files containing mixed UNIX and DOS line endings."
+  (interactive)
+  (setq buffer-display-table (make-display-table))
+  (aset buffer-display-table ?\^M []))
+
 (setq
  globals--leader-key   "<SPC>"                    ; Leader prefix key used for most bindings
  )
+
+(global-set-key (kbd "RET") 'newline-and-indent)
 
 ;; (require 'start-multiFileExample)
 
 ;; (start/hello)
 
 (setq-default
- inhibit-startup-screen t               ; Disable start-up screen
- inhibit-startup-message t              ; Disable startup message
- inhibit-startup-echo-area-message t)    ; Disable initial echo message
+  inhibit-startup-screen t               ; Disable start-up screen
+  inhibit-startup-message t              ; Disable startup message
+  inhibit-startup-echo-area-message t)    ; Disable initial echo message
 
 (defun open-config-file ()
- (interactive)
- (find-file (expand-file-name "config.org" user-emacs-directory)))
+  (interactive)
+  (find-file (expand-file-name "config.org" user-emacs-directory)))
 
 (defun start/org-babel-tangle-config ()
   "Automatically tangle our Emacs.org config file when we save it. Credit to Emacs From Scratch for this one!"
@@ -87,7 +95,7 @@
   ;; (corfu-scroll-margin 5)        ;; Use scroll margin
   (completion-ignore-case t)
   ;; Enable indentation+completion using the TAB key.
-	;;`completion-at-point' is often bound to M-TAB.
+  ;;`completion-at-point' is often bound to M-TAB.
   (tab-always-indent 'complete)
   (corfu-preview-current nil) ;; Don't insert completion without confirmation
   ;; Recommended: Enable Corfu globally.  This is recommended since Dabbrev can
@@ -96,9 +104,9 @@
   :init
   (global-corfu-mode))
 
-(use-package nerd-icons-corfu
-  :after corfu
-  :init (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+  (use-package nerd-icons-corfu
+    :after corfu
+    :init (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 (use-package orderless
   :custom
@@ -109,19 +117,19 @@
   :init
   (vertico-mode))
 
-(savehist-mode) ;; Enables save history mode
+  (savehist-mode) ;; Enables save history mode
 
-(use-package marginalia
-  :after vertico
-  :init
-  (marginalia-mode))
+  (use-package marginalia
+    :after vertico
+    :init
+    (marginalia-mode))
 
-(use-package nerd-icons-completion
-  :after marginalia
-  :config
-  (nerd-icons-completion-mode)
-  :hook
-  ('marginalia-mode-hook . 'nerd-icons-completion-marginalia-setup))
+  (use-package nerd-icons-completion
+    :after marginalia
+    :config
+    (nerd-icons-completion-mode)
+    :hook
+    ('marginalia-mode-hook . 'nerd-icons-completion-marginalia-setup))
 
 (use-package consult
   ;; Enable automatic preview at point in the *Completions* buffer. This is
@@ -132,47 +140,48 @@
   ;; preview for `consult-register', `consult-register-load',
   ;; `consult-register-store' and the Emacs built-ins.
   (setq register-preview-delay 0.5
-        register-preview-function #'consult-register-format)
+    register-preview-function #'consult-register-format)
 
-  ;; Optionally tweak the register preview window.
-;; This adds thin lines, sorting and hides the mode line of the window.
-  (advice-add #'register-preview :override #'consult-register-window)
+    ;; Optionally tweak the register preview window.
+    ;; This adds thin lines, sorting and hides the mode line of the window.
+    (advice-add #'register-preview :override #'consult-register-window)
 
-  ;; Use Consult to select xref locations with preview
-  (setq xref-show-xrefs-function #'consult-xref
-        xref-show-definitions-function #'consult-xref)
-  :config
-  ;; Optionally configure preview. The default value
-  ;; is 'any, such that any key triggers the preview.
-  ;; (setq consult-preview-key 'any)
-  ;; (setq consult-preview-key "M-.")
-  ;; (setq consult-preview-key '("S-<down>" "S-<up>"))
+    ;; Use Consult to select xref locations with preview
+    (setq xref-show-xrefs-function #'consult-xref
+      xref-show-definitions-function #'consult-xref)
+    :config
+    ;; Optionally configure preview. The default value
+    ;; is 'any, such that any key triggers the preview.
+    ;; (setq consult-preview-key 'any)
+    
+    ;; (setq consult-preview-key "M-.")
+    ;; (setq consult-preview-key '("S-<down>" "S-<up>"))
 
-  ;; For some commands and buffer sources it is useful to configure the
-  ;; :preview-key on a per-command basis using the `consult-customize' macro.
-  ;; (consult-customize
-  ;; consult-theme :preview-key '(:debounce 0.2 any)
-  ;; consult-ripgrep consult-git-grep consult-grep
-  ;; consult-bookmark consult-recent-file consult-xref
-  ;; consult--source-bookmark consult--source-file-register
-  ;; consult--source-recent-file consult--source-project-recent-file
-  ;; :preview-key "M-."
-  ;; :preview-key '(:debounce 0.4 any))
+    ;; For some commands and buffer sources it is useful to configure the
+    ;; :preview-key on a per-command basis using the `consult-customize' macro.
+    ;; (consult-customize
+    ;; consult-theme :preview-key '(:debounce 0.2 any)
+    ;; consult-ripgrep consult-git-grep consult-grep
+    ;; consult-bookmark consult-recent-file consult-xref
+    ;; consult--source-bookmark consult--source-file-register
+    ;; consult--source-recent-file consult--source-project-recent-file
+    ;; :preview-key "M-."
+    ;; :preview-key '(:debounce 0.4 any))
 
-  ;; By default `consult-project-function' uses `project-root' from project.el.
-  ;; Optionally configure a different project root function.
-   ;;;; 1. project.el (the default)
-  ;; (setq consult-project-function #'consult--default-project--function)
-   ;;;; 2. vc.el (vc-root-dir)
-  ;; (setq consult-project-function (lambda (_) (vc-root-dir)))
-   ;;;; 3. locate-dominating-file
-  ;; (setq consult-project-function (lambda (_) (locate-dominating-file "." ".git")))
-   ;;;; 4. projectile.el (projectile-project-root)
-  (autoload 'projectile-project-root "projectile")
-  (setq consult-project-function (lambda (_) (projectile-project-root)))
-   ;;;; 5. No project support
-  ;; (setq consult-project-function nil)
-  )
+    ;; By default `consult-project-function' uses `project-root' from project.el.
+    ;; Optionally configure a different project root function.
+    ;; 1. project.el (the default)
+    ;; (setq consult-project-function #'consult--default-project--function)
+    ;; 2. vc.el (vc-root-dir)
+    ;; (setq consult-project-function (lambda (_) (vc-root-dir)))
+    ;; 3. locate-dominating-file
+    ;; (setq consult-project-function (lambda (_) (locate-dominating-file "." ".git")))
+    ;; 4. projectile.el (projectile-project-root)
+    (autoload 'projectile-project-root "projectile")
+    (setq consult-project-function (lambda (_) (projectile-project-root)))
+    ;; 5. No project support
+    ;; (setq consult-project-function nil)
+)
 
 (use-package which-key
   :init
@@ -226,47 +235,47 @@
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package company
-                :straight
-                :defer 2
-                :diminish
-                :custom
-                (company-begin-commands '(self-insert-command))
+  :straight
+  :defer 2
+  :diminish
+  :custom
+  (company-begin-commands '(self-insert-command))
 
-                ;; This is one of the values (together with company-idle-delay),
-                ;; based on which Company auto-stars looking up completion candidates. 
-                ;; This option configures how many characters have to be typed in by a user before candidates start to be collected and displayed.
-                ;; An often choice nowadays is to configure this option to a lower number than the default value of 3. 
-                (company-minimum-prefix-length 1)
+  ;; This is one of the values (together with company-idle-delay),
+  ;; based on which Company auto-stars looking up completion candidates. 
+  ;; This option configures how many characters have to be typed in by a user before candidates start to be collected and displayed.
+  ;; An often choice nowadays is to configure this option to a lower number than the default value of 3. 
+  (company-minimum-prefix-length 1)
 
-                ;; This is the second of the options that configure Company’s auto-start behavior (together with company-minimum-prefix-length).
-                ;; The value of this option defines how fast Company is going to react to the typed input,
-                ;; such that setting company-idle-delay to 0 makes Company react immediately, nil disables auto-starting,
-                ;; and a larger value postpones completion auto-start for that number of seconds. For an even fancier setup,
-                ;; set this option value to a predicate function, as shown in the following example: 
-                (company-idle-delay 0)
+  ;; This is the second of the options that configure Company’s auto-start behavior (together with company-minimum-prefix-length).
+  ;; The value of this option defines how fast Company is going to react to the typed input,
+  ;; such that setting company-idle-delay to 0 makes Company react immediately, nil disables auto-starting,
+  ;; and a larger value postpones completion auto-start for that number of seconds. For an even fancier setup,
+  ;; set this option value to a predicate function, as shown in the following example: 
+  (company-idle-delay 0)
 
-                (company-show-numbers t)
+  (company-show-numbers t)
 
-                ;; This option allows to specify in which major modes company-mode can be enabled by (global-company-mode).
-                ;; The default value of t enables Company in all major modes.
-                ;; Setting company-global-modes to nil equal in action to toggling off global-company-mode.
-                ;; Providing a list of major modes results in having company-mode enabled in the listed modes only.
-                (global-company-mode t)
+  ;; This option allows to specify in which major modes company-mode can be enabled by (global-company-mode).
+  ;; The default value of t enables Company in all major modes.
+  ;; Setting company-global-modes to nil equal in action to toggling off global-company-mode.
+  ;; Providing a list of major modes results in having company-mode enabled in the listed modes only.
+  (global-company-mode t)
                 
-                ;; An annotation is a string that carries additional information about a candidate; such as a data type, function arguments,
-                ;; or whatever a backend appoints to be a valuable piece of information about a candidate. By default,
-                ;; the annotations are shown right beside the candidates. Setting the option value to t aligns annotations to the right side of the tooltip 
-                (company-tooltip-align-annotations t)           
+  ;; An annotation is a string that carries additional information about a candidate; such as a data type, function arguments,
+  ;; or whatever a backend appoints to be a valuable piece of information about a candidate. By default,
+  ;; the annotations are shown right beside the candidates. Setting the option value to t aligns annotations to the right side of the tooltip 
+  (company-tooltip-align-annotations t)           
 
-                ;; Controls the maximum number of the candidates shown simultaneously in the tooltip (the default value is 10).
-                ;; When the number of the available candidates is larger than this option’s value, Company paginates the results. 
-                (company-tooltip-limit 4)    
+  ;; Controls the maximum number of the candidates shown simultaneously in the tooltip (the default value is 10).
+  ;; When the number of the available candidates is larger than this option’s value, Company paginates the results. 
+  (company-tooltip-limit 4)    
 )
 
-              (use-package company-box
-                :after company
-                :diminish
-                :hook (company-mode . company-box-mode))
+(use-package company-box
+  :after company
+  :diminish
+  :hook (company-mode . company-box-mode))
 
 (use-package general
   :config
@@ -278,112 +287,111 @@
     :prefix "SPC"           ;; Set leader key
     :global-prefix "C-SPC") ;; Set global leader key
 
-  (start/leader-keys
-    "." '(find-file :wk "Find file")
-    "TAB" '(comment-line :wk "Comment lines")
-    "p" '(projectile-command-map :wk "Projectile command map"))
+    (start/leader-keys
+      "." '(find-file :wk "Find file")
+      "TAB" '(comment-line :wk "Comment lines")
+      "p" '(projectile-command-map :wk "Projectile command map"))
 
-  (start/leader-keys
-    "f" '(:ignore t :wk "Find")
-    "f c" '((lambda () (interactive) (find-file "~/.config/emacs/config.org")) :wk "Edit emacs config")
-    "f r" '(consult-recent-file :wk "Recent files")
-    "f f" '(consult-fd :wk "Fd search for files")
-    "f g" '(consult-ripgrep :wk "Ripgrep search in files")
-    "f l" '(consult-line :wk "Find line")
-    "f i" '(consult-imenu :wk "Imenu buffer locations"))
+    (start/leader-keys
+      "f" '(:ignore t :wk "Find")
+      "f c" '((lambda () (interactive) (find-file "~/.config/emacs/config.org")) :wk "Edit emacs config")
+      "f r" '(consult-recent-file :wk "Recent files")
+      "f f" '(consult-fd :wk "Fd search for files")
+      "f g" '(consult-ripgrep :wk "Ripgrep search in files")
+      "f l" '(consult-line :wk "Find line")
+      "f i" '(consult-imenu :wk "Imenu buffer locations"))
 
-  (start/leader-keys
-    "b" '(:ignore t :wk "Buffer Bookmarks")
-    "b b" '(consult-buffer :wk "Switch buffer")
-    "b k" '(kill-this-buffer :wk "Kill this buffer")
-    "b i" '(ibuffer :wk "Ibuffer")
-    "b n" '(next-buffer :wk "Next buffer")
-    "b p" '(previous-buffer :wk "Previous buffer")
-    "b r" '(revert-buffer :wk "Reload buffer")
-    "b j" '(consult-bookmark :wk "Bookmark jump"))
+    (start/leader-keys
+      "b" '(:ignore t :wk "Buffer Bookmarks")
+      "b b" '(consult-buffer :wk "Switch buffer")
+      "b k" '(kill-this-buffer :wk "Kill this buffer")
+       
+      "b i" '(ibuffer :wk "Ibuffer")
+      "b n" '(next-buffer :wk "Next buffer")
+      "b p" '(previous-buffer :wk "Previous buffer")
+      "b r" '(revert-buffer :wk "Reload buffer")
+      "b j" '(consult-bookmark :wk "Bookmark jump"))
 
-  (start/leader-keys
-    "d" '(:ignore t :wk "Dired")
-    "d v" '(dired :wk "Open dired")
-    "d j" '(dired-jump :wk "Dired jump to current"))
+    (start/leader-keys
+      "d" '(:ignore t :wk "Dired")
+      "d v" '(dired :wk "Open dired")
+      "d j" '(dired-jump :wk "Dired jump to current"))
 
-  (start/leader-keys
-    "g" '(:ignore t :wk "Git")
-    "g g" '(magit-status :wk "Magit status"))
- 
-  (start/leader-keys
-    "e" '(treemacs :wk "treemacs"))
+    (start/leader-keys
+      "g" '(:ignore t :wk "Git")
+      "g g" '(magit-status :wk "Magit status"))
+     
+    (start/leader-keys
+      "e" '(treemacs :wk "treemacs"))
 
-  (start/leader-keys
-    "h" '(:ignore t :wk "Help") ;; To get more help use C-h commands (describe variable, function, etc.)
-    "h q" '(save-buffers-kill-emacs :wk "Quit Emacs and Daemon")
-    "h r" '((lambda () (interactive)
+    (start/leader-keys
+      "h" '(:ignore t :wk "Help") ;; To get more help use C-h commands (describe variable, function, etc.)
+      "h q" '(save-buffers-kill-emacs :wk "Quit Emacs and Daemon")
+      "h r" '((lambda () (interactive)
               (load-file "~/.config/emacs/init.el"))
-            :wk "Reload Emacs config"))
+              :wk "Reload Emacs config"))
 
-  (start/leader-keys
-    "s" '(:ignore t :wk "Show")
-    "s e" '(eat :wk "Eat terminal"))
+    (start/leader-keys
+      "s" '(:ignore t :wk "Show")
+      "s e" '(eat :wk "Eat terminal"))
 
-  (start/leader-keys
-    "t" '(:ignore t :wk "Toggle")
-    "t t" '(visual-line-mode :wk "Toggle truncated lines (wrap)")
-    "t l" '(display-line-numbers-mode :wk "Toggle line numbers")))
+    (start/leader-keys
+      "t" '(:ignore t :wk "Toggle")
+      "t t" '(visual-line-mode :wk "Toggle truncated lines (wrap)")
+      "t l" '(display-line-numbers-mode :wk "Toggle line numbers")))
 
 (setq-default use-short-answers t                     ; Replace yes/no prompts with y/n
-              confirm-nonexistent-file-or-buffer nil) ; Ok to visit non existent files
+  confirm-nonexistent-file-or-buffer nil) ; Ok to visit non existent files
 
 (use-package python-mode
- :straight
- :ensure t
- :hook (python-mode . lsp-deferred)
- :custom
- ;; NOTE: Set these if Python 3 is called "python3" on your system!
- ;; (python-shell-interpreter "python3")
- ;; (dap-python-executable "python3")
- (dap-python-debugger 'debugpy)
- :config
- (require 'dap-python))
+  :straight
+  :ensure t
+  :hook (python-mode . lsp-deferred)
+  :custom
+  ;; NOTE: Set these if Python 3 is called "python3" on your system!
+  ;; (python-shell-interpreter "python3")
+  ;; (dap-python-executable "python3")
+  (dap-python-debugger 'debugpy)
+  :config
+  (require 'dap-python))
 
-(use-package pyvenv
-
-)
+(use-package pyvenv)
 
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-(package-initialize)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+  (package-initialize)
 
-(setq package-selected-packages '(lsp-mode yasnippet lsp-treemacs helm-lsp
+  (setq package-selected-packages '(lsp-mode yasnippet lsp-treemacs helm-lsp
     projectile hydra flycheck company avy which-key helm-xref dap-mode))
 
-(when (cl-find-if-not #'package-installed-p package-selected-packages)
-  (package-refresh-contents)
-  (mapc #'package-install package-selected-packages))
+  (when (cl-find-if-not #'package-installed-p package-selected-packages)
+    (package-refresh-contents)
+    (mapc #'package-install package-selected-packages))
 
-;; sample `helm' configuration use https://github.com/emacs-helm/helm/ for details
-(helm-mode)
-(require 'helm-xref)
-(define-key global-map [remap find-file] #'helm-find-files)
-(define-key global-map [remap execute-extended-command] #'helm-M-x)
-(define-key global-map [remap switch-to-buffer] #'helm-mini)
+  ;; sample `helm' configuration use https://github.com/emacs-helm/helm/ for details
+  (helm-mode)
+  (require 'helm-xref)
+  (define-key global-map [remap find-file] #'helm-find-files)
+  (define-key global-map [remap execute-extended-command] #'helm-M-x)
+  (define-key global-map [remap switch-to-buffer] #'helm-mini)
 
-(which-key-mode)
-(add-hook 'c-mode-hook 'lsp)
-(add-hook 'c++-mode-hook 'lsp)
-(add-hook 'python-mode-hook 'lsp)
-(add-hook 'js-mode-hook 'lsp)
+  (which-key-mode)
+  (add-hook 'c-mode-hook 'lsp)
+  (add-hook 'c++-mode-hook 'lsp)
+  (add-hook 'python-mode-hook 'lsp)
+  (add-hook 'js-mode-hook 'lsp)
 
-(setq gc-cons-threshold (* 100 1024 1024)
-      read-process-output-max (* 1024 1024)
-      treemacs-space-between-root-nodes nil
-      company-idle-delay 0.0
-      company-minimum-prefix-length 1
-      lsp-idle-delay 0.1)  ;; clangd is fast
+  (setq gc-cons-threshold (* 100 1024 1024)
+        Read-process-output-max (* 1024 1024)
+        treemacs-space-between-root-nodes nil
+        company-idle-delay 0.0
+        company-minimum-prefix-length 1
+        lsp-idle-delay 0.1)  ;; clangd is fast
 
-(with-eval-after-load 'lsp-mode
-  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
-  (require 'dap-cpptools)
-  (yas-global-mode))
+  (with-eval-after-load 'lsp-mode
+    (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
+    (require 'dap-cpptools)
+    (yas-global-mode))
 
 (use-package lsp-ui
   :ensure
@@ -444,6 +452,34 @@
   (dashboard-set-heading-icons t)
   (dashboard-set-file-icons t)
   (dashboard-set-navigator t)
+  (dashboard-item-names '(("Recent Files:"               . "Recent files:")
+                          ("Agenda for today:"           . "Today's agenda:")
+                          ("Agenda for the coming week:" . "Agenda:")))
+  (dashboard-item-shortcuts '((recents   . "r")
+                              (bookmarks . "m")
+   				  (projects  . "p")
+    													(agenda    . "a")
+    													(registers . "e")))
+    
+  (dashboard-startupify-list '(dashboard-insert-banner  																		
+                               dashboard-insert-newline
+                               ;;dashboard-insert-banner-title
+                               ;;dashboard-insert-newline
+                               dashboard-insert-navigator
+                               dashboard-insert-newline
+                               dashboard-insert-init-info
+                               dashboard-insert-items
+                               ;;dashboard-insert-newline
+                               ;;dashboard-insert-footer
+    ))
+
+  (dashboard-display-icons-p t)     ; display icons on both GUI and terminal
+  (dashboard-icon-type 'nerd-icons) ; use `nerd-icons' package
+  (dashboard-icon-file-height 1.75)
+  (dashboard-icon-file-v-adjust -0.125)
+  (dashboard-heading-icon-height 1.75)
+  (dashboard-heading-icon-v-adjust -0.125) 
+
   :config
   (dashboard-setup-startup-hook))
 
@@ -457,15 +493,15 @@
   :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 
 (set-face-attribute 'default nil                                                     
-                    :font "JetBrainsMonoNL NF-12.0:bold" ;; Set your favorite type of font or download JetBrains Mono
-                    :height 140
-                    :weight 'medium)
-;; This sets the default font on all graphical frames created after restarting Emacs.
-;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
-;; are not right unless I also add this method of setting the default font.
+  :font "JetBrainsMonoNL NF-12.0:bold" ;; Set your favorite type of font or download JetBrains Mono
+  :height 160
+  :weight 'medium)
+  ;; This sets the default font on all graphical frames created after restarting Emacs.
+  ;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
+  ;; are not right unless I also add this method of setting the default font.
 
-(add-to-list 'default-frame-alist '(font . "JetBrainsMonoNL NF-12.0:bold")) ;; Set your favorite font
-(setq-default line-spacing 0.12)
+  (add-to-list 'default-frame-alist '(font . "JetBrainsMonoNL NF-12.0:bold")) ;; Set your favorite font
+  (setq-default line-spacing 0.12)
 
 (if (window-system)
   (set-frame-height (selected-frame)  45)
@@ -487,46 +523,46 @@
               recenter-positions '(5 bottom)) ; Set re-centering positions
 
 (use-package doom-modeline
-          :straight t
-          :init (doom-modeline-mode)
-          :custom
+  :straight t
+  :init (doom-modeline-mode)
+  :custom
 
-          ;; Whether display icons in the mode-line.
-          ;; While using the server mode in GUI, should set the value explicitly. 
-          (doom-modeline-major-mode-icon t)
-      
-          ;; Whether display the colorful icon for `major-mode'.
-          ;; It respects `nerd-icons-color-icons'.
-          (doom-modeline-major-mode-color-icon t)
+  ;; Whether display icons in the mode-line.
+  ;; While using the server mode in GUI, should set the value explicitly. 
+  (doom-modeline-major-mode-icon t)
+     
+  ;; Whether display the colorful icon for `major-mode'.
+  ;; It respects `nerd-icons-color-icons'.
+  (doom-modeline-major-mode-color-icon t)
  
-          ;; Whether display the lsp icon. It respects option `doom-modeline-icon'.
-          (doom-modeline-lsp-icon t)
+  ;; Whether display the lsp icon. It respects option `doom-modeline-icon'.
+  (doom-modeline-lsp-icon t)
 
-          ;; Whether display the modern icons for modals.
-          (doom-modeline-modal-modern-icon nil)
+  ;; Whether display the modern icons for modals.
+  (doom-modeline-modal-modern-icon nil)
 
-          ;; How tall the mode-line should be. It's only respected in GUI.
-          ;; If the actual char height is larger, it respects the actual height.
-          (doom-modeline-height 35)
+  ;; How tall the mode-line should be. It's only respected in GUI.
+  ;; If the actual char height is larger, it respects the actual height.
+  (doom-modeline-height 40)
    
-          ;; Whether display the time icon. It respects option `doom-modeline-icon'.
-          (doom-modeline-time-icon t)
+  ;; Whether display the time icon. It respects option `doom-modeline-icon'.
+  (doom-modeline-time-icon t)
 
-          ;; Whether display the live icons of time.
-          ;; It respects option `doom-modeline-icon' and option `doom-modeline-time-icon'.
-          (doom-modeline-time-live-icon t)
+  ;; Whether display the live icons of time.
+  ;; It respects option `doom-modeline-icon' and option `doom-modeline-time-icon'.
+  (doom-modeline-time-live-icon t)
 
-          ;; Whether display the buffer encoding.
-          (doom-modeline-buffer-encoding t)
+  ;; Whether display the buffer encoding.
+  (doom-modeline-buffer-encoding t)
 
-          ;; Whether display the indentation information.
-          (doom-modeline-indent-info t)
+  ;; Whether display the indentation information.
+  (doom-modeline-indent-info t)
 
-          ;; The maximum displayed length of the branch name of version control.
-          (doom-modeline-vcs-max-length 15)
+  ;; The maximum displayed length of the branch name of version control.
+  (doom-modeline-vcs-max-length 50)
 
-          ;; The function to display the branch name.
-          (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)     
+  ;; The function to display the branch name.
+ (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)     
 )
 
 (use-package ef-themes
@@ -538,8 +574,8 @@
 
 (use-package diff-hl
   :hook ((dired-mode         . diff-hl-dired-mode-unless-remote)
-         (magit-pre-refresh  . diff-hl-magit-pre-refresh)
-         (magit-post-refresh . diff-hl-magit-post-refresh))
+  (magit-pre-refresh  . diff-hl-magit-pre-refresh)
+  (magit-post-refresh . diff-hl-magit-post-refresh))
   :init (global-diff-hl-mode))
 
 (use-package treemacs
@@ -704,13 +740,13 @@
   (setq custom-file (locate-user-emacs-file "custom-vars.el"))
   (load custom-file 'noerror 'nomessage)
   :bind (
-         ([escape] . keyboard-escape-quit) ;; Makes Escape quit prompts (Minibuffer Escape)
-         )
+           ([escape] . keyboard-escape-quit) ;; Makes Escape quit prompts (Minibuffer Escape)
+           )
   ;; Fix general.el leader key not working instantly in messages buffer with evil mode
   :ghook ('after-init-hook
           (lambda (&rest _)
             (when-let ((messages-buffer (get-buffer "*Messages*")))
-              (with-current-buffer messages-buffer
-                (evil-normalize-keymaps))))
-          nil nil t)
-  )
+            (with-current-buffer messages-buffer
+            (evil-normalize-keymaps))))
+            nil nil t)
+)
