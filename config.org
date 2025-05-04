@@ -85,13 +85,13 @@ We also increase Read Process Output Max so emacs can read more data.
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "RET") 'newline-and-indent)
 #+END_SRC
-** Sourcing the files
-To use the elisp files we need to load it.
-Notes:
-- Don't forget the file and the provide name needs to be the same.
-- When naming elisp files, functions, it is recommended to use a group name (e.g init-, start- or any custom name), so it does not get mixed up with other names, functions.
+* Multi File Example
+** Adding the lisp directory to load-path
+Adds the lisp directory to emacs's load path to search for elisp files.
+This is necessary, because emacs does not search the entire user-emacs-directory.
+The directory name can be anything, just add it to the load-path.
 #+begin_src emacs-lisp
-;; (require 'start-multiFileExample)
+  ;;(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 #+end_src
 ** Using the file
 And now we can use everything from that file.
@@ -791,7 +791,7 @@ Replace the default modeline with a prettier more useful.
 #+begin_src emacs-lisp
 (use-package ef-themes
   :config
-  (load-theme 'ef-spring t ))
+  (load-theme 'ef-elea-light t ))
 #+end_src
 ** Git
 *** Magit

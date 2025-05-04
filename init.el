@@ -18,7 +18,7 @@
 
 (global-set-key (kbd "RET") 'newline-and-indent)
 
-;; (require 'start-multiFileExample)
+;;(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 ;; (start/hello)
 
@@ -567,7 +567,7 @@
 
 (use-package ef-themes
   :config
-  (load-theme 'ef-spring t ))
+  (load-theme 'ef-elea-light t ))
 
 (use-package magit
   :commands magit-status)
