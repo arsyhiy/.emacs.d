@@ -277,6 +277,11 @@
   :diminish
   :hook (company-mode . company-box-mode))
 
+(use-package flycheck
+ :ensure t
+ :init (global-flycheck-mode)
+(add-hook 'after-init-hook #'global-flycheck-mode))
+
 (use-package general
   :config
   (general-evil-setup)
@@ -343,17 +348,10 @@
 (setq-default use-short-answers t                     ; Replace yes/no prompts with y/n
   confirm-nonexistent-file-or-buffer nil) ; Ok to visit non existent files
 
-(use-package python-mode
-  :straight
+(use-package elpy
   :ensure t
-  :hook (python-mode . lsp-deferred)
-  :custom
-  ;; NOTE: Set these if Python 3 is called "python3" on your system!
-  ;; (python-shell-interpreter "python3")
-  ;; (dap-python-executable "python3")
-  (dap-python-debugger 'debugpy)
-  :config
-  (require 'dap-python))
+  :init
+  (elpy-enable))
 
 (use-package pyvenv)
 

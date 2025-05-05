@@ -428,6 +428,13 @@ Adds colors to brackets.
   :diminish
   :hook (company-mode . company-box-mode))
    #+end_src
+** flycheck 
+#+BEGIN_SRC emacs-lisp
+ (use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode)
+ (add-hook 'after-init-hook #'global-flycheck-mode))
+#+END_SRC
 ** General Keybindings
 A keybinding framework to set keybindings easily.
 The Leader key is what you will press when you want to access your keybindings (SPC + . Find file).
@@ -505,17 +512,10 @@ NOTE: кнопки я современем настрою а не в один п
 ** Language modes
 *** python mode
 #+BEGIN_SRC emacs-lisp
-(use-package python-mode
-  :straight
+(use-package elpy
   :ensure t
-  :hook (python-mode . lsp-deferred)
-  :custom
-  ;; NOTE: Set these if Python 3 is called "python3" on your system!
-  ;; (python-shell-interpreter "python3")
-  ;; (dap-python-executable "python3")
-  (dap-python-debugger 'debugpy)
-  :config
-  (require 'dap-python))
+  :init
+  (elpy-enable))
 #+END_SRC
 **** pyvenv
 #+BEGIN_SRC emacs-lisp
