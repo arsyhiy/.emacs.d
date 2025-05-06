@@ -197,6 +197,11 @@
   (which-key-max-description-length 25)
   (which-key-allow-imprecise-window-fit nil)) ;; Fixes which-key window slipping out in Emacs Daemon
 
+(straight-use-package 'tree-sitter)
+ (straight-use-package 'tree-sitter-langs)
+(global-tree-sitter-mode)
+(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+
 (use-package evil
   :init ;; Execute code Before a package is loaded
   (evil-mode)
@@ -355,6 +360,12 @@
 
 (use-package pyvenv)
 
+(use-package cc-mode
+  :ensure nil
+  :config
+  ;;; Open a header file in C++ mode by default
+  (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode)))
+
 (require 'package)
   (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
   (package-initialize)
@@ -395,6 +406,7 @@
   :ensure
   :commands lsp-ui-mode
   :custom
+  (lsp-headerline-breadcrumb-enable nil)
   ;;(display-time-mode t) ;;showing time on modeline
   (lsp-ui-sideline-show-diagnostics t)
   (lsp-ui-sideline-show-hover t)
@@ -404,7 +416,7 @@
 (use-package org
   :ensure nil
   :custom
-  (org-edit-src-content-indentation 4) ;; Set src block automatic indent to 4 instead of 2.
+  (org-edit-src-content-indentation 2) ;; Set src block automatic indent to 4 instead of 2.
 
   :hook
   (org-mode . org-indent-mode) ;; Indent text
@@ -565,7 +577,7 @@
 
 (use-package ef-themes
   :config
-  (load-theme 'ef-elea-light t ))
+  (load-theme 'ef-elea-dark t ))
 
 (use-package magit
   :commands magit-status)
