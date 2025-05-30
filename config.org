@@ -4,7 +4,7 @@
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
 #+Startup: showeverything
 #+Options: toc:2
-* Table Of Contents 
+* Table Of Contents
 - [[#introduction][introduction]]
 - [[#important-to-load-first][Important to load first]]
   - [[#startup-performance][Startup Performance]]
@@ -67,7 +67,7 @@ We also increase Read Process Output Max so emacs can read more data.
 ;; Increase the amount of data which Emacs reads from the process
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 #+end_src
-** deleting ^M character  
+** deleting ^M character
 #+BEGIN_SRC emacs-lisp
 (defun remove-dos-eol ()
   "Do not show ^M in files containing mixed UNIX and DOS line endings."
@@ -81,7 +81,7 @@ We also increase Read Process Output Max so emacs can read more data.
  globals--leader-key   "<SPC>"                    ; Leader prefix key used for most bindings
  )
 #+END_SRC
-*** remaps REt 
+*** remaps REt
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "RET") 'newline-and-indent)
 #+END_SRC
@@ -105,7 +105,7 @@ Emacs does a lot of things at startup and here, we disable pretty much everythin
   inhibit-startup-message t              ; Disable startup message
   inhibit-startup-echo-area-message t)    ; Disable initial echo message
 #+END_SRC
-* utilitys 
+* utilitys
 #+BEGIN_SRC emacs-lisp
 (defun open-config-file ()
   (interactive)
@@ -283,7 +283,7 @@ Check out their [[https://github.com/minad/consult][git repository]] for more aw
     ;; Optionally configure preview. The default value
     ;; is 'any, such that any key triggers the preview.
     ;; (setq consult-preview-key 'any)
-    
+
     ;; (setq consult-preview-key "M-.")
     ;; (setq consult-preview-key '("S-<down>" "S-<up>"))
 
@@ -330,7 +330,7 @@ Which-key is a helper utility for keychords (which key to press).
   (which-key-max-description-length 25)
   (which-key-allow-imprecise-window-fit nil)) ;; Fixes which-key window slipping out in Emacs Daemon
 #+end_src
-* Devolepment 
+* Devolepment
 ** tree-sitter
 #+BEGIN_SRC emacs-lisp
  (straight-use-package 'tree-sitter)
@@ -348,7 +348,7 @@ Notes:
 If you don't want to use evil-mode don't forget to remove:
 - Messages buffer fix in Good default section (:ghook)
 - And also change general.el keybindings and setup (general-evil-setup, :states, etc.)
-NOTE: пометка для себя: смотрел документацию там много чего можно настроить но пока что я считаю в этом нет необходимости, тоже самое про evil collection  
+NOTE: пометка для себя: смотрел документацию там много чего можно настроить но пока что я считаю в этом нет необходимости, тоже самое про evil collection
 #+begin_src emacs-lisp
 (use-package evil
   :init ;; Execute code Before a package is loaded
@@ -401,16 +401,16 @@ Adds colors to brackets.
   (company-begin-commands '(self-insert-command))
 
   ;; This is one of the values (together with company-idle-delay),
-  ;; based on which Company auto-stars looking up completion candidates. 
+  ;; based on which Company auto-stars looking up completion candidates.
   ;; This option configures how many characters have to be typed in by a user before candidates start to be collected and displayed.
-  ;; An often choice nowadays is to configure this option to a lower number than the default value of 3. 
+  ;; An often choice nowadays is to configure this option to a lower number than the default value of 3.
   (company-minimum-prefix-length 1)
 
   ;; This is the second of the options that configure Company’s auto-start behavior (together with company-minimum-prefix-length).
   ;; The value of this option defines how fast Company is going to react to the typed input,
   ;; such that setting company-idle-delay to 0 makes Company react immediately, nil disables auto-starting,
   ;; and a larger value postpones completion auto-start for that number of seconds. For an even fancier setup,
-  ;; set this option value to a predicate function, as shown in the following example: 
+  ;; set this option value to a predicate function, as shown in the following example:
   (company-idle-delay 0)
 
   (company-show-numbers t)
@@ -420,15 +420,15 @@ Adds colors to brackets.
   ;; Setting company-global-modes to nil equal in action to toggling off global-company-mode.
   ;; Providing a list of major modes results in having company-mode enabled in the listed modes only.
   (global-company-mode t)
-                
+
   ;; An annotation is a string that carries additional information about a candidate; such as a data type, function arguments,
   ;; or whatever a backend appoints to be a valuable piece of information about a candidate. By default,
-  ;; the annotations are shown right beside the candidates. Setting the option value to t aligns annotations to the right side of the tooltip 
-  (company-tooltip-align-annotations t)           
+  ;; the annotations are shown right beside the candidates. Setting the option value to t aligns annotations to the right side of the tooltip
+  (company-tooltip-align-annotations t)
 
   ;; Controls the maximum number of the candidates shown simultaneously in the tooltip (the default value is 10).
-  ;; When the number of the available candidates is larger than this option’s value, Company paginates the results. 
-  (company-tooltip-limit 4)    
+  ;; When the number of the available candidates is larger than this option’s value, Company paginates the results.
+  (company-tooltip-limit 4)
 )
 
 (use-package company-box
@@ -436,7 +436,7 @@ Adds colors to brackets.
   :diminish
   :hook (company-mode . company-box-mode))
    #+end_src
-** flycheck 
+** flycheck
 #+BEGIN_SRC emacs-lisp
  (use-package flycheck
   :ensure t
@@ -478,7 +478,7 @@ NOTE: кнопки я современем настрою а не в один п
       "b" '(:ignore t :wk "Buffer Bookmarks")
       "b b" '(consult-buffer :wk "Switch buffer")
       "b k" '(kill-this-buffer :wk "Kill this buffer")
-       
+
       "b i" '(ibuffer :wk "Ibuffer")
       "b n" '(next-buffer :wk "Next buffer")
       "b p" '(previous-buffer :wk "Previous buffer")
@@ -493,7 +493,7 @@ NOTE: кнопки я современем настрою а не в один п
     (start/leader-keys
       "g" '(:ignore t :wk "Git")
       "g g" '(magit-status :wk "Magit status"))
-     
+
     (start/leader-keys
       "e" '(treemacs :wk "treemacs"))
 
@@ -528,7 +528,7 @@ NOTE: кнопки я современем настрою а не в один п
 #+END_SRC
 **** pyvenv
 #+BEGIN_SRC emacs-lisp
-(use-package pyvenv) 
+(use-package pyvenv)
 #+END_SRC
 *** C/C++ mode
 #+BEGIN_SRC emacs-lisp
@@ -537,6 +537,23 @@ NOTE: кнопки я современем настрою а не в один п
   :config
   ;;; Open a header file in C++ mode by default
   (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode)))
+#+END_SRC
+*** golang
+#+BEGIN_SRC emacs-lisp
+(defun ime-go-before-save ()
+  (interactive)
+  (when lsp-mode
+    (lsp-organize-imports)
+    (lsp-format-buffer)))
+
+(use-package go-mode
+  :defer t
+  :straight t
+  :config
+  (add-hook 'go-mode-hook 'lsp-deferred)
+  (add-hook 'go-mode-hook
+            (lambda ()
+              (add-hook 'before-save-hook 'ime-go-before-save))))
 #+END_SRC
 ** Lsp
 #+BEGIN_SRC emacs-lisp
@@ -671,8 +688,8 @@ To use it write out the full keyword (or use autocompletion) and press Tab.
    				  (projects  . "p")
     													(agenda    . "a")
     													(registers . "e")))
-    
-  (dashboard-startupify-list '(dashboard-insert-banner  																		
+
+  (dashboard-startupify-list '(dashboard-insert-banner
                                dashboard-insert-newline
                                ;;dashboard-insert-banner-title
                                ;;dashboard-insert-newline
@@ -689,7 +706,7 @@ To use it write out the full keyword (or use autocompletion) and press Tab.
   (dashboard-icon-file-height 1.75)
   (dashboard-icon-file-v-adjust -0.125)
   (dashboard-heading-icon-height 1.75)
-  (dashboard-heading-icon-v-adjust -0.125) 
+  (dashboard-heading-icon-v-adjust -0.125)
 
   :config
   (dashboard-setup-startup-hook))
@@ -714,7 +731,7 @@ While nerd-icons supports both GUI and TUI.
 #+end_src
 ** Fonts
 #+begin_src emacs-lisp
-(set-face-attribute 'default nil                                                     
+(set-face-attribute 'default nil
   :font "JetBrainsMonoNL NF-12.0:bold" ;; Set your favorite type of font or download JetBrains Mono
   :height 160
   :weight 'medium)
@@ -735,7 +752,7 @@ While nerd-icons supports both GUI and TUI.
 ** Sound
 Disable the bell (auditory or visual).
 #+begin_src emacs-lisp
-(setq-default visible-bell nil             ; No visual bell      
+(setq-default visible-bell nil             ; No visual bell
               ring-bell-function 'ignore)  ; No bell
 #+end_src
 ** Mouse :MODE:
@@ -768,13 +785,13 @@ Replace the default modeline with a prettier more useful.
   :custom
 
   ;; Whether display icons in the mode-line.
-  ;; While using the server mode in GUI, should set the value explicitly. 
+  ;; While using the server mode in GUI, should set the value explicitly.
   (doom-modeline-major-mode-icon t)
-     
+
   ;; Whether display the colorful icon for `major-mode'.
   ;; It respects `nerd-icons-color-icons'.
   (doom-modeline-major-mode-color-icon t)
- 
+
   ;; Whether display the lsp icon. It respects option `doom-modeline-icon'.
   (doom-modeline-lsp-icon t)
 
@@ -784,7 +801,7 @@ Replace the default modeline with a prettier more useful.
   ;; How tall the mode-line should be. It's only respected in GUI.
   ;; If the actual char height is larger, it respects the actual height.
   (doom-modeline-height 40)
-   
+
   ;; Whether display the time icon. It respects option `doom-modeline-icon'.
   (doom-modeline-time-icon t)
 
@@ -802,9 +819,9 @@ Replace the default modeline with a prettier more useful.
   (doom-modeline-vcs-max-length 50)
 
   ;; The function to display the branch name.
- (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)     
-)  
-#+end_src 
+ (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)
+)
+#+end_src
 ** Set Theme
 #+begin_src emacs-lisp
 (use-package ef-themes
@@ -828,7 +845,7 @@ Highlights uncommitted changes on the left side of the window (area also known a
   :init (global-diff-hl-mode))
 #+end_src
 
-*** treemacs 
+*** treemacs
 #+BEGIN_SRC emacs-lisp
 (use-package treemacs
   :ensure t
@@ -914,13 +931,13 @@ Highlights uncommitted changes on the left side of the window (area also known a
   (:map global-map
         ("M-0"       . treemacs-select-window)
         ("C-x t 1"   . treemacs-delete-other-windows)
-        
+
         ("C-x t d"   . treemacs-select-directory)
         ("C-x t B"   . treemacs-bookmark)
         ("C-x t C-t" . treemacs-find-file)
         ("C-x t M-t" . treemacs-find-tag)))
 
- 
+
 
 (use-package treemacs-evil
   :after (treemacs evil)

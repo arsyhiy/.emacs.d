@@ -153,7 +153,7 @@
     ;; Optionally configure preview. The default value
     ;; is 'any, such that any key triggers the preview.
     ;; (setq consult-preview-key 'any)
-    
+
     ;; (setq consult-preview-key "M-.")
     ;; (setq consult-preview-key '("S-<down>" "S-<up>"))
 
@@ -247,16 +247,16 @@
   (company-begin-commands '(self-insert-command))
 
   ;; This is one of the values (together with company-idle-delay),
-  ;; based on which Company auto-stars looking up completion candidates. 
+  ;; based on which Company auto-stars looking up completion candidates.
   ;; This option configures how many characters have to be typed in by a user before candidates start to be collected and displayed.
-  ;; An often choice nowadays is to configure this option to a lower number than the default value of 3. 
+  ;; An often choice nowadays is to configure this option to a lower number than the default value of 3.
   (company-minimum-prefix-length 1)
 
   ;; This is the second of the options that configure Company’s auto-start behavior (together with company-minimum-prefix-length).
   ;; The value of this option defines how fast Company is going to react to the typed input,
   ;; such that setting company-idle-delay to 0 makes Company react immediately, nil disables auto-starting,
   ;; and a larger value postpones completion auto-start for that number of seconds. For an even fancier setup,
-  ;; set this option value to a predicate function, as shown in the following example: 
+  ;; set this option value to a predicate function, as shown in the following example:
   (company-idle-delay 0)
 
   (company-show-numbers t)
@@ -266,15 +266,15 @@
   ;; Setting company-global-modes to nil equal in action to toggling off global-company-mode.
   ;; Providing a list of major modes results in having company-mode enabled in the listed modes only.
   (global-company-mode t)
-                
+
   ;; An annotation is a string that carries additional information about a candidate; such as a data type, function arguments,
   ;; or whatever a backend appoints to be a valuable piece of information about a candidate. By default,
-  ;; the annotations are shown right beside the candidates. Setting the option value to t aligns annotations to the right side of the tooltip 
-  (company-tooltip-align-annotations t)           
+  ;; the annotations are shown right beside the candidates. Setting the option value to t aligns annotations to the right side of the tooltip
+  (company-tooltip-align-annotations t)
 
   ;; Controls the maximum number of the candidates shown simultaneously in the tooltip (the default value is 10).
-  ;; When the number of the available candidates is larger than this option’s value, Company paginates the results. 
-  (company-tooltip-limit 4)    
+  ;; When the number of the available candidates is larger than this option’s value, Company paginates the results.
+  (company-tooltip-limit 4)
 )
 
 (use-package company-box
@@ -315,7 +315,7 @@
       "b" '(:ignore t :wk "Buffer Bookmarks")
       "b b" '(consult-buffer :wk "Switch buffer")
       "b k" '(kill-this-buffer :wk "Kill this buffer")
-       
+
       "b i" '(ibuffer :wk "Ibuffer")
       "b n" '(next-buffer :wk "Next buffer")
       "b p" '(previous-buffer :wk "Previous buffer")
@@ -330,7 +330,7 @@
     (start/leader-keys
       "g" '(:ignore t :wk "Git")
       "g g" '(magit-status :wk "Magit status"))
-     
+
     (start/leader-keys
       "e" '(treemacs :wk "treemacs"))
 
@@ -365,6 +365,21 @@
   :config
   ;;; Open a header file in C++ mode by default
   (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode)))
+
+(defun ime-go-before-save ()
+  (interactive)
+  (when lsp-mode
+    (lsp-organize-imports)
+    (lsp-format-buffer)))
+
+(use-package go-mode
+  :defer t
+  :straight t
+  :config
+  (add-hook 'go-mode-hook 'lsp-deferred)
+  (add-hook 'go-mode-hook
+            (lambda ()
+              (add-hook 'before-save-hook 'ime-go-before-save))))
 
 (require 'package)
   (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
@@ -470,8 +485,8 @@
    				  (projects  . "p")
     													(agenda    . "a")
     													(registers . "e")))
-    
-  (dashboard-startupify-list '(dashboard-insert-banner  																		
+
+  (dashboard-startupify-list '(dashboard-insert-banner
                                dashboard-insert-newline
                                ;;dashboard-insert-banner-title
                                ;;dashboard-insert-newline
@@ -488,7 +503,7 @@
   (dashboard-icon-file-height 1.75)
   (dashboard-icon-file-v-adjust -0.125)
   (dashboard-heading-icon-height 1.75)
-  (dashboard-heading-icon-v-adjust -0.125) 
+  (dashboard-heading-icon-v-adjust -0.125)
 
   :config
   (dashboard-setup-startup-hook))
@@ -502,7 +517,7 @@
 (use-package nerd-icons-ibuffer
   :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 
-(set-face-attribute 'default nil                                                     
+(set-face-attribute 'default nil
   :font "JetBrainsMonoNL NF-12.0:bold" ;; Set your favorite type of font or download JetBrains Mono
   :height 160
   :weight 'medium)
@@ -517,7 +532,7 @@
   (set-frame-height (selected-frame)  45)
   (set-frame-weight (selected-frame) 80))
 
-(setq-default visible-bell nil             ; No visual bell      
+(setq-default visible-bell nil             ; No visual bell
               ring-bell-function 'ignore)  ; No bell
 
 (setq-default mouse-yank-at-point t) ; Yank at point rather than pointer
@@ -538,13 +553,13 @@
   :custom
 
   ;; Whether display icons in the mode-line.
-  ;; While using the server mode in GUI, should set the value explicitly. 
+  ;; While using the server mode in GUI, should set the value explicitly.
   (doom-modeline-major-mode-icon t)
-     
+
   ;; Whether display the colorful icon for `major-mode'.
   ;; It respects `nerd-icons-color-icons'.
   (doom-modeline-major-mode-color-icon t)
- 
+
   ;; Whether display the lsp icon. It respects option `doom-modeline-icon'.
   (doom-modeline-lsp-icon t)
 
@@ -554,7 +569,7 @@
   ;; How tall the mode-line should be. It's only respected in GUI.
   ;; If the actual char height is larger, it respects the actual height.
   (doom-modeline-height 40)
-   
+
   ;; Whether display the time icon. It respects option `doom-modeline-icon'.
   (doom-modeline-time-icon t)
 
@@ -572,7 +587,7 @@
   (doom-modeline-vcs-max-length 50)
 
   ;; The function to display the branch name.
- (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)     
+ (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)
 )
 
 (use-package ef-themes
@@ -672,13 +687,13 @@
   (:map global-map
         ("M-0"       . treemacs-select-window)
         ("C-x t 1"   . treemacs-delete-other-windows)
-        
+
         ("C-x t d"   . treemacs-select-directory)
         ("C-x t B"   . treemacs-bookmark)
         ("C-x t C-t" . treemacs-find-file)
         ("C-x t M-t" . treemacs-find-tag)))
 
- 
+
 
 (use-package treemacs-evil
   :after (treemacs evil)
