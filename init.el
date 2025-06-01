@@ -1,10 +1,23 @@
-;; The default is 800 kilobytes. Measured in bytes.
-(setq gc-cons-threshold (* 50 1000 1000))
+(setq package-enable-at-startup nil
+      load-prefer-newer t
+      inhibit-startup-screen t)
 
-;; Make gc pauses faster by decreasing the threshold.
-(setq gc-cons-threshold (* 2 1000 1000))
-;; Increase the amount of data which Emacs reads from the process
-(setq read-process-output-max (* 1024 1024)) ;; 1mb
+;; https://emacs-lsp.github.io/lsp-mode/page/performance/
+(setq gc-cons-threshold 100000000
+      read-process-output-max (* 1024 1024))
+
+;; https://www.masteringemacs.org/article/speed-up-emacs-libjansson-native-elisp-compilation
+(if (and (fboundp 'native-comp-available-p)
+         (native-comp-available-p))
+    (setq comp-deferred-compilation t
+          package-native-compile t)
+  (message "Native complation is *not* available, lsp performance will suffer..."))
+
+(unless (functionp 'json-serialize)
+  (message "Native JSON is *not* available, lsp performance will suffer..."))
+
+;; do not steal focus while doing async compilations
+(setq warning-suppress-types '((comp)))
 
 (defun remove-dos-eol ()
   "Do not show ^M in files containing mixed UNIX and DOS line endings."
