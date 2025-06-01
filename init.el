@@ -603,9 +603,8 @@
  (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)
 )
 
-(use-package ef-themes
-  :config
-  (load-theme 'ef-elea-dark t ))
+(straight-use-package 'catppuccin-theme)
+(load-theme 'catppuccin :no-confirm)
 
 (use-package magit
   :commands magit-status)

@@ -840,9 +840,9 @@ Replace the default modeline with a prettier more useful.
 #+end_src
 ** Set Theme
 #+begin_src emacs-lisp
-(use-package ef-themes
-  :config
-  (load-theme 'ef-elea-dark t ))
+
+  (straight-use-package 'catppuccin-theme)
+  (load-theme 'catppuccin :no-confirm)
 #+end_src
 ** Git
 *** Magit
