@@ -48,19 +48,20 @@
   - [[#git][Git]]
 - [[#good-defaults][Good Defaults]]
 
-* introduction
-
-
 * Important to load first
 ** Startup Performance
 Make startup faster by reducing the frequency of garbage collection. This will be set back when startup finishes.
 #+begin_src emacs-lisp
-
 (setq package-enable-at-startup nil
-      load-prefer-newer t
-      inhibit-startup-screen t)
-
-
+      inhibit-startup-message   t
+      frame-resize-pixelwise    t        ;; fine resize
+      package-native-compile    t)       ;; native compile packages
+      (scroll-bar-mode -1)               ;; disable scrollbar
+      (tool-bar-mode -1)                 ;; disable toolbar
+      (tooltip-mode -1)                  ;; disable tooltips
+      (set-fringe-mode 10)               ;; give some breathing room
+      (menu-bar-mode -1)                 ;; disable menubar
+      (blink-cursor-mode 0)              ;; disable blinking cursor
 #+end_src
 ** Runtime Performance
 Dial the GC threshold back down so that garbage collection happens more frequently but in less time.
@@ -83,6 +84,27 @@ We also increase Read Process Output Max so emacs can read more data.
 ;; do not steal focus while doing async compilations
 (setq warning-suppress-types '((comp)))
 #+end_src
+* Multi File Example
+** Adding the lisp directory to load-path
+Adds the lisp directory to emacs's load path to search for elisp files.
+This is necessary, because emacs does not search the entire user-emacs-directory.
+The directory name can be anything, just add it to the load-path.
+#+begin_src emacs-lisp
+;(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+#+end_src
+** Using the file
+And now we can use everything from that file.
+#+begin_src emacs-lisp
+;(start/hello)
+#+end_src
+* utilitys
+a bunch of utilitys in few lines
+** open-config-file
+#+BEGIN_SRC emacs-lisp
+(defun open-config-file ()
+  (interactive)
+  (find-file (expand-file-name "config.org" user-emacs-directory)))
+#+END_SRC
 ** deleting ^M character
 #+BEGIN_SRC emacs-lisp
 (defun remove-dos-eol ()
@@ -91,42 +113,28 @@ We also increase Read Process Output Max so emacs can read more data.
   (setq buffer-display-table (make-display-table))
   (aset buffer-display-table ?\^M []))
 #+END_SRC
-** Global variables
-#+BEGIN_SRC emacs-lisp
-(setq
- globals--leader-key   "<SPC>"                    ; Leader prefix key used for most bindings
- )
-#+END_SRC
-*** remaps REt
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "RET") 'newline-and-indent)
-#+END_SRC
-* Multi File Example
-** Adding the lisp directory to load-path
-Adds the lisp directory to emacs's load path to search for elisp files.
-This is necessary, because emacs does not search the entire user-emacs-directory.
-The directory name can be anything, just add it to the load-path.
+** Default to utf-8 encoding.
 #+begin_src emacs-lisp
-  ;;(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(set-default-coding-systems 'utf-8)
+(set-language-environment "UTF-8")
+(prefer-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
 #+end_src
-** Using the file
-And now we can use everything from that file.
+** Zooming In/Out
+You can use the bindings C-+ C-- for zooming in/out. You can also use CTRL plus the mouse wheel for zooming in/out.
 #+begin_src emacs-lisp
-;; (start/hello)
+(use-package emacs
+  :bind
+  ("C-+" . text-scale-increase)
+  ("C--" . text-scale-decrease)
+  ("<C-wheel-up>" . text-scale-increase)
+  ("<C-wheel-down>" . text-scale-decrease))
 #+end_src
-Emacs does a lot of things at startup and here, we disable pretty much everything.
+** Pretty self-explanatory
 #+begin_src emacs-lisp
-(setq-default
-  inhibit-startup-screen t               ; Disable start-up screen
-  inhibit-startup-message t              ; Disable startup message
-  inhibit-startup-echo-area-message t)    ; Disable initial echo message
-#+END_SRC
-* utilitys
-#+BEGIN_SRC emacs-lisp
-(defun open-config-file ()
-  (interactive)
-  (find-file (expand-file-name "config.org" user-emacs-directory)))
-#+END_SRC
+(setq-default use-short-answers t                     ; Replace yes/no prompts with y/n
+  confirm-nonexistent-file-or-buffer nil) ; Ok to visit non existent files
+#+end_src
 * Auto-tangle Configuration file
 Auto-Tangle Org configuration file for better startup times.
 If you want to use this don't forget to add this to the top of the org document (#+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes)
@@ -148,32 +156,8 @@ automatically exports the configuration here to the associated output files.
 
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'start/org-babel-tangle-config)))
 #+end_src
-* Default to utf-8 encoding.
-   #+begin_src emacs-lisp
-(set-default-coding-systems 'utf-8)
-(set-language-environment "UTF-8")
-(prefer-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
-   #+end_src
-* Zooming In/Out
-You can use the bindings C-+ C-- for zooming in/out. You can also use CTRL plus the mouse wheel for zooming in/out.
-#+begin_src emacs-lisp
-(use-package emacs
-  :bind
-  ("C-+" . text-scale-increase)
-  ("C--" . text-scale-decrease)
-  ("<C-wheel-up>" . text-scale-increase)
-  ("<C-wheel-down>" . text-scale-decrease))
-#+end_src
-* Multi File Example
-** Adding the lisp directory to load-path
-Adds the lisp directory to emacs's load path to search for elisp files.
-This is necessary, because emacs does not search the entire user-emacs-directory.
-The directory name can be anything, just add it to the load-path.
-#+begin_src emacs-lisp
-;;(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-#+end_src
-* Use Package
+* Packages
+** use-package
 #+begin_src emacs-lisp
 (require 'use-package-ensure) ;; Load use-package-always-ensure
 (setq use-package-always-ensure t) ;; Always ensures that a package is installed
@@ -347,14 +331,6 @@ Which-key is a helper utility for keychords (which key to press).
   (which-key-allow-imprecise-window-fit nil)) ;; Fixes which-key window slipping out in Emacs Daemon
 #+end_src
 * Devolepment
-** tree-sitter
-#+BEGIN_SRC emacs-lisp
- (straight-use-package 'tree-sitter)
- (straight-use-package 'tree-sitter-langs)
-(global-tree-sitter-mode)
-(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
-
-#+END_SRC
 ** Evil Mode
 An extensible vi/vim layer for Emacs. Because…let’s face it. The Vim keybindings are just plain better.
 Notes:
@@ -381,6 +357,7 @@ NOTE: пометка для себя: смотрел документацию т
               ("SPC" . nil)
               ("RET" . nil)
               ("TAB" . nil)))
+
 (use-package evil-collection
   :after evil
   :config
@@ -389,16 +366,16 @@ NOTE: пометка для себя: смотрел документацию т
   (evil-collection-init))
 
 (mapc (lambda (mode)
-        (evil-set-initial-state mode 'emacs)) '(elfeed-show-mode
-                                                elfeed-search-mode
-                                                forge-pullreq-list-mode
-                                                forge-topic-list-mode
-                                                dired-mode
-                                                dashboard-mode
-                                                tide-references-mode
-                                                image-dired-mode
-                                                image-dired-thumbnail-mode
-                                                eww-mode))
+  (evil-set-initial-state mode 'emacs)) '(elfeed-show-mode
+                                          elfeed-search-mode
+                                          forge-pullreq-list-mode
+                                          forge-topic-list-mode
+                                          dired-mode
+                                          dashboard-mode
+                                          tide-references-mode
+                                          image-dired-mode
+                                          image-dired-thumbnail-mode
+                                          eww-mode))
 #+end_src
 ** Rainbow Delimiters
 Adds colors to brackets.
@@ -459,7 +436,22 @@ Adds colors to brackets.
   :init (global-flycheck-mode)
  (add-hook 'after-init-hook #'global-flycheck-mode))
 #+END_SRC
-
+** tree-sitter
+#+BEGIN_SRC emacs-lisp
+(straight-use-package 'tree-sitter)
+(straight-use-package 'tree-sitter-langs)
+(global-tree-sitter-mode)
+(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+#+END_SRC
+** Global variables
+#+BEGIN_SRC emacs-lisp
+(setq globals--leader-key   "<SPC>") ;; Leader prefix key used for most bindings
+#+END_SRC
+*** remaps RET 
+now RET do what suppose to be - new line with indent from the previous line   
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "RET") 'newline-and-indent)
+#+END_SRC
 ** General Keybindings
 A keybinding framework to set keybindings easily.
 The Leader key is what you will press when you want to access your keybindings (SPC + . Find file).
@@ -528,11 +520,6 @@ NOTE: кнопки я современем настрою а не в один п
       "t" '(:ignore t :wk "Toggle")
       "t t" '(visual-line-mode :wk "Toggle truncated lines (wrap)")
       "t l" '(display-line-numbers-mode :wk "Toggle line numbers")))
-#+end_src
-*** Pretty self-explanatory
-#+begin_src emacs-lisp
-(setq-default use-short-answers t                     ; Replace yes/no prompts with y/n
-  confirm-nonexistent-file-or-buffer nil) ; Ok to visit non existent files
 #+end_src
 ** Language modes
 *** python mode
@@ -608,8 +595,10 @@ NOTE: кнопки я современем настрою а не в один п
     (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
     (require 'dap-cpptools)
     (yas-global-mode))
+
+(set-language-environment "UTF-8")
 #+END_SRC
-** lsp-ui
+*** lsp-ui
 #+BEGIN_SRC emacs-lisp
 (use-package lsp-ui
   :ensure
@@ -702,8 +691,8 @@ To use it write out the full keyword (or use autocompletion) and press Tab.
   (dashboard-item-shortcuts '((recents   . "r")
                               (bookmarks . "m")
    				  (projects  . "p")
-    													(agenda    . "a")
-    													(registers . "e")))
+   				  (agenda    . "a")
+    			  (registers . "e")))
 
   (dashboard-startupify-list '(dashboard-insert-banner
                                dashboard-insert-newline
@@ -717,8 +706,8 @@ To use it write out the full keyword (or use autocompletion) and press Tab.
                                ;;dashboard-insert-footer
     ))
 
-  (dashboard-display-icons-p t)     ; display icons on both GUI and terminal
-  (dashboard-icon-type 'nerd-icons) ; use `nerd-icons' package
+  (dashboard-display-icons-p t)     ;; display icons on both GUI and terminal
+  (dashboard-icon-type 'nerd-icons) ;; use `nerd-icons' package
   (dashboard-icon-file-height 1.75)
   (dashboard-icon-file-v-adjust -0.125)
   (dashboard-heading-icon-height 1.75)
@@ -758,7 +747,6 @@ While nerd-icons supports both GUI and TUI.
   (add-to-list 'default-frame-alist '(font . "JetBrainsMonoNL NF-12.0:bold")) ;; Set your favorite font
   (setq-default line-spacing 0.12)
 #+end_src
-
 ** screen size in startup
 #+begin_src emacs-lisp
 (if (window-system)
@@ -803,7 +791,7 @@ Replace the default modeline with a prettier more useful.
   ;; Whether display icons in the mode-line.
   ;; While using the server mode in GUI, should set the value explicitly.
   (doom-modeline-major-mode-icon t)
-
+ 
   ;; Whether display the colorful icon for `major-mode'.
   ;; It respects `nerd-icons-color-icons'.
   (doom-modeline-major-mode-color-icon t)
@@ -824,7 +812,7 @@ Replace the default modeline with a prettier more useful.
   ;; Whether display the live icons of time.
   ;; It respects option `doom-modeline-icon' and option `doom-modeline-time-icon'.
   (doom-modeline-time-live-icon t)
-
+  
   ;; Whether display the buffer encoding.
   (doom-modeline-buffer-encoding t)
 
@@ -835,14 +823,26 @@ Replace the default modeline with a prettier more useful.
   (doom-modeline-vcs-max-length 50)
 
   ;; The function to display the branch name.
- (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)
+  (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)
+
+  (require 'time)
+  (setq display-time-format "%Y-%m-%d %H:%M")
+  (display-time-mode 1) ; display time in modeline
+
+
+
+  (let ((battery-str (battery)))
+    (unless (or (equal "Battery status not available" battery-str)
+                (string-match-p (regexp-quote "N/A") battery-str))
+      (display-battery-mode 1)))
+  (display-battery-mode t)
+
 )
 #+end_src
 ** Set Theme
 #+begin_src emacs-lisp
-
-  (straight-use-package 'catppuccin-theme)
-  (load-theme 'catppuccin :no-confirm)
+(straight-use-package 'catppuccin-theme)
+(load-theme 'catppuccin :no-confirm)
 #+end_src
 ** Git
 *** Magit
@@ -860,7 +860,6 @@ Highlights uncommitted changes on the left side of the window (area also known a
   (magit-post-refresh . diff-hl-magit-post-refresh))
   :init (global-diff-hl-mode))
 #+end_src
-
 *** treemacs
 #+BEGIN_SRC emacs-lisp
 (use-package treemacs

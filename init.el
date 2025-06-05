@@ -1,6 +1,13 @@
 (setq package-enable-at-startup nil
-      load-prefer-newer t
-      inhibit-startup-screen t)
+      inhibit-startup-message   t
+      frame-resize-pixelwise    t        ;; fine resize
+      package-native-compile    t)       ;; native compile packages
+      (scroll-bar-mode -1)               ;; disable scrollbar
+      (tool-bar-mode -1)                 ;; disable toolbar
+      (tooltip-mode -1)                  ;; disable tooltips
+      (set-fringe-mode 10)               ;; give some breathing room
+      (menu-bar-mode -1)                 ;; disable menubar
+      (blink-cursor-mode 0)              ;; disable blinking cursor
 
 ;; https://emacs-lsp.github.io/lsp-mode/page/performance/
 (setq gc-cons-threshold 100000000
@@ -19,40 +26,19 @@
 ;; do not steal focus while doing async compilations
 (setq warning-suppress-types '((comp)))
 
-(defun remove-dos-eol ()
-  "Do not show ^M in files containing mixed UNIX and DOS line endings."
-  (interactive)
-  (setq buffer-display-table (make-display-table))
-  (aset buffer-display-table ?\^M []))
+;(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
-(setq
- globals--leader-key   "<SPC>"                    ; Leader prefix key used for most bindings
- )
-
-(global-set-key (kbd "RET") 'newline-and-indent)
-
-;;(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-
-;; (start/hello)
-
-(setq-default
-  inhibit-startup-screen t               ; Disable start-up screen
-  inhibit-startup-message t              ; Disable startup message
-  inhibit-startup-echo-area-message t)    ; Disable initial echo message
+;(start/hello)
 
 (defun open-config-file ()
   (interactive)
   (find-file (expand-file-name "config.org" user-emacs-directory)))
 
-(defun start/org-babel-tangle-config ()
-  "Automatically tangle our Emacs.org config file when we save it. Credit to Emacs From Scratch for this one!"
-  (when (string-equal (file-name-directory (buffer-file-name))
-                      (expand-file-name user-emacs-directory))
-    ;; Dynamic scoping to the rescue
-    (let ((org-confirm-babel-evaluate nil))
-      (org-babel-tangle))))
-
-(add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'start/org-babel-tangle-config)))
+(defun remove-dos-eol ()
+  "Do not show ^M in files containing mixed UNIX and DOS line endings."
+  (interactive)
+  (setq buffer-display-table (make-display-table))
+  (aset buffer-display-table ?\^M []))
 
 (set-default-coding-systems 'utf-8)
 (set-language-environment "UTF-8")
@@ -66,7 +52,18 @@
   ("<C-wheel-up>" . text-scale-increase)
   ("<C-wheel-down>" . text-scale-decrease))
 
-;;(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(setq-default use-short-answers t                     ; Replace yes/no prompts with y/n
+  confirm-nonexistent-file-or-buffer nil) ; Ok to visit non existent files
+
+(defun start/org-babel-tangle-config ()
+  "Automatically tangle our Emacs.org config file when we save it. Credit to Emacs From Scratch for this one!"
+  (when (string-equal (file-name-directory (buffer-file-name))
+                      (expand-file-name user-emacs-directory))
+    ;; Dynamic scoping to the rescue
+    (let ((org-confirm-babel-evaluate nil))
+      (org-babel-tangle))))
+
+(add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'start/org-babel-tangle-config)))
 
 (require 'use-package-ensure) ;; Load use-package-always-ensure
 (setq use-package-always-ensure t) ;; Always ensures that a package is installed
@@ -210,11 +207,6 @@
   (which-key-max-description-length 25)
   (which-key-allow-imprecise-window-fit nil)) ;; Fixes which-key window slipping out in Emacs Daemon
 
-(straight-use-package 'tree-sitter)
- (straight-use-package 'tree-sitter-langs)
-(global-tree-sitter-mode)
-(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
-
 (use-package evil
   :init ;; Execute code Before a package is loaded
   (evil-mode)
@@ -230,6 +222,7 @@
               ("SPC" . nil)
               ("RET" . nil)
               ("TAB" . nil)))
+
 (use-package evil-collection
   :after evil
   :config
@@ -238,16 +231,16 @@
   (evil-collection-init))
 
 (mapc (lambda (mode)
-        (evil-set-initial-state mode 'emacs)) '(elfeed-show-mode
-                                                elfeed-search-mode
-                                                forge-pullreq-list-mode
-                                                forge-topic-list-mode
-                                                dired-mode
-                                                dashboard-mode
-                                                tide-references-mode
-                                                image-dired-mode
-                                                image-dired-thumbnail-mode
-                                                eww-mode))
+  (evil-set-initial-state mode 'emacs)) '(elfeed-show-mode
+                                          elfeed-search-mode
+                                          forge-pullreq-list-mode
+                                          forge-topic-list-mode
+                                          dired-mode
+                                          dashboard-mode
+                                          tide-references-mode
+                                          image-dired-mode
+                                          image-dired-thumbnail-mode
+                                          eww-mode))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -299,6 +292,15 @@
  :ensure t
  :init (global-flycheck-mode)
 (add-hook 'after-init-hook #'global-flycheck-mode))
+
+(straight-use-package 'tree-sitter)
+(straight-use-package 'tree-sitter-langs)
+(global-tree-sitter-mode)
+(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+
+(setq globals--leader-key   "<SPC>") ;; Leader prefix key used for most bindings
+
+(global-set-key (kbd "RET") 'newline-and-indent)
 
 (use-package general
   :config
@@ -363,9 +365,6 @@
       "t t" '(visual-line-mode :wk "Toggle truncated lines (wrap)")
       "t l" '(display-line-numbers-mode :wk "Toggle line numbers")))
 
-(setq-default use-short-answers t                     ; Replace yes/no prompts with y/n
-  confirm-nonexistent-file-or-buffer nil) ; Ok to visit non existent files
-
 (use-package elpy
   :ensure t
   :init
@@ -429,6 +428,8 @@
     (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
     (require 'dap-cpptools)
     (yas-global-mode))
+
+(set-language-environment "UTF-8")
 
 (use-package lsp-ui
   :ensure
@@ -496,8 +497,8 @@
   (dashboard-item-shortcuts '((recents   . "r")
                               (bookmarks . "m")
    				  (projects  . "p")
-    													(agenda    . "a")
-    													(registers . "e")))
+   				  (agenda    . "a")
+    			  (registers . "e")))
 
   (dashboard-startupify-list '(dashboard-insert-banner
                                dashboard-insert-newline
@@ -511,8 +512,8 @@
                                ;;dashboard-insert-footer
     ))
 
-  (dashboard-display-icons-p t)     ; display icons on both GUI and terminal
-  (dashboard-icon-type 'nerd-icons) ; use `nerd-icons' package
+  (dashboard-display-icons-p t)     ;; display icons on both GUI and terminal
+  (dashboard-icon-type 'nerd-icons) ;; use `nerd-icons' package
   (dashboard-icon-file-height 1.75)
   (dashboard-icon-file-v-adjust -0.125)
   (dashboard-heading-icon-height 1.75)
@@ -568,7 +569,7 @@
   ;; Whether display icons in the mode-line.
   ;; While using the server mode in GUI, should set the value explicitly.
   (doom-modeline-major-mode-icon t)
-
+ 
   ;; Whether display the colorful icon for `major-mode'.
   ;; It respects `nerd-icons-color-icons'.
   (doom-modeline-major-mode-color-icon t)
@@ -589,7 +590,7 @@
   ;; Whether display the live icons of time.
   ;; It respects option `doom-modeline-icon' and option `doom-modeline-time-icon'.
   (doom-modeline-time-live-icon t)
-
+  
   ;; Whether display the buffer encoding.
   (doom-modeline-buffer-encoding t)
 
@@ -600,7 +601,20 @@
   (doom-modeline-vcs-max-length 50)
 
   ;; The function to display the branch name.
- (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)
+  (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)
+
+  (require 'time)
+  (setq display-time-format "%Y-%m-%d %H:%M")
+  (display-time-mode 1) ; display time in modeline
+
+
+
+  (let ((battery-str (battery)))
+    (unless (or (equal "Battery status not available" battery-str)
+                (string-match-p (regexp-quote "N/A") battery-str))
+      (display-battery-mode 1)))
+  (display-battery-mode t)
+
 )
 
 (straight-use-package 'catppuccin-theme)
