@@ -609,6 +609,8 @@
 (straight-use-package 'catppuccin-theme)
 (load-theme 'catppuccin :no-confirm)
 
+(toggle-frame-fullscreen)
+
 (use-package magit
   :commands magit-status)
 

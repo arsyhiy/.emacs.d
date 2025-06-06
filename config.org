@@ -833,6 +833,10 @@ Replace the default modeline with a prettier more useful.
 (straight-use-package 'catppuccin-theme)
 (load-theme 'catppuccin :no-confirm)
 #+end_src
+** full screen
+#+BEGIN_SRC  emacs-lisp
+(toggle-frame-fullscreen)  
+#+END_SRC
 ** Git
 *** Magit
 Complete text-based user interface to Git.
