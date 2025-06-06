@@ -603,17 +603,6 @@
   ;; The function to display the branch name.
   (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)
 
-  (require 'time)
-  (setq display-time-format "%Y-%m-%d %H:%M")
-  (display-time-mode 1) ; display time in modeline
-
-
-
-  (let ((battery-str (battery)))
-    (unless (or (equal "Battery status not available" battery-str)
-                (string-match-p (regexp-quote "N/A") battery-str))
-      (display-battery-mode 1)))
-  (display-battery-mode t)
 
 )
 
