@@ -364,6 +364,16 @@
       "t" '(:ignore t :wk "Toggle")
       "t t" '(visual-line-mode :wk "Toggle truncated lines (wrap)")
       "t l" '(display-line-numbers-mode :wk "Toggle line numbers")))
+    
+    (start/leader-keys
+      "p" '(pyvenv-workon :wk "pyvenv"))
+   
+    (start/leader-keys
+      "t t" '(term :wk "terminal"))
+  
+    (start/leader-keys
+      "b" '(list-buffers :wk "open buffers")
+      "k k" '(kill-buffer :wk "kill buffer"))
 
 (use-package elpy
   :ensure t
