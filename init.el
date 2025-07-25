@@ -616,10 +616,10 @@
 
 )
 
-(straight-use-package 'gruvbox-theme)
-(load-theme 'gruvbox-dark-hard :no-confirm)
+;;(straight-use-package 'gruvbox-theme)
+;;(load-theme 'gruvbox-dark-hard :no-confirm)
 
-;;(toggle-frame-fullscreen)
+(toggle-frame-fullscreen)
 
 (use-package magit
   :commands magit-status)

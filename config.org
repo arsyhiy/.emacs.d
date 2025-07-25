@@ -840,12 +840,12 @@ Replace the default modeline with a prettier more useful.
 #+end_src
 ** Set Theme
 #+begin_src emacs-lisp
-(straight-use-package 'gruvbox-theme)
-(load-theme 'gruvbox-dark-hard :no-confirm)
+;;(straight-use-package 'gruvbox-theme)
+;;(load-theme 'gruvbox-dark-hard :no-confirm)
 #+end_src
 ** full screen
 #+BEGIN_SRC  emacs-lisp
-;;(toggle-frame-fullscreen)  
+(toggle-frame-fullscreen)  
 #+END_SRC
 ** Git
 *** Magit
