@@ -35,7 +35,7 @@
   (find-file (expand-file-name "config.org" user-emacs-directory)))
 
 (defun remove-dos-eol ()
-  "Do not show ^M in files containing mixed UNIX and DOS line endings."
+ "Do not show ^M in files containing mixed UNIX and DOS line endings."
   (interactive)
   (setq buffer-display-table (make-display-table))
   (aset buffer-display-table ?\^M []))
@@ -103,7 +103,7 @@
   ;; (corfu-preselect 'prompt)      ;; Preselect the prompt
   ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
   ;; (corfu-scroll-margin 5)        ;; Use scroll margin
-  (completion-ignore-case t)
+     (completion-ignore-case t)
   ;; Enable indentation+completion using the TAB key.
   ;;`completion-at-point' is often bound to M-TAB.
   (tab-always-indent 'complete)
@@ -226,7 +226,7 @@
 (use-package evil-collection
   :after evil
   :config
-  ;; Setting where to use evil-collection
+ ;; Setting where to use evil-collection
   (setq evil-collection-mode-list '(dired ibuffer magit corfu vertico consult))
   (evil-collection-init))
 
@@ -332,7 +332,7 @@
       "b k" '(kill-this-buffer :wk "Kill this buffer")
 
       "b i" '(ibuffer :wk "Ibuffer")
-      "b n" '(next-buffer :wk "Next buffer")
+       "b n" '(next-buffer :wk "Next buffer")
       "b p" '(previous-buffer :wk "Previous buffer")
       "b r" '(revert-buffer :wk "Reload buffer")
       "b j" '(consult-bookmark :wk "Bookmark jump"))
@@ -353,7 +353,7 @@
       "h" '(:ignore t :wk "Help") ;; To get more help use C-h commands (describe variable, function, etc.)
       "h q" '(save-buffers-kill-emacs :wk "Quit Emacs and Daemon")
       "h r" '((lambda () (interactive)
-              (load-file "~/.config/emacs/init.el"))
+             (load-file "~/.config/emacs/init.el"))
               :wk "Reload Emacs config"))
 
     (start/leader-keys
@@ -462,9 +462,9 @@
   ;; The following prevents <> from auto-pairing when electric-pair-mode is on.
   ;; Otherwise, org-tempo is broken when you try to <s TAB...
   ;;(org-mode . (lambda ()
-  ;;              (setq-local electric-pair-inhibit-predicate
-  ;;                          `(lambda (c)
-  ;;                             (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
+   ;;              (setq-local electric-pair-inhibit-predicate
+   ;;                          `(lambda (c)
+   ;;                             (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
   )
 
 (use-package toc-org
@@ -486,7 +486,7 @@
   (projectile-run-use-comint-mode t) ;; Interactive run dialog when running projects inside emacs (like giving input)
   (projectile-switch-project-action #'projectile-dired) ;; Open dired when switching to a project
   (projectile-project-search-path '("~/projects/" "~/work/" ("~/github" . 1)))) ;; . 1 means only search the first subdirectory level for projects
-;; Use Bookmarks for smaller, not standard projects
+; Use Bookmarks for smaller, not standard projects
 
 (use-package yasnippet-snippets
   :hook (prog-mode . yas-minor-mode))
@@ -542,14 +542,14 @@
   :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 
 (set-face-attribute 'default nil
-  :font "JetBrainsMonoNL NF-12.0:bold" ;; Set your favorite type of font or download JetBrains Mono
+  :font "JetBrainsMonoNL NF-12.0" ;; Set your favorite type of font or download JetBrains Mono
   :height 180
   :weight 'medium)
   ;; This sets the default font on all graphical frames created after restarting Emacs.
   ;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
   ;; are not right unless I also add this method of setting the default font.
 
-  (add-to-list 'default-frame-alist '(font . "JetBrainsMonoNL NF-14.0:bold")) ;; Set your favorite font
+  (add-to-list 'default-frame-alist '(font . "JetBrainsMonoNL NF-14.0")) ;; Set your favorite font
   (setq-default line-spacing 0.12)
 
 (if (window-system)
@@ -616,8 +616,12 @@
 
 )
 
-;;(straight-use-package 'gruvbox-theme)
-;;(load-theme 'gruvbox-dark-hard :no-confirm)
+(use-package almost-mono-themes
+  :config
+  ;; (load-theme 'almost-mono-black t)
+  ;; (load-theme 'almost-mono-gray t)
+  ;; (load-theme 'almost-mono-cream t)
+  (load-theme 'almost-mono-white t))
 
 (toggle-frame-fullscreen)
 
@@ -698,7 +702,7 @@
 
     (treemacs-follow-mode t)
     (treemacs-filewatch-mode t)
-    (treemacs-fringe-indicator-mode 'always)
+   (treemacs-fringe-indicator-mode 'always)
     (when treemacs-python-executable
       (treemacs-git-commit-diff-mode t))
 
@@ -729,6 +733,7 @@
 (use-package treemacs-projectile
   :after (treemacs projectile)
   :ensure t)
+
 
 (use-package treemacs-icons-dired
   :hook (dired-mode . treemacs-icons-dired-enable-once)
