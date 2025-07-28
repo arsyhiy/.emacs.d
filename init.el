@@ -281,6 +281,8 @@
   ;; Controls the maximum number of the candidates shown simultaneously in the tooltip (the default value is 10).
   ;; When the number of the available candidates is larger than this option’s value, Company paginates the results.
   (company-tooltip-limit 4)
+	
+	:hook (go-mode . company-mode)
 )
 
 (use-package company-box
@@ -291,7 +293,8 @@
 (use-package flycheck
  :ensure t
  :init (global-flycheck-mode)
-(add-hook 'after-init-hook #'global-flycheck-mode))
+(add-hook 'after-init-hook #'global-flycheck-mode)
+:hook (go-mode . flycheck-mode))
 
 (straight-use-package 'tree-sitter)
 (straight-use-package 'tree-sitter-langs)
@@ -388,20 +391,18 @@
   ;;; Open a header file in C++ mode by default
   (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode)))
 
-(defun ime-go-before-save ()
-  (interactive)
-  (when lsp-mode
-    (lsp-organize-imports)
-    (lsp-format-buffer)))
-
 (use-package go-mode
-  :defer t
-  :straight t
+  :ensure t
+  :hook ((go-mode . lsp-deferred)
+         (before-save . gofmt-before-save))
   :config
+  (setq tab-width 4)
+  (setq indent-tabs-mode 1)
+;; Optional: set $GOPATH and $GOROOT if not set globally
+(setenv "GOPATH" "/home/arsyh/go")
+(setenv "GOROOT" "/usr/lib/go-1.22"))
+
   (add-hook 'go-mode-hook 'lsp-deferred)
-  (add-hook 'go-mode-hook
-            (lambda ()
-              (add-hook 'before-save-hook 'ime-go-before-save))))
 
 (require 'package)
   (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
@@ -424,6 +425,7 @@
   (which-key-mode)
   (add-hook 'c-mode-hook 'lsp)
   (add-hook 'c++-mode-hook 'lsp)
+  (add-hook 'golang-mode-hook 'lsp)
   (add-hook 'python-mode-hook 'lsp)
   (add-hook 'js-mode-hook 'lsp)
 
@@ -446,7 +448,6 @@
   :commands lsp-ui-mode
   :custom
   (lsp-headerline-breadcrumb-enable nil)
-  ;;(display-time-mode t) ;;showing time on modeline
   (lsp-ui-sideline-show-diagnostics t)
   (lsp-ui-sideline-show-hover t)
   (lsp-ui-sideline-show-code-actions t)
