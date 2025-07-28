@@ -1,4 +1,4 @@
-# NOTE:
+# NOTES for me:
 updates only on sundays
 
 # IDIAS:
