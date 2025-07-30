@@ -568,9 +568,7 @@ NOTE: кнопки я современем настрою а не в один п
     (setq tab-width 4)
     (setq indent-tabs-mode 1)
   ;; Optional: set $GOPATH and $GOROOT if not set globally
-  (setenv "GOPATH" "/home/arsyh/go")
-  (setenv "GOROOT" "/usr/lib/go-1.22"))
-
+)
     (add-hook 'go-mode-hook 'lsp-deferred)
 #+END_SRC
 ** Lsp

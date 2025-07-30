@@ -281,8 +281,8 @@
   ;; Controls the maximum number of the candidates shown simultaneously in the tooltip (the default value is 10).
   ;; When the number of the available candidates is larger than this option’s value, Company paginates the results.
   (company-tooltip-limit 4)
-	
-	:hook (go-mode . company-mode)
+
+  :hook (go-mode . company-mode)
 )
 
 (use-package company-box
@@ -392,17 +392,15 @@
   (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode)))
 
 (use-package go-mode
-  :ensure t
-  :hook ((go-mode . lsp-deferred)
-         (before-save . gofmt-before-save))
-  :config
-  (setq tab-width 4)
-  (setq indent-tabs-mode 1)
-;; Optional: set $GOPATH and $GOROOT if not set globally
-(setenv "GOPATH" "/home/arsyh/go")
-(setenv "GOROOT" "/usr/lib/go-1.22"))
-
-  (add-hook 'go-mode-hook 'lsp-deferred)
+    :ensure t
+    :hook ((go-mode . lsp-deferred)
+           (before-save . gofmt-before-save))
+    :config
+    (setq tab-width 4)
+    (setq indent-tabs-mode 1)
+  ;; Optional: set $GOPATH and $GOROOT if not set globally
+)
+    (add-hook 'go-mode-hook 'lsp-deferred)
 
 (require 'package)
   (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
