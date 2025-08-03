@@ -378,6 +378,9 @@
       "b" '(list-buffers :wk "open buffers")
       "k k" '(kill-buffer :wk "kill buffer"))
 
+   (start/leader-keys
+     "a" '(org-agenda :wk "open agenda"))
+
 (use-package elpy
   :ensure t
   :init
@@ -500,7 +503,7 @@
   (dashboard-set-heading-icons t)
   (dashboard-set-file-icons t)
   (dashboard-set-navigator t)
-  (dashboard-item-names '(("Recent Files:"               . "Recent files:")
+(dashboard-item-names '(("Recent Files:"               . "Recent files:")
                           ("Agenda for today:"           . "Today's agenda:")
                           ("Agenda for the coming week:" . "Agenda:")))
   (dashboard-item-shortcuts '((recents   . "r")
