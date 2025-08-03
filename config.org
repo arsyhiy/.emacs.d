@@ -1,4 +1,4 @@
-#+Title: emacs config
+#+Title: emacs config.org edition
 #+Author: Aresn
 #+Description: mine config
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
