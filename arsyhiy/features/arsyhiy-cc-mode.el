@@ -6,8 +6,6 @@
   ;;; Open a header file in C++ mode by default
   (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode)))
 
-
-
 (provide 'arsyhiy-cc-mode)
 
 

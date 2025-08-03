@@ -1,4 +1,5 @@
 ;; -*- coding: utf-8; lexical-binding: t -*-
+
 (require 'package)
   (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
   (package-initialize)
@@ -25,22 +26,23 @@
   (add-hook 'js-mode-hook 'lsp)
 
   (setq gc-cons-threshold (* 100 1024 1024)
-      Read-process-output-max (* 1024 1024)
-      treemacs-space-between-root-nodes nil
-      company-idle-delay 0.0
-      company-minimum-prefix-length 1
-      lsp-idle-delay 0.1)  ;; clangd is fast
+        Read-process-output-max (* 1024 1024)
+        treemacs-space-between-root-nodes nil
+        company-idle-delay 0.0
+        company-minimum-prefix-length 1
+        lsp-idle-delay 0.1)  ;; clangd is fast
 
   (with-eval-after-load 'lsp-mode
     (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
     (require 'dap-cpptools)
     (yas-global-mode))
 
-  (set-language-environment "UTF-8")
+(set-language-environment "UTF-8")
 
 
 (use-package lsp-ui
-  :ensure
+	:defer t
+  :ensure t
   :commands lsp-ui-mode
   :custom
   (lsp-headerline-breadcrumb-enable nil)
@@ -49,7 +51,6 @@
   (lsp-ui-sideline-show-code-actions t)
   (lsp-ui-sideline-update-mode t))
 
-
 (provide 'arsyhiy-lsp-mode)
-
+ 
 ;;; arsyhiy-lsp-mode.el ends here

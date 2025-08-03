@@ -121,7 +121,6 @@
 
 (treemacs-start-on-boot)
 
-
 (provide 'arsyhiy-treemacs)
 
 ;;; arsyhiy-treemacs.el ends here

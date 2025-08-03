@@ -1,4 +1,5 @@
 ;; -*- coding: utf-8; lexical-binding: t -*-
+
 (use-package doom-modeline
   :straight t
   :init (doom-modeline-mode)

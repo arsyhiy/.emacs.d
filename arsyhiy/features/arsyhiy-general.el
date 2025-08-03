@@ -1,6 +1,7 @@
 ;;-*- coding: utf-8; lexical-binding: t -*-
-
 (use-package general
+	:defer t
+	:ensure t
   :config
   (general-evil-setup)
   ;; Set up 'SPC' as the leader key
@@ -72,9 +73,6 @@
     (start/leader-keys
       "b" '(list-buffers :wk "open buffers")
       "k k" '(kill-buffer :wk "kill buffer"))
-
-   (start/leader-keys
-     "a" '(org-agenda :wk "open agenda"))
 
 
 (provide 'arsyhiy-general)

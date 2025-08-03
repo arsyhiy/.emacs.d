@@ -1,6 +1,8 @@
 ;; -*- coding: utf-8; lexical-binding: t -*-
+
 (use-package org
-  :ensure nil
+  :ensure t
+	:defer t
   :custom
   (org-edit-src-content-indentation 2) ;; Set src block automatic indent to 4 instead of 2.
 
@@ -14,17 +16,18 @@
    ;;                             (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
   )
 
+
 (use-package toc-org
+  :defer t
+  :ensure t
   :commands toc-org-enable
   :hook (org-mode . toc-org-mode))
 
 (use-package org-superstar
+  :defer t
+  :ensure t
   :after org
   :hook (org-mode . org-superstar-mode))
-
-(use-package org-tempo
-  :ensure nil
-  :after org)
 
 
 (provide 'arsyhiy-org-mode)
