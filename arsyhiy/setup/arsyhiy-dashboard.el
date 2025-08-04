@@ -57,5 +57,6 @@
   :config
   (dashboard-setup-startup-hook))
 
+(require 'dashboard)
 (provide 'arsyhiy-dashboard)
 
