@@ -2,6 +2,12 @@
 
 ;; later i need to move this somelse here...
 
+;; load
+(add-to-list 'load-path "~/.emacs.d/arsyhiy/features/")
+(add-to-list 'load-path "~/.emacs.d/arsyhiy/preferences/")
+(add-to-list 'load-path "~/.emacs.d/arsyhiy/setup/")
+(add-to-list 'load-path "~/.emacs.d/arsyhiy/theme/")
+
 
 
 ;; features
