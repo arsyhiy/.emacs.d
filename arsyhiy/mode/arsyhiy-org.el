@@ -1,5 +1,7 @@
 ;; -*- coding: utf-8; lexical-binding: t -*-
 
+;; NOTE: rewrite this entire file
+
 (use-package org
   :ensure t
 	:defer t
@@ -30,6 +32,6 @@
   :hook (org-mode . org-superstar-mode))
 
 
-(provide 'arsyhiy-org-mode)
+(provide 'arsyhiy-org)
 
 ;;; arsyhiy-org-mode.el ends here

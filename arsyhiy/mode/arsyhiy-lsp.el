@@ -1,4 +1,7 @@
-;; -*- coding: utf-8; lexical-binding: t -*-
+;;; arsyhiy-lsp.el --- lsp system for emacs -*- coding: utf-8; lexical-binding: t -*-
+
+
+;;; NOTE: rewrite this entire file
 
 (require 'package)
   (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
@@ -51,6 +54,5 @@
   (lsp-ui-sideline-show-code-actions t)
   (lsp-ui-sideline-update-mode t))
 
-(provide 'arsyhiy-lsp-mode)
- 
-;;; arsyhiy-lsp-mode.el ends here
+(provide 'arsyhiy-lsp)
+;;; arsyhiy-lsp.el ends here

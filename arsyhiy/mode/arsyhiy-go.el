@@ -1,4 +1,8 @@
-;; -*- coding: utf-8; lexical-binding: t -*-
+;;; arsyhiy-go.el --- mode for golang -*- coding: utf-8; lexical-binding: t -*-
+
+
+;; rewrite this entiry file
+
   (use-package go-mode
     :ensure t
 		:defer t
@@ -11,6 +15,5 @@
 )
     (add-hook 'go-mode-hook 'lsp-deferred)
 
-(provide 'arsyhiy-go-mode)
-
-;;; arsyhiy-go-mode.el ends here
+(provide 'arsyhiy-go)
+;;; arsyhiy-go.el ends here

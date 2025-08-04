@@ -2,20 +2,12 @@
 
 (defun open-config-file ()
   (interactive)
-  (find-file (expand-file-name "config.org" user-emacs-directory)))
+  (find-file (expand-file-name "init.el" user-emacs-directory)))
 
 
 
-(defun remove-dos-eol ()
-  "Do not show ^M in files containing mixed UNIX and DOS line endings."
-  (interactive)
-  (setq buffer-display-table (make-display-table))
-  (aset buffer-display-table ?\^M []))
 
-(set-default-coding-systems 'utf-8)
-(set-language-environment "UTF-8")
-(prefer-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
+
 
 
 
@@ -29,8 +21,6 @@
 (setq-default use-short-answers t                     ; Replace yes/no prompts with y/n
   confirm-nonexistent-file-or-buffer nil) ; Ok to visit non existent files
 
-(setq-default visible-bell nil             ; No visual bell
-              ring-bell-function 'ignore)  ; No bell
 
 (setq-default mouse-yank-at-point t) ; Yank at point rather than pointer
 (mouse-avoidance-mode 'exile)        ; Avoid collision of mouse with point
@@ -43,6 +33,16 @@
 (setq-default scroll-conservatively 101       ; Avoid recentering when scrolling far
               scroll-margin 2                 ; Add a margin when scrolling vertically
               recenter-positions '(5 bottom)) ; Set re-centering positions
+
+
+  ;; Move customization variables to a separate file and load it, avoid filling up init.el with unnecessary variables
+  (setq custom-file (locate-user-emacs-file "custom-vars.el"))
+  (load custom-file 'noerror 'nomessage)
+;  :bind (
+;           ([escape] . keyboard-escape-quit) ;; Makes Escape quit prompts (Minibuffer Escape)
+;           )
+
+
 
 (provide 'arsyhiy-utils)
 

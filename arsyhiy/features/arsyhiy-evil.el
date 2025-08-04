@@ -1,5 +1,19 @@
-;; arsyhiy-evil.el  --evil mode configuration -*- coding: utf-8; lexical-binding: t -*-
+;;; arsyhiy-evil.el  --- evil mode configuration -*- coding: utf-8; lexical-binding: t -*-
 
+;; Copyright (C) 2025
+;; Version: 1.0
+;; packages-Requires: ((emacs "30"))
+;; Keywords: convience, vim motions
+
+
+;; Commentary:
+
+;; I vim motions fun. even i know emacs motions i more prefer vim motions
+
+;; Code 
+;;; NOTE: rewrie evil config in more right way
+
+;; packages
 
 (use-package evil
 	:ensure t
@@ -42,5 +56,4 @@
 
 
 (provide 'arsyhiy-evil)
-
 ;;; arsyhiy-evil.el ends here

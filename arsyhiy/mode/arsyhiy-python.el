@@ -1,5 +1,7 @@
 ;; -*- coding: utf-8; lexical-binding: t -*-
 
+;; rewrite this entire file
+
 (use-package elpy
 	:defer t
   :ensure t

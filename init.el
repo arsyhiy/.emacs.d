@@ -1,53 +1,56 @@
 ;; -*- coding: utf-8; lexical-binding: t -*-
 
-;; later i need to move this somelse here...
+;; Paths & packages
 
-;; load
 (add-to-list 'load-path "~/.emacs.d/arsyhiy/features/")
 (add-to-list 'load-path "~/.emacs.d/arsyhiy/preferences/")
 (add-to-list 'load-path "~/.emacs.d/arsyhiy/setup/")
-(add-to-list 'load-path "~/.emacs.d/arsyhiy/theme/")
+(add-to-list 'load-path "~/.emacs.d/arsyhiy/themes/")
+(add-to-list 'load-path "~/.emacs.d/arsyhiy/mode/")
 
+;; Features
 
-
-;; features
-
-(require 'arsyhiy-evil)
-;;(require 'arsyhiy-company)
-(require 'arsyhiy-performance)
-(require 'arsyhiy-utils)
-(require 'arsyhiy-orderless)
-(require 'arsyhiy-vertico)
 (require 'arsyhiy-consult)
-(require 'arsyhiy-which-key)
-(require 'arsyhiy-rainbow-delimiters)
-(require 'arsyhiy-flycheck)
-(require 'arsyhiy-tree-sitter)
-(require 'arsyhiy-python)
-(require 'arsyhiy-cc-mode)
-(require 'arsyhiy-go-mode)
-(require 'arsyhiy-lsp-mode)
-(require 'arsyhiy-org-mode)
-(require 'arsyhiy-projectile)
-(require 'arsyhiy-modeline)
-(require 'arsyhiy-magit)
+(require 'arsyhiy-corfu)
 (require 'arsyhiy-diff-hl)
+(require 'arsyhiy-editing)
+(require 'arsyhiy-evil)
+(require 'arsyhiy-flycheck)
+(require 'arsyhiy-general)
+(require 'arsyhiy-gui)
+(require 'arsyhiy-magit)
+(require 'arsyhiy-modeline)
+(require 'arsyhiy-orderless)
+(require 'arsyhiy-performance)
+(require 'arsyhiy-projectile)
+(require 'arsyhiy-rainbow-delimiters)
+(require 'arsyhiy-tree-sitter)
 (require 'arsyhiy-treemacs)
+(require 'arsyhiy-utils)
+(require 'arsyhiy-vertico)
+(require 'arsyhiy-which-key)
 
 ;; setup
-(require 'arsyhiy-interface)
+
 (require 'arsyhiy-dashboard)
-(require 'arsyhiy-nerd-icons)
 (require 'arsyhiy-fonts)
-(require 'arsyhiy-good-defaults)
-(require 'arsyhiy-general)
-(require 'arsyhiy-corfu)
-
-
-
-
-
+(require 'arsyhiy-nerd-icons)
 
 ;;theme
-(require 'arsyhiy-theme)
 
+(require 'arsyhiy-themes)
+
+;; modes
+
+(require 'arsyhiy-cc)
+(require 'arsyhiy-go)
+(require 'arsyhiy-lsp)
+(require 'arsyhiy-org)
+(require 'arsyhiy-minimodes)
+(require 'arsyhiy-python)
+
+;; preferences
+
+(require 'arsyhiy-bars)
+(require 'arsyhiy-bell)
+(require 'arsyhiy-scratch)

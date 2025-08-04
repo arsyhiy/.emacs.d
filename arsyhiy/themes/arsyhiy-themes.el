@@ -9,4 +9,4 @@
   )
 
 (load-theme 'almost-mono-gray t)
-(provide 'arsyhiy-theme)
+(provide 'arsyhiy-themes)
