@@ -1,3 +1,5 @@
+;; -*- coding: utf-8; lexical-binding: t -*-
+
 ;; use-package (require 'use-package-ensure) ;; Load use-package-always-ensure (setq use-package-always-ensure t) ;; Always ensures that a package is installed
 (setq package-archives '(("melpa" . "https://melpa.org/packages/") ;; Sets default package repositories
                          ("org" . "https://orgmode.org/elpa/")
