@@ -10,8 +10,6 @@
 
 ;; Features
 
-(require 'arsyhiy-consult)
-(require 'arsyhiy-corfu)
 (require 'arsyhiy-diff-hl)
 (require 'arsyhiy-editing)
 (require 'arsyhiy-evil)
@@ -27,9 +25,8 @@
 (require 'arsyhiy-tree-sitter)
 (require 'arsyhiy-treemacs)
 (require 'arsyhiy-utils)
-(require 'arsyhiy-vertico)
 (require 'arsyhiy-which-key)
-
+(require 'arsyhiy-completion)
 ;; setup
 
 (require 'arsyhiy-dashboard)
