@@ -1,6 +1,18 @@
-;;; arsyhiy-cc.el --- mode for c/c++ -*- coding: utf-8; lexical-binding: t -*-
+;;; arsyhiy-cc.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
-;; NOTE: rewrite this entire file
+;; copyright (c) 2025
+;; version: 1.0
+;; packages-requires: ((emacs "30"))
+;; keywords: no keywords
+
+;; commentary:
+
+;; no comment
+
+;; code 
+;;; note: rewrie cc config in more right way
+
+;; packages
 
 (use-package cc-mode
   :ensure nil

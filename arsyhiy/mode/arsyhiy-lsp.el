@@ -1,7 +1,18 @@
-;;; arsyhiy-lsp.el --- lsp system for emacs -*- coding: utf-8; lexical-binding: t -*-
+;;; arsyhiy-lsp.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
+;; Copyright (C) 2025
+;; Version: 1.0
+;; packages-Requires: ((emacs "30"))
+;; Keywords: no keywords
 
-;;; NOTE: rewrite this entire file
+;; Commentary:
+
+;; no comment
+
+;; Code 
+;;; NOTE: rewrie lsp config in more right way
+
+;; packages
 
 (require 'package)
   (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)

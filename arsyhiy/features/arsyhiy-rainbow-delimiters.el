@@ -1,4 +1,18 @@
-;; -*- coding: utf-8; lexical-binding: t -*-
+;;; arsyhiy-rainbow-delimiters.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+
+;; Copyright (C) 2025
+;; Version: 1.0
+;; packages-Requires: ((emacs "30"))
+;; Keywords: no keywords
+
+;; Commentary:
+
+;; no comment
+
+;; Code 
+;;; NOTE: rewrie rainbow-delimiters config in more right way
+
+;; packages
 
 (use-package rainbow-delimiters
 	:ensure t

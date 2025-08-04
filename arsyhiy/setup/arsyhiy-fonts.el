@@ -1,3 +1,17 @@
+;;; arsyhiy-fonts.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+
+;; Copyright (C) 2025
+;; Version: 1.0
+;; packages-Requires: ((emacs "30"))
+;; Keywords: no keywords
+
+;; Commentary:
+
+;; no comment
+
+;; Code 
+;;; NOTE: rewrie fonts config in more right way
+
 (set-face-attribute 'default nil
   :font "JetBrainsMonoNL NF-12.0" ;; Set your favorite type of font or download JetBrains Mono
   :height 180

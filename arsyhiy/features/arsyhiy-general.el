@@ -1,4 +1,19 @@
-;;-*- coding: utf-8; lexical-binding: t -*-
+;;; arsyhiy-general.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+
+;; Copyright (C) 2025
+;; Version: 1.0
+;; packages-Requires: ((emacs "30"))
+;; Keywords: no keywords
+
+;; Commentary:
+
+;; no comment
+
+;; Code 
+;;; NOTE: rewrie general config in more right way
+
+;; packages
+
 (use-package general
 	:defer t
 	:ensure t

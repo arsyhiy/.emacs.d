@@ -1,7 +1,16 @@
+;;; arsyhiy-gui.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
+;; Copyright (C) 2025
+;; Version: 1.0
+;; packages-Requires: ((emacs "30"))
+;; Keywords: no keywords
 
+;; Commentary:
 
+;; no comment
 
+;; Code 
+;;; NOTE: rewrie gui config in more right way
 
 (defun arsyhiy-configure-gui()
   (setq show-help-function nil)    ; No help text

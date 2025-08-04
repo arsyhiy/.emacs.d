@@ -1,10 +1,16 @@
-;;; arshiy-scratch.el --- Scratch buffer preferences configuration -*- coding: utf-8; lexical-binding: t -*-
+;;; arsyhiy-scratch.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
-;;; Commentary:
+;; copyright (c) 2025
+;; version: 1.0
+;; packages-requires: ((emacs "30"))
+;; keywords: no keywords
 
-;; Configuration for scratch buffer preferences.
+;; commentary:
 
-;;; Code:
+;; no comment
+
+;; code 
+;;; note: rewrie scratch config in more right way
 
 (setq initial-major-mode 'emacs-lisp-mode)
 

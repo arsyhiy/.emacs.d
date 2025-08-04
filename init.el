@@ -54,3 +54,4 @@
 (require 'arsyhiy-bars)
 (require 'arsyhiy-bell)
 (require 'arsyhiy-scratch)
+(require 'arsyhiy-files)

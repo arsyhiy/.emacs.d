@@ -5,7 +5,6 @@
 ;; packages-Requires: ((emacs "30"))
 ;; Keywords: convience, vim motions
 
-
 ;; Commentary:
 
 ;; I vim motions fun. even i know emacs motions i more prefer vim motions

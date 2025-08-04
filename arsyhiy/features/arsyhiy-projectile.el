@@ -1,5 +1,18 @@
+;;; arsyhiy-projectile.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
-;; -*- coding: utf-8; lexical-binding: t -*-
+;; Copyright (C) 2025
+;; Version: 1.0
+;; packages-Requires: ((emacs "30"))
+;; Keywords: no keywords
+
+;; Commentary:
+
+;; no comment
+
+;; Code 
+;;; NOTE: rewrie projectile config in more right way
+
+;; packages
 
 (use-package projectile
 	:ensure t

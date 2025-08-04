@@ -1,4 +1,16 @@
-;; -*- coding: utf-8; lexical-binding: t -*-
+;;; arsyhiy-performance.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+
+;; Copyright (C) 2025
+;; Version: 1.0
+;; packages-Requires: ((emacs "30"))
+;; Keywords: no keywords
+
+;; Commentary:
+
+;; no comment
+
+;; Code 
+;;; NOTE: rewrie performance config in more right way
 
   ;; https://emacs-lsp.github.io/lsp-mode/page/performance/
   (setq gc-cons-threshold 100000000

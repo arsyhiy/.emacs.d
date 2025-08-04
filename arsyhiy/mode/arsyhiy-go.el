@@ -1,7 +1,18 @@
-;;; arsyhiy-go.el --- mode for golang -*- coding: utf-8; lexical-binding: t -*-
+;;; arsyhiy-go.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
+;; Copyright (C) 2025
+;; Version: 1.0
+;; packages-Requires: ((emacs "30"))
+;; Keywords: no keywords
 
-;; rewrite this entiry file
+;; Commentary:
+
+;; no comment
+
+;; Code 
+;;; NOTE: rewrie go config in more right way
+
+;; packages
 
   (use-package go-mode
     :ensure t

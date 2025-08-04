@@ -1,10 +1,16 @@
-;;; arsyhiy-bars.el --- Menu bar preferences configuration -*- coding: utf-8; lexical-binding: t -*-
+;;; arsyhiy-bars.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
-;;; Commentary:
+;; Copyright (C) 2025
+;; Version: 1.0
+;; packages-Requires: ((emacs "30"))
+;; Keywords: no keywords
 
-;; Configuration for menu bar preferences.
+;; Commentary:
 
-;;; Code:
+;; no comment
+
+;; Code 
+;;; NOTE: rewrie bars config in more right way
 
 (menu-bar-mode -1) 
 
