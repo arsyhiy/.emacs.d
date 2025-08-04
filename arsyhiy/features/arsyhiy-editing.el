@@ -13,7 +13,6 @@
 ;;; NOTE: rewrie editing config in more right way
 
 (defun arsyhiy-edit ()
-	(setq tab-width 2)
 )
 
 (defun remove-dos-eol ()
