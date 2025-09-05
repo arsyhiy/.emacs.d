@@ -15,6 +15,7 @@
 ;; packages
 
   (use-package go-mode
+    :straight t
     :ensure t
 		:defer t
     :hook ((go-mode . lsp-deferred)

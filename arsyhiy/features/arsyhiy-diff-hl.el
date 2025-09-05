@@ -15,6 +15,7 @@
 ;; packages
 
 (use-package diff-hl
+    :straight t
 	:ensure t
 	:defer t
   :hook ((dired-mode         . diff-hl-dired-mode-unless-remote)

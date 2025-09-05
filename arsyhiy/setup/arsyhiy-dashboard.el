@@ -15,7 +15,7 @@
 ;; packages
 
 (use-package dashboard
-  :straight
+  :straight t
 	:ensure t
 	:defer t 
   :demand t

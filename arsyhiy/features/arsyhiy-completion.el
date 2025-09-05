@@ -15,6 +15,7 @@
 ;; packages
 
 (use-package corfu
+  :straight t
 	:ensure t
 	:defer t
   ;; Optional customizations
@@ -43,6 +44,7 @@
   (global-corfu-mode))
 
   (use-package nerd-icons-corfu
+  :straight t
 		:ensure t
 		:defer t 
     :after corfu
@@ -51,6 +53,7 @@
 
 
 (use-package vertico
+  :straight t
 	:ensure t
 	:defer t 
   :init
@@ -59,6 +62,9 @@
   (savehist-mode) ;; Enables save history mode
 
   (use-package marginalia
+
+    :straight t
+  
 		:ensure t 
 		:defer t
     :after vertico
@@ -66,6 +72,7 @@
     (marginalia-mode))
 
   (use-package nerd-icons-completion
+    :straight t
 		:defer t
 		:ensure t
     :after marginalia
@@ -76,6 +83,8 @@
 
 
 (use-package consult
+
+    :straight t
 	:ensure t
 	:defer t
   ;; Enable automatic preview at point in the *Completions* buffer. This is

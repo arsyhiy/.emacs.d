@@ -15,12 +15,14 @@
 ;; packages
 
 (use-package elpy
+    :straight t
 	:defer t
   :ensure t
   :init
   (elpy-enable))
 
 (use-package pyvenv
+  :straight t
 	:defer t
 	:ensure t
 )

@@ -13,6 +13,7 @@
 ;;; NOTE: rewrie magit  config in more right way
 
 (use-package magit
+    :straight t
 	:ensure t
 	:defer t
   :commands magit-status)

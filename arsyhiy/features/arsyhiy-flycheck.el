@@ -15,6 +15,7 @@
 ;; packages
 
 (use-package flycheck
+    :straight t
  :ensure t
  :defer t
  :init (global-flycheck-mode)

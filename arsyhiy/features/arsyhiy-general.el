@@ -15,6 +15,7 @@
 ;; packages
 
 (use-package general
+    :straight t
 	:defer t
 	:ensure t
   :config

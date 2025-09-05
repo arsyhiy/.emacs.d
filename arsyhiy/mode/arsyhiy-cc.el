@@ -15,6 +15,7 @@
 ;; packages
 
 (use-package cc-mode
+    :straight t
   :ensure nil
   :config
   ;;; Open a header file in C++ mode by default

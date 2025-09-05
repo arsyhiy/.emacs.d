@@ -15,6 +15,7 @@
 ;; packages
 
 (use-package which-key
+    :straight t
 	:ensure t
 	:defer t
   :init

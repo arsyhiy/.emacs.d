@@ -15,6 +15,7 @@
 ;; packages
 
 (use-package orderless
+    :straight t
 	:ensure t 
 	:defer t
   :custom

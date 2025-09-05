@@ -26,6 +26,7 @@
 
 
 (use-package emacs
+    :straight t
   :bind
   ("C-+" . text-scale-increase)
   ("C--" . text-scale-decrease)

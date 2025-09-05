@@ -15,6 +15,7 @@
 ;; packages
 
 (use-package projectile
+    :straight t
 	:ensure t
 	:defer t
   :init

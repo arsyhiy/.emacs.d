@@ -15,6 +15,7 @@
 ;; packages
 
 (use-package modus-themes
+    :straight t
   :ensure t
   :defer t)
 

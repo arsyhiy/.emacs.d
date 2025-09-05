@@ -15,6 +15,7 @@
 ;; packages
 
 (use-package rainbow-delimiters
+    :straight t
 	:ensure t
 	:defer t
   :hook (prog-mode . rainbow-delimiters-mode))

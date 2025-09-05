@@ -15,6 +15,7 @@
 ;; packages
 
 (use-package evil
+    :straight t
 	:ensure t
 	:defer t
   :init ;; Execute code Before a package is loaded
@@ -33,6 +34,7 @@
               ("TAB" . nil)))
 
 (use-package evil-collection
+  :straight t
 	:ensure t
 	:defer t
   :after evil
