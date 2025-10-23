@@ -40,7 +40,7 @@
 
 )
 
-(toggle-frame-fullscreen)  
+;;(toggle-frame-fullscreen)  
 (arsyhiy-configure-gui)
 
 (provide 'arsyhiy-gui)

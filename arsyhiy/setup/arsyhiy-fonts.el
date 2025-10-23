@@ -20,7 +20,7 @@
   ;; Does the same thing as 'set-face-attribute default' above, but emacsclient fonts
   ;; are not right unless I also add this method of setting the default font.
 
-  (add-to-list 'default-frame-alist '(font . "JetBrainsMonoNL NF-14.0")) ;; Set your favorite font
+  (add-to-list 'default-frame-alist '(font . "JetBrainsMonoNL NF-12.0")) ;; Set your favorite font
   (setq-default line-spacing 0.12)
 
 

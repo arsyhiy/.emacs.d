@@ -9,15 +9,18 @@
 
 ;; no comment
 
-;; Code 
+;; Code
+;;
+;
+;;
 ;;; NOTE: rewrie themes config in more right way
 
 ;; packages
 
-(use-package modus-themes
+(use-package gruvbox-theme 
     :straight t
   :ensure t
   :defer t)
 
-(load-theme 'modus-vivendi t)
+(load-theme 'gruvbox t)
 (provide 'arsyhiy-themes)
