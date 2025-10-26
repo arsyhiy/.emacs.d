@@ -21,6 +21,8 @@
   ('python-mode-hook 'lsp)
   ('js-mode-hook 'lsp)
   ('lsp-mode-hook #'lsp-enable-which-key-integration)
+  :custom
+  ( lsp-enable-on-type-formatting nil)
   )
 
 (use-package lsp-ui
