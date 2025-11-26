@@ -17,10 +17,10 @@
 
 ;; packages
 
-(use-package gruvbox-theme 
+(use-package ef-themes 
     :straight t
   :ensure t
   :defer t)
 
-(load-theme 'gruvbox t)
+(load-theme 'ef-maris-light t)
 (provide 'arsyhiy-themes)
