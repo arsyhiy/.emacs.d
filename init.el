@@ -45,7 +45,7 @@
 (require 'arsyhiy-org)
 (require 'arsyhiy-minimodes)
 (require 'arsyhiy-python)
-
+(require 'arsyhiy-godot)
 ;; preferences
 
 (require 'arsyhiy-bars)

@@ -23,4 +23,9 @@
   :defer t)
 
 (load-theme 'ef-maris-light t)
+
+;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+;(load-theme 'colormate t)
+
+
 (provide 'arsyhiy-themes)
