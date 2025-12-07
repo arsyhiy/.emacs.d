@@ -7,23 +7,22 @@
 
 ;; Commentary:
 
+
 ;; no comment
 
 ;; Code 
 
 (use-package lsp-mode
   :straight t
-  
-  :hook
-  ('c-mode-hook 'lsp)
-  ('c++-mode-hook 'lsp)
-  ('golang-mode-hook 'lsp)
-  ('python-mode-hook 'lsp)
-  ('js-mode-hook 'lsp)
-  ('lsp-mode-hook #'lsp-enable-which-key-integration)
+  :commands lsp lsp-deferred
+  :hook ((c-mode          . lsp-deferred)
+         (c++-mode        . lsp-deferred)
+         (go-mode         . lsp-deferred)
+         (python-mode     . lsp-deferred)
+         (js-mode         . lsp-deferred)
+         (lsp-mode        . lsp-enable-which-key-integration))
   :custom
-  ( lsp-enable-on-type-formatting nil)
-  )
+  (lsp-enable-on-type-formatting nil))
 
 (use-package lsp-ui
   :straight t
