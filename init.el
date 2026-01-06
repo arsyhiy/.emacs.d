@@ -27,6 +27,7 @@
 (require 'arsyhiy-utils)
 (require 'arsyhiy-which-key)
 (require 'arsyhiy-completion)
+
 ;; setup
 
 (require 'arsyhiy-dashboard)
@@ -52,3 +53,18 @@
 (require 'arsyhiy-bell)
 (require 'arsyhiy-scratch)
 (require 'arsyhiy-files)
+
+
+
+
+
+
+
+
+
+
+
+(global-set-key (kbd "C-x t")
+                (lambda ()
+                  (interactive)
+                  (start-process "gnome-terminal" nil "gnome-terminal" "--working-directory" default-directory)))
