@@ -1,32 +1,11 @@
-;;; arsyhiy-editing.el  ---  -*- coding: utf-8; lexical-binding: t -*-
-
-;; Copyright (C) 2025
-;; Version: 1.0
-;; packages-Requires: ((emacs "30"))
-;; Keywords: no keywords
-
-;; Commentary:
-
-;; no comment
-
-;; Code 
-;;; NOTE: rewrie flycheck config in more right way
-
-;; packages
+;;; arsyhiy-flycheck.el --- Flycheck configuration -*- lexical-binding: t; -*-
 
 (use-package flycheck
- :straight t
- :ensure t
- :custom
- (flycheck-check-syntax-automatically '(save mode-enabled))
- :defer t
- :init (global-flycheck-mode)
-(add-hook 'after-init-hook #'global-flycheck-mode)
-:hook (go-mode . flycheck-mode))
-
-
-
+  :straight t
+  :custom
+  (flycheck-check-syntax-automatically '(save mode-enabled))
+  :hook
+  (after-init . global-flycheck-mode))
 
 (provide 'arsyhiy-flycheck)
-
 ;;; arsyhiy-flycheck.el ends here
