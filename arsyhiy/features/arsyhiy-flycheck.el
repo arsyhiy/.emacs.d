@@ -15,8 +15,10 @@
 ;; packages
 
 (use-package flycheck
-    :straight t
+ :straight t
  :ensure t
+ :custom
+ (flycheck-check-syntax-automatically '(save mode-enabled))
  :defer t
  :init (global-flycheck-mode)
 (add-hook 'after-init-hook #'global-flycheck-mode)
