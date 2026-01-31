@@ -9,7 +9,7 @@
 
 ;; no comment
 
-;; Code 
+;;; Code:
 ;;; NOTE: rewrie tree-sitter config in more right way
 
 (straight-use-package 'tree-sitter)

@@ -5,11 +5,11 @@
 ;; packages-Requires: ((emacs "30"))
 ;; Keywords: no keywords
 
-;; Commentary:
+;;; Commentary:
 
-;; no comment
+;;; no comment
 
-;; Code 
+;;; Code:
 ;;; NOTE: rewrie performance config in more right way
 
   ;; https://emacs-lsp.github.io/lsp-mode/page/performance/

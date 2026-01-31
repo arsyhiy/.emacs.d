@@ -5,11 +5,11 @@
 ;; packages-Requires: ((emacs "30"))
 ;; Keywords: no keywords
 
-;; Commentary:
+;;; Commentary:
 
 ;; no comment
 
-;; Code 
+;;; Code:
 ;;; NOTE: rewrie treemacs config in more right way
 
 ;; packages
