@@ -5,12 +5,12 @@
 ;; packages-Requires: ((emacs "30"))
 ;; Keywords: no keywords
 
-;; Commentary:
+;;; Commentary:
 
 
 ;; no comment
 
-;; Code 
+;;; Code:
 
 (use-package lsp-mode
   :straight t
@@ -18,7 +18,7 @@
   :hook ((c-mode          . lsp-deferred)
          (c++-mode        . lsp-deferred)
          (go-mode         . lsp-deferred)
-         (python-mode     . lsp-deferred)
+         (elpy-mode     . lsp-deferred)
          (js-mode         . lsp-deferred)
          (lsp-mode        . lsp-enable-which-key-integration))
   :custom

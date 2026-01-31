@@ -5,11 +5,11 @@
 ;; packages-Requires: ((emacs "30"))
 ;; Keywords: no keywords
 
-;; Commentary:
+;;; Commentary:
 
 ;; no comment
 
-;; Code 
+;;; Code
 ;;; NOTE: rewrie minimodes config in more right way
 
 (defun arsyhiy-minimodes()
