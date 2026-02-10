@@ -1,51 +1,52 @@
 ;; -*- coding: utf-8; lexical-binding: t -*-
 
+
 ;; Paths & packages
 
-(add-to-list 'load-path "~/.emacs.d/arsyhiy/features/")
-(add-to-list 'load-path "~/.emacs.d/arsyhiy/preferences/")
-(add-to-list 'load-path "~/.emacs.d/arsyhiy/setup/")
-(add-to-list 'load-path "~/.emacs.d/arsyhiy/themes/")
-(add-to-list 'load-path "~/.emacs.d/arsyhiy/mode/")
+(add-to-list 'load-path "~/.emacs.d/lisp/features/")
+(add-to-list 'load-path "~/.emacs.d/lisp/preferences/")
+(add-to-list 'load-path "~/.emacs.d/lisp/setup/")
+(add-to-list 'load-path "~/.emacs.d/lisp/themes/")
+(add-to-list 'load-path "~/.emacs.d/lisp/mode/")
 
 ;; Features
 
-(require 'arsyhiy-diff-hl)
-(require 'arsyhiy-editing)
-(require 'arsyhiy-evil)
-(require 'arsyhiy-flycheck)
-(require 'arsyhiy-general)
+;;(require 'arsyhiy-diff-hl)
+;;(require 'arsyhiy-editing)
+;;(require 'arsyhiy-evil)
+;;(require 'arsyhiy-flycheck)
+;;(require 'arsyhiy-general)
 (require 'arsyhiy-gui)
 (require 'arsyhiy-magit)
-(require 'arsyhiy-modeline)
-(require 'arsyhiy-orderless)
+;;(require 'arsyhiy-modeline)
+;;(require 'arsyhiy-orderless)
 (require 'arsyhiy-performance)
-(require 'arsyhiy-projectile)
-(require 'arsyhiy-rainbow-delimiters)
-(require 'arsyhiy-tree-sitter)
-(require 'arsyhiy-treemacs)
+;;(require 'arsyhiy-projectile)
+;;(require 'arsyhiy-rainbow-delimiters)
+;;(require 'arsyhiy-tree-sitter)
+;;(require 'arsyhiy-treemacs)
 (require 'arsyhiy-utils)
-(require 'arsyhiy-which-key)
+;;(require 'arsyhiy-which-key)
 (require 'arsyhiy-completion)
 
 ;; setup
 
 (require 'arsyhiy-dashboard)
 (require 'arsyhiy-fonts)
-(require 'arsyhiy-nerd-icons)
+;;(require 'arsyhiy-nerd-icons)
 
 ;;theme
 
-(require 'arsyhiy-themes)
+;;(require 'arsyhiy-themes)
 
 ;; modes
 
-(require 'arsyhiy-cc)
-(require 'arsyhiy-go)
+;;(require 'arsyhiy-cc)
+;;(require 'arsyhiy-go)
 (require 'arsyhiy-lsp)
-(require 'arsyhiy-org)
-(require 'arsyhiy-minimodes)
-(require 'arsyhiy-python)
+;;(require 'arsyhiy-org)
+;;(require 'arsyhiy-minimodes)
+;;(require 'arsyhiy-python)
 ;;(require 'arsyhiy-dap)
 ;; preferences
 
@@ -55,16 +56,8 @@
 (require 'arsyhiy-files)
 
 
-
-
-
-
-
-
-
-
-
 (global-set-key (kbd "C-x t")
                 (lambda ()
                   (interactive)
                   (start-process "gnome-terminal" nil "gnome-terminal" "--working-directory" default-directory)))
+
