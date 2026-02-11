@@ -9,17 +9,16 @@
 
 ;; no comment
 
+
 ;; Code
-;;
-;
-;;
-;;; NOTE: rewrie themes config in more right way
+
+;; NOTE: rewrie themes config in more right way
 
 ;; packages
 
-(use-package doom-themes
+(use-package ef-themes
   :straight t
-  :config (load-theme 'doom-one t))
+  :config (load-theme 'ef-cyprus t))
 ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 ;;(load-theme 'colormate t)
 

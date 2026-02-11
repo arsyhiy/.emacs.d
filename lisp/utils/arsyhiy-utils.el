@@ -20,9 +20,11 @@
 
 
 
-
-
-
+														 
+(global-set-key (kbd "C-x t")											 
+                (lambda ()											 
+                  (interactive)											 
+                  (start-process "gnome-terminal" nil "gnome-terminal" "--working-directory" default-directory)))
 
 
 (use-package emacs

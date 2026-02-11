@@ -10,7 +10,6 @@
 ;; no comment
 
 ;; Code 
-;;; NOTE: rewrie dashboard config in more right way
 
 ;; packages
 
@@ -59,4 +58,3 @@
 
 (require 'dashboard)
 (provide 'arsyhiy-dashboard)
-

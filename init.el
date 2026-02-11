@@ -1,14 +1,14 @@
 ;; -*- coding: utf-8; lexical-binding: t -*-
 
-
 ;; Paths & packages
 
 (add-to-list 'load-path "~/.emacs.d/lisp/features/")
 (add-to-list 'load-path "~/.emacs.d/lisp/preferences/")
-(add-to-list 'load-path "~/.emacs.d/lisp/setup/")
-(add-to-list 'load-path "~/.emacs.d/lisp/themes/")
+(add-to-list 'load-path "~/.emacs.d/lisp/ui/appearance")
+(add-to-list 'load-path "~/.emacs.d/lisp/ui/themes/")
 (add-to-list 'load-path "~/.emacs.d/lisp/mode/")
-
+(add-to-list 'load-path "~/.emacs.d/lisp/settings")
+(add-to-list 'load-path "~/.emacs.d/lisp/utils")
 ;; Features
 
 ;;(require 'arsyhiy-diff-hl)
@@ -37,27 +37,20 @@
 
 ;;theme
 
-;;(require 'arsyhiy-themes)
+(require 'arsyhiy-themes)
 
 ;; modes
 
 ;;(require 'arsyhiy-cc)
 ;;(require 'arsyhiy-go)
 (require 'arsyhiy-lsp)
-;;(require 'arsyhiy-org)
+(require 'arsyhiy-org)
 ;;(require 'arsyhiy-minimodes)
 ;;(require 'arsyhiy-python)
 ;;(require 'arsyhiy-dap)
 ;; preferences
 
-(require 'arsyhiy-bars)
-(require 'arsyhiy-bell)
-(require 'arsyhiy-scratch)
-(require 'arsyhiy-files)
+;; settings
 
-
-(global-set-key (kbd "C-x t")
-                (lambda ()
-                  (interactive)
-                  (start-process "gnome-terminal" nil "gnome-terminal" "--working-directory" default-directory)))
+(require 'defaults)
 
