@@ -10,7 +10,7 @@
 ;; no comment
 
 ;; Code 
-;;; NOTE: rewrie gui config in more right way
+;; NOTE: rewrie gui config in more right way
 
 (defun arsyhiy-configure-gui()
   (setq show-help-function nil)    ; No help text
@@ -28,20 +28,19 @@
   (setq mouse-wheel-progressive-speed t) ;; Disable progressive speed when scrolling
   (setq scroll-conservatively 10) ;; Smooth scrolling
   ;;(setq scroll-margin 8)
-	(setq package-enable-at-startup nil
-    inhibit-startup-message   t
+  (setq package-enable-at-startup nil
+  inhibit-startup-message   t
   frame-resize-pixelwise    t        ;; fine resize
   package-native-compile    t)       ;; native compile packages
   (scroll-bar-mode -1)               ;; disable scrollbar
   (tool-bar-mode -1)                 ;; disable toolbar
   (tooltip-mode -1)                  ;; disable tooltips
   (set-fringe-mode 10)               ;; give some breathing room
-  (blink-cursor-mode 0)              ;; disable blinking cursor
-		      
-(menu-bar-mode -1)      
+  (blink-cursor-mode 0)              ;; disable blinking cursor		      
+  (menu-bar-mode -1)      
+  (toggle-frame-fullscreen)
 )
-
-(toggle-frame-fullscreen)  
+   
 (arsyhiy-configure-gui)
 
 (provide 'arsyhiy-gui)

@@ -44,6 +44,6 @@
 ;(add-hook 'after-make-frame-functions #'my/update-font-based-on-monitor)
 
 ;; Применяем для текущего фрейма при запуске
-;(my/update-font-based-on-monitor)
+;;(my/update-font-based-on-monitor)
 									      
 (provide 'arsyhiy-fonts)

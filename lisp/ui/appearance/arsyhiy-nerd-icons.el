@@ -16,21 +16,21 @@
 
 (use-package nerd-icons
     :straight t
-	:ensure t
-	:defer t
-  :if (display-graphic-p))
+    :ensure t
+    :defer t
+    :if (display-graphic-p))
 
 
 (use-package nerd-icons-dired
     :straight t
-	:ensure t
-	:defer t
-  :hook (dired-mode . (lambda () (nerd-icons-dired-mode t))))
+    :ensure t
+    :defer t
+    :hook (dired-mode . (lambda () (nerd-icons-dired-mode t))))
 
 (use-package nerd-icons-ibuffer
     :straight t
-	:ensure t 
-	:defer t
-  :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
+    :ensure t 
+    :defer t
+    :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 
 (provide 'arsyhiy-nerd-icons)

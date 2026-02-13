@@ -15,8 +15,8 @@
 
 (use-package dashboard
   :straight t
-	:ensure t
-	:defer t 
+  :ensure t
+  :defer t 
   :demand t
   :init
   (add-hook 'dashboard-mode-hook (lambda () (setq show-trailing-whitespace nil)))
@@ -30,9 +30,10 @@
                           ("Agenda for the coming week:" . "Agenda:")))
   (dashboard-item-shortcuts '((recents   . "r")
                               (bookmarks . "m")
-   				  (projects  . "p")
-   				  (agenda    . "a")
-    			  (registers . "e")))
+   			      (projects  . "p")
+   			      (agenda    . "a")
+    			      (registers . "e"))
+			    )
 
   (dashboard-startupify-list '(dashboard-insert-banner
                                dashboard-insert-newline
@@ -44,7 +45,7 @@
                                dashboard-insert-items
                                ;;dashboard-insert-newline
                                ;;dashboard-insert-footer
-    ))
+			       ))
 
   (dashboard-display-icons-p t)     ;; display icons on both GUI and terminal
   (dashboard-icon-type 'nerd-icons) ;; use `nerd-icons' package

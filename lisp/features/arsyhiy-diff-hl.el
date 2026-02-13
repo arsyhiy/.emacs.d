@@ -15,9 +15,9 @@
 ;; packages
 
 (use-package diff-hl
-    :straight t
-	:ensure t
-	:defer t
+  :straight t
+  :ensure t
+  :defer t
   :hook ((dired-mode         . diff-hl-dired-mode-unless-remote)
   (magit-pre-refresh  . diff-hl-magit-pre-refresh)
   (magit-post-refresh . diff-hl-magit-post-refresh))

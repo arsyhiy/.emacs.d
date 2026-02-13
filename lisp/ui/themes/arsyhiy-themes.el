@@ -9,10 +9,7 @@
 
 ;; no comment
 
-
 ;; Code
-
-;; NOTE: rewrie themes config in more right way
 
 ;; packages
 
@@ -21,6 +18,5 @@
   :config (load-theme 'ef-cyprus t))
 ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 ;;(load-theme 'colormate t)
-
 
 (provide 'arsyhiy-themes)

@@ -15,9 +15,9 @@
 ;; packages
 
 (use-package which-key
-    :straight t
-	:ensure t
-	:defer t
+  :straight t
+  :ensure t
+  :defer t
   :init
   (which-key-mode 1)
   :diminish
