@@ -1,4 +1,4 @@
-;;; arsyhiy-general.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;;; lisp-general.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -10,14 +10,13 @@
 ;; no comment
 
 ;; Code 
-;;; NOTE: rewrie general config in more right way
 
 ;; packages
 
 (use-package general
-    :straight t
-	:defer t
-	:ensure t
+  :straight t
+  :defer t
+  :ensure t
   :config
   (general-evil-setup)
   ;; Set up 'SPC' as the leader key
@@ -90,7 +89,5 @@
       "b" '(list-buffers :wk "open buffers")
       "k k" '(kill-buffer :wk "kill buffer"))
 
-
-(provide 'arsyhiy-general)
-
-;;; arsyhiy-general.el ends here
+(provide 'lisp-general)
+;;; lisp-general.el ends here

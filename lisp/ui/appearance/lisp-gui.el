@@ -1,4 +1,4 @@
-;;; arsyhiy-gui.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;;; lisp-gui.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -10,9 +10,8 @@
 ;; no comment
 
 ;; Code 
-;; NOTE: rewrie gui config in more right way
 
-(defun arsyhiy-configure-gui()
+(defun lisp-configure-gui()
   (setq show-help-function nil)    ; No help text
   (setq use-file-dialog nil)       ; No file dialog
   (setq use-dialog-box nil)        ; No dialog box
@@ -41,6 +40,7 @@
   (toggle-frame-fullscreen)
 )
    
-(arsyhiy-configure-gui)
+(lisp-configure-gui)
 
-(provide 'arsyhiy-gui)
+(provide 'lisp-gui)
+;;; lisp-gui.el ends here

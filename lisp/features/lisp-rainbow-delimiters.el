@@ -1,4 +1,4 @@
-;;; arsyhiy-rainbow-delimiters.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;;; lisp-rainbow-delimiters.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -10,7 +10,6 @@
 ;; no comment
 
 ;; Code 
-;;; NOTE: rewrie rainbow-delimiters config in more right way
 
 ;; packages
 
@@ -20,6 +19,5 @@
   :defer t
   :hook (prog-mode . rainbow-delimiters-mode))
 
-(provide 'arsyhiy-rainbow-delimiters)
-
-;;; arsyhiy-rainbow-delimiters.el ends here
+(provide 'lisp-rainbow-delimiters)
+;;; lisp-rainbow-delimiters.el ends here

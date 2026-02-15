@@ -1,4 +1,4 @@
-;;; arsyhiy-themes.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;;; lisp-themes.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -16,7 +16,6 @@
 (use-package ef-themes
   :straight t
   :config (load-theme 'ef-cyprus t))
-;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-;;(load-theme 'colormate t)
 
-(provide 'arsyhiy-themes)
+(provide 'lisp-themes)
+;;; lisp-themes.el ends here

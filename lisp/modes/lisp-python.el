@@ -1,4 +1,4 @@
-;;; arsyhiy-python.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;;; lisp-python.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -10,7 +10,6 @@
 ;; no comment
 
 ;; Code 
-;;; NOTE: rewrie python config in more right way
 
 ;; packages
 
@@ -26,6 +25,5 @@
 	:defer t
 	:ensure t
 )
-(provide 'arsyhiy-python)
-
-;;; arsyhiy-python.el ends here
+(provide 'lisp-python)
+;;; lisp-python.el ends here

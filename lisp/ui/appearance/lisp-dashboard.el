@@ -1,4 +1,4 @@
-;;; arsyhiy-dashboard.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;;; lisp-dashboard.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -58,4 +58,5 @@
   (dashboard-setup-startup-hook))
 
 (require 'dashboard)
-(provide 'arsyhiy-dashboard)
+(provide 'lisp-dashboard)
+;;; lisp-dashboard.el ends here

@@ -1,4 +1,4 @@
-;;; arsyhiy-completion.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;;; lisp-completion.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -10,7 +10,6 @@
 ;; no comment
 
 ;; Code 
-;;; NOTE: rewrie completion config in more right way
 
 ;; packages
 
@@ -56,7 +55,6 @@
   :defer t 
   :init
   (vertico-mode))
-
   (savehist-mode) ;; Enables save history mode
 
 (use-package marginalia
@@ -132,5 +130,5 @@
   ;; (setq consult-project-function nil)
 )
 
-(provide 'arsyhiy-completion)
-;;; arsyhiy-consult.el ends here
+(provide 'lisp-completion)
+;;; lisp-completion.el ends here

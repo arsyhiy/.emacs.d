@@ -1,4 +1,4 @@
-;;; arsyhiy-lsp.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;;; lisp-lsp.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -36,5 +36,5 @@
   (lsp-ui-sideline-show-code-actions t)
   (lsp-ui-sideline-update-mode t))
 
-(provide 'arsyhiy-lsp)
-;;; arsyhiy-lsp.el ends here
+(provide 'lisp-lsp)
+;;; lisp-lsp.el ends here

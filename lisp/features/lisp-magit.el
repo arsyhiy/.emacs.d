@@ -1,4 +1,4 @@
-;;; arsyhiy-magit.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;;; lisp-magit.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -10,7 +10,6 @@
 ;; no comment
 
 ;; Code 
-;;; NOTE: rewrie magit  config in more right way
 
 (use-package magit
   :straight t
@@ -18,5 +17,5 @@
   :defer t
   :commands magit-status)
 
-(provide 'arsyhiy-magit)
-;;; arsyhiy-magit.el ends here
+(provide 'lisp-magit)
+;;; lisp-magit.el ends here

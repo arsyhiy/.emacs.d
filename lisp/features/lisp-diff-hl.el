@@ -1,4 +1,4 @@
-;;; arsyhiy-diff-hl.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;;; lisp-diff-hl.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -10,7 +10,6 @@
 ;; no comment
 
 ;; Code 
-;;; NOTE: rewrie diff-hl config in more right way
 
 ;; packages
 
@@ -23,5 +22,5 @@
   (magit-post-refresh . diff-hl-magit-post-refresh))
   :init (global-diff-hl-mode))
 
-(provide 'arsyhiy-diff-hl)
-;;; arsyhiy-diff-hl.el ends here
+(provide 'lisp-diff-hl)
+;;; lisp-diff-hl.el ends here

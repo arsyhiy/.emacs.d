@@ -1,4 +1,4 @@
-;;; arsyhiy-editing.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;;; lisp-editing.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -10,9 +10,8 @@
 ;; no comment
 
 ;; Code 
-;;; NOTE: rewrie editing config in more right way
 
-(defun arsyhiy-edit ()
+(defun lisp-edit ()
 )
 
 (defun remove-dos-eol ()
@@ -21,14 +20,15 @@
   (setq buffer-display-table (make-display-table))
   (aset buffer-display-table ?\^M []))
 
-(defun arsyhiy-utf8 ()
+(defun lisp-utf8 ()
 	(set-default-coding-systems 'utf-8)
 	(set-language-environment "UTF-8")
 	(prefer-coding-system 'utf-8)
 	(set-terminal-coding-system 'utf-8)
 )
 
-(arsyhiy-utf8)
-(arsyhiy-edit)
+(lisp-utf8)
+(lisp-edit)
 
-(provide 'arsyhiy-editing)
+(provide 'lisp-editing)
+;;; lisp-editing.el ends here

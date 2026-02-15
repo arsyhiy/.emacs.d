@@ -1,4 +1,4 @@
-;;; arsyhiy-fonts.el  ---  -*- codifcng: utf-8; lexical-binding: t -*-
+;;; lisp-fonts.el  ---  -*- codifcng: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -10,7 +10,6 @@
 ;; no comment:
 
 ;; Code 
-;;; NOTE: rewrie fonts config in more right way
 
 (set-face-attribute 'default nil
   :font "JetBrainsMonoNL NF-15.0" ;; Set your favorite type of font or download JetBrains Mono
@@ -46,4 +45,5 @@
 ;; Применяем для текущего фрейма при запуске
 ;;(my/update-font-based-on-monitor)
 									      
-(provide 'arsyhiy-fonts)
+(provide 'lisp-fonts)
+;;; lisp-fonts.el ends here

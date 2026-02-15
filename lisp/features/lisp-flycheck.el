@@ -1,4 +1,18 @@
-;;; arsyhiy-flycheck.el --- Flycheck configuration -*- lexical-binding: t; -*-
+;;; lisp-flycheck.el --- Flycheck configuration -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2025
+;; Version: 1.0
+;; packages-Requires: ((emacs "30"))
+;; Keywords: no keywords
+
+;; Commentary:
+
+;; no comment
+
+;; Code 
+
+;; packages
+
 (use-package flycheck
   :straight t
   :custom
@@ -45,5 +59,5 @@
    ;; или другие варианты клавиш
    ))
 
-(provide 'arsyhiy-flycheck)
-;;; arsyhiy-flycheck.el ends here
+(provide 'lisp-flycheck)
+;;; lisp-flycheck.el ends here

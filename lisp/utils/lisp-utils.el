@@ -1,4 +1,4 @@
-;;; arsyhiy-utils.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;;; lisp-utils.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -10,9 +10,6 @@
 ;; no comment
 
 ;;; Code:
-;;; NOTE: rewrie utils config in more right way
-
-
 
 (defun open-config-file ()
   (interactive)
@@ -28,7 +25,7 @@
 
 
 (use-package emacs
-    :straight t
+  :straight t
   :bind
   ("C-+" . text-scale-increase)
   ("C--" . text-scale-decrease)
@@ -60,7 +57,5 @@
 ;           )
 
 
-
-(provide 'arsyhiy-utils)
-
-;;; arsyhiy-utils.el ends here
+(provide 'lisp-utils)
+;;; lisp-utils.el ends here

@@ -1,4 +1,4 @@
-;;; arsyhiy-cc.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;;; lisp-cc.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; copyright (c) 2025
 ;; version: 1.0
@@ -10,16 +10,15 @@
 ;; no comment
 
 ;; code 
-;;; note: rewrie cc config in more right way
 
 ;; packages
 
 (use-package cc-mode
-    :straight t
+  :straight t
   :ensure nil
   :config
-  ;;; Open a header file in C++ mode by default
+  ;; Open a header file in C++ mode by default
   (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode)))
 
-(provide 'arsyhiy-cc)
-;;; arsyhiy-cc.el ends here
+(provide 'lisp-cc)
+;;; lisp-cc.el ends here

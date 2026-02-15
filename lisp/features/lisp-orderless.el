@@ -1,4 +1,4 @@
-;;; arsyhiy-modeline.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;;; lisp-orderless.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -10,7 +10,6 @@
 ;; no comment
 
 ;; Code 
-;;; NOTE: rewrie orderless config in more right way
 
 ;; packages
 
@@ -22,5 +21,5 @@
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
-(provide 'arsyhiy-orderless)
-;;; arsyhiy-orderless.el ends here
+(provide 'lisp-orderless)
+;;; lisp-orderless.el ends here

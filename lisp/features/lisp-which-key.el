@@ -1,4 +1,4 @@
-;;; arsyhiy-which-key.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;;; lisp-which-key.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -10,7 +10,6 @@
 ;; no comment
 
 ;; Code 
-;;; NOTE: rewrie which-key config in more right way
 
 ;; packages
 
@@ -31,5 +30,5 @@
   (which-key-max-description-length 25)
   (which-key-allow-imprecise-window-fit nil)) ;; Fixes which-key window slipping out in Emacs Daemon
 
-(provide 'arsyhiy-which-key)
-;;; arsyhiy-which-key.el ends here
+(provide 'lisp-which-key)
+;;; lisp-which-key.el ends here

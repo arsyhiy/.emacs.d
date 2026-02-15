@@ -1,4 +1,4 @@
-;;; arsyhiy-performance.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;;; lisp-performance.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -10,7 +10,6 @@
 ;;; no comment
 
 ;;; Code:
-;;; NOTE: rewrie performance config in more right way
 
   ;; https://emacs-lsp.github.io/lsp-mode/page/performance/
   (setq gc-cons-threshold 100000000
@@ -29,6 +28,6 @@
   ;; do not steal focus while doing async compilations
   (setq warning-suppress-types '((comp)))
 
-(provide 'arsyhiy-performance)
+(provide 'lisp-performance)
 
-;;; arsyhiy-performance.el ends here
+;;; lisp-performance.el ends here

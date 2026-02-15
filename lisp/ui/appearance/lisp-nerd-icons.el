@@ -1,4 +1,4 @@
-;;; arsyhiy-nerd-icons.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;;; lisp-nerd-icons.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -10,7 +10,6 @@
 ;; no comment
 
 ;; Code 
-;;; NOTE: rewrie nerd-icons config in more right way
 
 ;; packages
 
@@ -33,4 +32,5 @@
     :defer t
     :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 
-(provide 'arsyhiy-nerd-icons)
+(provide 'lisp-nerd-icons)
+;;; lisp-nerd-icons.el ends here

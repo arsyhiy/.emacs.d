@@ -1,4 +1,4 @@
-;;; arsyhiy-org.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;;; lisp-org.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -10,14 +10,13 @@
 ;; no comment
 
 ;; Code 
-;;; NOTE: rewrie org config in more right way
 
 ;; packages
 
 (use-package org
-    :straight t
+  :straight t
   :ensure t
-	:defer t
+  :defer t
   :custom
   (org-edit-src-content-indentation 2) ;; Set src block automatic indent to 4 instead of 2.
 
@@ -46,7 +45,5 @@
   :after org
   :hook (org-mode . org-superstar-mode))
 
-
-(provide 'arsyhiy-org)
-
-;;; arsyhiy-org-mode.el ends here
+(provide 'lisp-org)
+;;; lisp-org-mode.el ends here

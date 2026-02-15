@@ -16,8 +16,6 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
-
-
 (defun load-env-from-zsh ()
   "Импортирует переменные окружения из интерактивной Zsh-сессии."
   (interactive)
