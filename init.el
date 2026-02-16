@@ -17,7 +17,7 @@
 
 ;; settings
 
-(require 'defaults)
+(require 'lisp-defaults)
 (require 'lisp-performance)
 
 ;; utils
