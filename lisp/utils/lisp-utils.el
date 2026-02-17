@@ -57,5 +57,24 @@
 ;           )
 
 
+
+
+
+
+;; Функция для перехода к определению по Ctrl+Click
+(defun my/lsp-go-to-definition-mouse (event)
+  "Go to definition at mouse click position."
+  (interactive "e")
+  (let* ((posn (event-start event))
+         (buf (window-buffer (posn-window posn)))
+         (pos (posn-point posn)))
+    (with-current-buffer buf
+      (goto-char pos)
+      (lsp-find-definition))))
+
+;; Привязываем Ctrl+LeftMouse
+(global-set-key (kbd "<C-mouse-1>") 'my/lsp-go-to-definition-mouse)
+
+
 (provide 'lisp-utils)
 ;;; lisp-utils.el ends here

@@ -20,10 +20,14 @@
   :init
   (elpy-enable))
 
+
 (use-package pyvenv
   :straight t
-	:defer t
-	:ensure t
-)
+  :defer t
+  :ensure t
+  :config
+  ;; Автоактивация виртуального окружения, если есть .venv в проекте
+  (pyvenv-mode 1))
+
 (provide 'lisp-python)
 ;;; lisp-python.el ends here
