@@ -19,7 +19,7 @@
          (c++-mode        . lsp-deferred)
          (go-mode         . lsp-deferred)
          (elpy-mode     . lsp-deferred)
-         (js-mode         . lsp-deferred)
+         (js-mode         . lsp-deferred)  
          (lsp-mode        . lsp-enable-which-key-integration))
   :custom
   (lsp-enable-on-type-formatting nil))
