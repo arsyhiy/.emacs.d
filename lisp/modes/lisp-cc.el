@@ -14,6 +14,7 @@
 ;; packages
 
 (use-package cc-mode
+  :defer t
   :straight t
   :ensure nil
   :config

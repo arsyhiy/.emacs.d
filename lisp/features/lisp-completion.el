@@ -14,6 +14,7 @@
 ;; packages
 
 (use-package corfu
+  :defer t
   :straight t
   :ensure t
   :defer t
@@ -43,6 +44,7 @@
   (global-corfu-mode))
 
 (use-package nerd-icons-corfu
+  :defer t 
   :straight t
   :ensure t
   :defer t 
@@ -50,6 +52,7 @@
   :init (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 
 (use-package vertico
+  :defer t 
   :straight t
   :ensure t
   :defer t 
@@ -58,6 +61,7 @@
   (savehist-mode) ;; Enables save history mode
 
 (use-package marginalia
+  :defer t 
   :straight t
   :ensure t 
   :defer t
@@ -66,6 +70,7 @@
   (marginalia-mode))
 
 (use-package nerd-icons-completion
+  :defer t
   :straight t
   :defer t
   :ensure t
@@ -76,6 +81,7 @@
   ('marginalia-mode-hook . 'nerd-icons-completion-marginalia-setup))
 
 (use-package consult
+  :defer t 
   :straight t
   :ensure t
   :defer t

@@ -12,6 +12,7 @@
 ;; Code 
 
 (use-package magit
+  :defer t 
   :straight t
   :ensure t
   :defer t

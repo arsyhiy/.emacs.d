@@ -14,6 +14,7 @@
 ;; packages
 
 (use-package rainbow-delimiters
+  :defer t 
   :straight t
   :ensure t
   :defer t

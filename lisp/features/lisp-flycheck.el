@@ -15,6 +15,7 @@
 
 
 (use-package flycheck
+  :defer t
   :straight t
   :custom
   (flycheck-check-syntax-automatically '(save mode-enabled))

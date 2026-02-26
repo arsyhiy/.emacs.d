@@ -14,6 +14,7 @@
 ;; packages
 
 (use-package diff-hl
+  :defer t 
   :straight t
   :ensure t
   :defer t

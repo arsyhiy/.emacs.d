@@ -14,6 +14,7 @@
 ;; packages
 
 (use-package general
+  :defer t
   :straight t
   :defer t
   :ensure t

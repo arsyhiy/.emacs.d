@@ -14,6 +14,7 @@
 ;; packages
 
 (use-package org
+  :defer t 
   :straight t
   :ensure t
   :defer t
@@ -32,6 +33,7 @@
 
 
 (use-package toc-org
+  :defer t 
   :straight t 
   :defer t
   :ensure t
@@ -39,6 +41,7 @@
   :hook (org-mode . toc-org-mode))
 
 (use-package org-superstar
+  :defer t 
   :straight t
   :defer t
   :ensure t

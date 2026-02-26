@@ -14,6 +14,7 @@
 ;; packages
 
   (use-package go-mode
+    :defer 
     :straight t
     :ensure t
 	:defer t

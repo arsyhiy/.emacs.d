@@ -13,7 +13,7 @@
 ;;; Code:
 
 (use-package lsp-mode
-  :straight t
+  :straight  t
   :commands lsp lsp-deferred
   :hook ((c-mode          . lsp-deferred)
          (c++-mode        . lsp-deferred)
@@ -22,6 +22,7 @@
          (js-mode         . lsp-deferred)  
          (lsp-mode        . lsp-enable-which-key-integration))
   :custom
+  (straight-vc-git-default-clone-depth nil)
   (lsp-enable-on-type-formatting nil))
 
 (use-package lsp-ui

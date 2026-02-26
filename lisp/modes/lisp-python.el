@@ -14,6 +14,7 @@
 ;; packages
 
 (use-package elpy
+  :defer t 
     :straight t
 	:defer t
   :ensure t
@@ -22,6 +23,7 @@
 
 
 (use-package pyvenv
+  :defer t 
   :straight t
   :defer t
   :ensure t
