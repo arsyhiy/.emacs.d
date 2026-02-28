@@ -13,13 +13,13 @@
 
 ;; packages
 
-(use-package elpy
-  :defer t 
-    :straight t
-	:defer t
-  :ensure t
-  :init
-  (elpy-enable))
+;;(use-package elpy
+;;  :defer t 
+;;    :straight t
+;;	:defer t
+;;  :ensure t
+;;  :init
+;;  (elpy-enable))
 
 
 (use-package pyvenv
