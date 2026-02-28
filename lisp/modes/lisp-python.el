@@ -13,13 +13,14 @@
 
 ;; packages
 
-;;(use-package elpy
-;;  :defer t 
-;;    :straight t
-;;	:defer t
-;;  :ensure t
-;;  :init
-;;  (elpy-enable))
+(use-package python
+  :ensure nil
+  :mode ("\\.py\\'" . python-ts-mode)
+  :hook (python-ts-mode . eglot-ensure)
+  :config
+  ;; Remap старого python-mode
+  (add-to-list 'major-mode-remap-alist
+               '(python-mode . python-ts-mode)))
 
 
 (use-package pyvenv

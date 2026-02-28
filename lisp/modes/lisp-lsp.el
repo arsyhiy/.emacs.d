@@ -18,6 +18,8 @@
   :hook ((python-mode . eglot-ensure)
          (typescript-mode . eglot-ensure)
          (js-mode . eglot-ensure)
+         (c-ts-mode . eglot-ensure)
+         (c++-ts-mode . eglot-ensure)
          (go-mode . eglot-ensure)
          (rust-mode . eglot-ensure))
   :config
@@ -44,5 +46,6 @@
   :after (sideline flymake)
   :config
   (setq sideline-backends-right '(sideline-flymake)))
+
 (provide 'lisp-lsp)
 ;;; lisp-lsp.el ends here

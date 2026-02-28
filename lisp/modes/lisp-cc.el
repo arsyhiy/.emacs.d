@@ -13,13 +13,14 @@
 
 ;; packages
 
-(use-package cc-mode
-  :defer t
-  :straight t
+(use-package c-ts-mode
   :ensure nil
-  :config
-  ;; Open a header file in C++ mode by default
-  (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode)))
+  :hook ((c-ts-mode . eglot-ensure)
+         (c++-ts-mode . eglot-ensure)))
+
+(setq major-mode-remap-alist
+      '((c-mode . c-ts-mode)
+        (c++-mode . c++-ts-mode)))
 
 (provide 'lisp-cc)
 ;;; lisp-cc.el ends here
