@@ -15,8 +15,11 @@
 
 (use-package c-ts-mode
   :ensure nil
-  :hook ((c-ts-mode . eglot-ensure)
-         (c++-ts-mode . eglot-ensure)))
+  :hook (c-ts-mode . eglot-ensure))
+
+(use-package c++-ts-mode
+  :ensure nil
+  :hook (c++-ts-mode . eglot-ensure))
 
 (setq major-mode-remap-alist
       '((c-mode . c-ts-mode)

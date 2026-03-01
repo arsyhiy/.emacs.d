@@ -44,3 +44,4 @@
 (require 'lisp-python)
 (require 'lisp-cc)
 (require 'lisp-go)
+(require 'lisp-javascript)

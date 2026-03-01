@@ -14,8 +14,8 @@
 ;; packages
 
 (use-package org
-  :defer t 
   :straight t
+  :defer t 
   :ensure t
   :defer t
   :custom
