@@ -32,10 +32,11 @@
 (require 'lisp-orderless)
 (require 'lisp-diff-hl)             
 (require 'lisp-flycheck)
-(require 'lisp-general) ;; rewrite this
+(require 'lisp-general)
 (require 'lisp-rainbow-delimiters)
 (require 'lisp-which-key)
 (require 'lisp-evil)
+
 ;; modes
 
 (require 'lisp-lsp)	

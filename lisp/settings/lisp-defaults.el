@@ -10,12 +10,10 @@
 ;;; no comment
 
 ;;; Code:
-
-(defun lisp-file ()						 
-  (setq make-backup-files nil) ;; Stop creating ~ backup files	 
-  (setq auto-save-default nil) ;; Stop creating # auto save files
-  )								 
 								 
+(setq make-backup-files nil) ;; Stop creating ~ backup files	 
+(setq auto-save-default nil) ;; Stop creating # auto save files
+
 (provide 'lisp-defaults)
 
 ;;; lisp-defaults.el ends here

@@ -1,3 +1,17 @@
+;;; lisp-javascript.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+
+;; copyright (c) 2025
+;; version: 1.0
+;; packages-requires: ((emacs "30"))
+;; keywords: no keywords
+
+;; commentary:
+
+;; no comment
+
+;; code 
+
+;; packages
 
 (use-package typescript-ts-mode
   :straight t
@@ -8,11 +22,9 @@
   :straight t
   :mode ("\\.ts\\'" . typescript-mode)
   :init
-  ;; на случай если :mode не сработает
   (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
   :config
   (setq typescript-indent-level 2))
-
 
 (use-package web-mode
   :straight t
@@ -27,3 +39,4 @@
   (setq web-mode-css-indent-offset 2))
 
 (provide 'lisp-javascript)
+;;; lisp-javascript.el ends here

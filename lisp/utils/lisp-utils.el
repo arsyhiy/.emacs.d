@@ -56,11 +56,6 @@
 ;           ([escape] . keyboard-escape-quit) ;; Makes Escape quit prompts (Minibuffer Escape)
 ;           )
 
-
-
-
-
-
 ;; Функция для перехода к определению по Ctrl+Click
 (defun my/lsp-go-to-definition-mouse (event)
   "Go to definition at mouse click position."
@@ -74,7 +69,6 @@
 
 ;; Привязываем Ctrl+LeftMouse
 (global-set-key (kbd "<C-mouse-1>") 'my/lsp-go-to-definition-mouse)
-
 
 (provide 'lisp-utils)
 ;;; lisp-utils.el ends here

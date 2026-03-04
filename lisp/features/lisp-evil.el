@@ -15,9 +15,9 @@
 ;; packages
 
 (use-package evil
-    :straight t
-	:ensure t
-	:defer t
+  :straight t
+  :ensure t
+  :defer t
   :init ;; Execute code Before a package is loaded
   (evil-mode)
   :config ;; Execute code After a package is loaded
@@ -35,11 +35,11 @@
 
 (use-package evil-collection
   :straight t
-	:ensure t
-	:defer t
+  :ensure t
+  :defer t
   :after evil
   :config
- ;; Setting where to use evil-collection
+  ;; Setting where to use evil-collection
   (setq evil-collection-mode-list '(dired ibuffer magit corfu vertico consult))
   (evil-collection-init))
 

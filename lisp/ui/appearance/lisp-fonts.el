@@ -13,6 +13,7 @@
 
 (set-face-attribute 'default nil
   :font "JetBrainsMonoNL NF-15.0" ;; Set your favorite type of font or download JetBrains Mono
+ ;:font "Iosevka Nerd Font-15.0" ;; Set your favorite type of font or download JetBrains Mono
   :height 120
   :weight 'medium)
   ;; This sets the default font on all graphical frames created after restarting Emacs.
@@ -20,7 +21,12 @@
   ;; are not right unless I also add this method of setting the default font.
 
   (add-to-list 'default-frame-alist '(font . "JetBrainsMonoNL NF-15.0")) ;; Set your favorite font
+  ;(add-to-list 'default-frame-alist '(font . "Iosevka Nerd Font-15.0")) ;; Set your favorite font
   (setq-default line-spacing 0.12)
+  ;(setq-default line-spacing 0.1)
+
+
+
 											      
 ;(defvar my/monitor-font-alist
 ;  '((("Laptop") . "JetBrainsMonoNL NF-18")   ;; маленький экран

@@ -7,14 +7,11 @@
 
 ;;; Commentary:
 
-
 ;; no comment
 
 ;;; Code:
 
-;; --- Eglot базовая настройка ---
 (use-package eglot
-  ;;:ensure nil ;; встроен в Emacs 29+
   :hook ((python-mode . eglot-ensure)
          (typescript-mode . eglot-ensure)
          (js-mode . eglot-ensure)
@@ -23,18 +20,14 @@
          (go-mode . eglot-ensure)
          (rust-mode . eglot-ensure))
   :config
-  ;; меньше лишнего логирования
   (setq eglot-events-buffer-size 0)
 
-  ;; автозакрытие серверов при закрытии буфера
   (setq eglot-autoshutdown t)
 
-  ;; форматирование перед сохранением
   (add-hook 'before-save-hook
             (lambda ()
               (when (eglot-managed-p)
                 (eglot-format-buffer)))))
-
 
 (use-package sideline
   :straight t

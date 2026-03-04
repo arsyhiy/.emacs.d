@@ -24,8 +24,7 @@
 	(set-default-coding-systems 'utf-8)
 	(set-language-environment "UTF-8")
 	(prefer-coding-system 'utf-8)
-	(set-terminal-coding-system 'utf-8)
-)
+	(set-terminal-coding-system 'utf-8))
 
 (lisp-utf8)
 (lisp-edit)
