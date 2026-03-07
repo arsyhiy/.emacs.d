@@ -1,4 +1,6 @@
 ;; -*- coding: utf-8; lexical-binding: t -*-
+(setq straight-vc-git-default-clone-depth 10)
+
 (setq package-enable-at-startup nil)
 (defvar bootstrap-version)
 (let ((bootstrap-file

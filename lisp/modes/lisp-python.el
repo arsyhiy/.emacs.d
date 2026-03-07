@@ -13,17 +13,24 @@
 
 ;; packages
 
-(use-package elpy
-    :straight t
-	:defer t
-  :ensure t
-  :init
-  (elpy-enable))
+(use-package python
+  :ensure nil
+  :mode ("\\.py\\'" . python-ts-mode)
+  :hook (python-ts-mode . eglot-ensure)
+  :config
+  ;; Remap старого python-mode
+  (add-to-list 'major-mode-remap-alist
+               '(python-mode . python-ts-mode)))
+
 
 (use-package pyvenv
+  :defer t 
   :straight t
-	:defer t
-	:ensure t
-)
+  :defer t
+  :ensure t
+  :config
+  ;; Автоактивация виртуального окружения, если есть .venv в проекте
+  (pyvenv-mode 1))
+
 (provide 'lisp-python)
 ;;; lisp-python.el ends here

@@ -1,6 +1,2 @@
-# NOTES for me:
-updates only on sundays
+# IDEAS:
 
-# IDIAS:
-- make it look minimalistic and full screen
-- rewrite lsp 
