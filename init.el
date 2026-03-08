@@ -1,6 +1,7 @@
 ;; -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Paths & packages
+
 (add-to-list 'load-path "~/.emacs.d/lisp/features/")
 (add-to-list 'load-path "~/.emacs.d/lisp/ui/appearance")
 (add-to-list 'load-path "~/.emacs.d/lisp/ui/themes/")
@@ -36,6 +37,7 @@
 (require 'lisp-rainbow-delimiters)
 (require 'lisp-which-key)
 (require 'lisp-evil)
+(require 'lisp-modeline)
 
 ;; modes
 
@@ -46,3 +48,4 @@
 (require 'lisp-cc)
 (require 'lisp-go)
 (require 'lisp-javascript)
+
