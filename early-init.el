@@ -1,4 +1,13 @@
 ;; -*- coding: utf-8; lexical-binding: t -*-
+
+
+(setq gc-cons-threshold most-positive-fixnum
+      gc-cons-percentage 0.6)
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (setq gc-cons-threshold 100000000
+                  gc-cons-percentage 0.1)))
+
 (setq straight-vc-git-default-clone-depth 10)
 
 (setq package-enable-at-startup nil)

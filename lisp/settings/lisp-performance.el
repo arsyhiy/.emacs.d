@@ -28,5 +28,21 @@
 ;; do not steal focus while doing async compilations
 (setq warning-suppress-types '((comp)))
 
+
+(use-package gcmh
+  :straight t
+  :demand t
+  :config
+  (setq gcmh-high-cons-threshold (* 100 1024 1024))
+  (gcmh-mode 1))
+
+;; для совсем экстремальной отзывчивости (добавь в early-init.el в самый верх)
+;; (setq gc-cons-threshold most-positive-fixnum
+;;       gc-cons-percentage 0.6)
+;; (add-hook 'emacs-startup-hook
+;;           (lambda ()
+;;             (setq gc-cons-threshold 100000000
+;;                   gc-cons-percentage 0.1)))
+
 (provide 'lisp-performance)
 ;;; lisp-performance.el ends here
