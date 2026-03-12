@@ -1,4 +1,4 @@
-;;; lisp-flycheck.el --- Flycheck configuration -*- lexical-binding: t; -*-
+;; lisp-flycheck.el --- Flycheck configuration -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -60,4 +60,4 @@
    ))
 
 (provide 'lisp-flycheck)
-;;; lisp-flycheck.el ends here
+;; lisp-flycheck.el ends here

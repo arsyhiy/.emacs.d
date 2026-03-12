@@ -1,4 +1,4 @@
-;;; lisp-evil.el  --- evil mode configuration -*- coding: utf-8; lexical-binding: t -*-
+;; lisp-evil.el  --- evil mode configuration -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -10,7 +10,7 @@
 ;; I vim motions fun. even i know emacs motions i more prefer vim motions
 
 ;; Code 
-;;; NOTE: rewrie evil config in more right way
+;; NOTE: rewrie evil config in more right way
 
 ;; packages
 
@@ -57,4 +57,4 @@
 
 
 (provide 'lisp-evil)
-;;; lisp-evil.el ends here
+;; lisp-evil.el ends here

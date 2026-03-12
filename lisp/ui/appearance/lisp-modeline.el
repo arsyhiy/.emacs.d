@@ -1,13 +1,13 @@
-;;; lisp-modeline.el --- -*- coding: utf-8; lexical-binding: t -*-
+;; lisp-modeline.el --- -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Version: 1.0
 ;; Package-Requires: ((emacs "30.1"))
 ;; Keywords: modeline ui
 
-;;; Commentary:
+;; Commentary:
 ;; doom-modeline configuration
 
-;;; Code:
+;; Code:
 
 (use-package doom-modeline
   :straight t
@@ -30,7 +30,7 @@
 
   ;; How tall the mode-line should be. It's only respected in GUI.
   ;; If the actual char height is larger, it respects the actual height.
-  (doom-modeline-height 70)
+  (doom-modeline-height 40)
 
   ;; Whether display the time icon. It respects option `doom-modeline-icon'.
   (doom-modeline-time-icon t)
@@ -55,4 +55,4 @@
 
 
 (provide 'lisp-modeline)
-;;; lisp-modeline.el ends here
+;; lisp-modeline.el ends here

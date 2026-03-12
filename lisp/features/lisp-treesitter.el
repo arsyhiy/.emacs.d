@@ -1,4 +1,4 @@
-;;; lisp-treesitter.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;; lisp-treesitter.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -34,4 +34,4 @@
 (setq treesit-extra-load-path nil)
 
 (provide 'lisp-treesitter)
-;;; lisp-treesitter.el ends here
+;; lisp-treesitter.el ends here

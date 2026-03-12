@@ -1,4 +1,4 @@
-;;; lisp-magit.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;; lisp-magit.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -18,4 +18,4 @@
   :commands magit-status)
 
 (provide 'lisp-magit)
-;;; lisp-magit.el ends here
+;; lisp-magit.el ends here

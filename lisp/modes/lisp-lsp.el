@@ -1,4 +1,4 @@
-;;; lisp-lsp.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;; lisp-lsp.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -10,7 +10,7 @@
 
 ;; no comment
 
-;;; Code:
+;; Code:
 
 (use-package lsp-mode
   :straight t
@@ -37,4 +37,4 @@
   (lsp-ui-sideline-update-mode t))
 
 (provide 'lisp-lsp)
-;;; lisp-lsp.el ends here
+;; lisp-lsp.el ends here

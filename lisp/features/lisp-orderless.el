@@ -1,4 +1,4 @@
-;;; lisp-orderless.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;; lisp-orderless.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -22,4 +22,4 @@
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
 (provide 'lisp-orderless)
-;;; lisp-orderless.el ends here
+;; lisp-orderless.el ends here

@@ -1,4 +1,4 @@
-;;; lisp-general.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;; lisp-general.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -90,4 +90,4 @@
       "k k" '(kill-buffer :wk "kill buffer"))
 
 (provide 'lisp-general)
-;;; lisp-general.el ends here
+;; lisp-general.el ends here

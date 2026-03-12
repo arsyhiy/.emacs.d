@@ -1,4 +1,4 @@
-;;; lisp-which-key.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;; lisp-which-key.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -31,4 +31,4 @@
   (which-key-allow-imprecise-window-fit nil)) ;; Fixes which-key window slipping out in Emacs Daemon
 
 (provide 'lisp-which-key)
-;;; lisp-which-key.el ends here
+;; lisp-which-key.el ends here

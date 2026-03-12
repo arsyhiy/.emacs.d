@@ -1,15 +1,15 @@
-;;; lisp-utils.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;; lisp-utils.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
 ;; packages-Requires: ((emacs "30"))
 ;; Keywords: no keywords
 
-;;; Commentary:
+;; Commentary:
 
 ;; no comment
 
-;;; Code:
+;; Code:
 
 (defun open-config-file ()
   (interactive)
@@ -71,5 +71,5 @@
 (global-set-key (kbd "<C-mouse-1>") 'my/lsp-go-to-definition-mouse)
 
 (provide 'lisp-utils)
-;;; lisp-utils.el ends here
+;; lisp-utils.el ends here
 

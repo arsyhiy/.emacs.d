@@ -1,4 +1,4 @@
-;;; lisp-fonts.el  ---  -*- codifcng: utf-8; lexical-binding: t -*-
+;; lisp-fonts.el  ---  -*- codifcng: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -46,4 +46,4 @@
 ;;(my/update-font-based-on-monitor)
 									      
 (provide 'lisp-fonts)
-;;; lisp-fonts.el ends here
+;; lisp-fonts.el ends here

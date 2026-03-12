@@ -1,4 +1,4 @@
-;;; lisp-nerd-icons.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;; lisp-nerd-icons.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -33,4 +33,4 @@
     :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 
 (provide 'lisp-nerd-icons)
-;;; lisp-nerd-icons.el ends here
+;; lisp-nerd-icons.el ends here

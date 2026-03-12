@@ -1,4 +1,4 @@
-;;; lisp-gui.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;; lisp-gui.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -43,4 +43,4 @@
 (lisp-configure-gui)
 
 (provide 'lisp-gui)
-;;; lisp-gui.el ends here
+;; lisp-gui.el ends here

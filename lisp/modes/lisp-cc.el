@@ -1,4 +1,4 @@
-;;; lisp-cc.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;; lisp-cc.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; copyright (c) 2025
 ;; version: 1.0
@@ -26,4 +26,4 @@
         (c++-mode . c++-ts-mode)))
 
 (provide 'lisp-cc)
-;;; lisp-cc.el ends here
+;; lisp-cc.el ends here

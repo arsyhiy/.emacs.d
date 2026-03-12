@@ -1,15 +1,15 @@
-;;; lisp-minimodes.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;; lisp-minimodes.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
 ;; packages-Requires: ((emacs "30"))
 ;; Keywords: no keywords
 
-;;; Commentary:
+;; Commentary:
 
 ;; no comment
 
-;;; Code
+;; Code
 
 (defun lisp-minimodes()
   ;;(pixel-scroll-precision-mode 1))
@@ -23,4 +23,4 @@
 (lisp-minimodes)
 
 (provide 'lisp-minimodes)
-;;; lisp-minimodes.el ends here
+;; lisp-minimodes.el ends here

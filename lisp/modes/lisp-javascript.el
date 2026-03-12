@@ -1,4 +1,4 @@
-;;; lisp-javascript.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;; lisp-javascript.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; copyright (c) 2025
 ;; version: 1.0
@@ -39,4 +39,4 @@
   (setq web-mode-css-indent-offset 2))
 
 (provide 'lisp-javascript)
-;;; lisp-javascript.el ends here
+;; lisp-javascript.el ends here

@@ -2,10 +2,10 @@
 
 ;; Paths & packages
 
-(add-to-list 'load-path "~/.emacs.d/lisp/features/")
+(add-to-list 'load-path "~/.emacs.d/lisp/features")
 (add-to-list 'load-path "~/.emacs.d/lisp/ui/appearance")
-(add-to-list 'load-path "~/.emacs.d/lisp/ui/themes/")
-(add-to-list 'load-path "~/.emacs.d/lisp/modes/")
+(add-to-list 'load-path "~/.emacs.d/lisp/ui/themes")
+(add-to-list 'load-path "~/.emacs.d/lisp/modes")
 (add-to-list 'load-path "~/.emacs.d/lisp/settings")
 (add-to-list 'load-path "~/.emacs.d/lisp/utils")
 

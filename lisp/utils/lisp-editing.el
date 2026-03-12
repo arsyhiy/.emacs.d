@@ -1,4 +1,4 @@
-;;; lisp-editing.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;; lisp-editing.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -31,4 +31,4 @@
 (lisp-edit)
 
 (provide 'lisp-editing)
-;;; lisp-editing.el ends here
+;; lisp-editing.el ends here

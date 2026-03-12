@@ -1,4 +1,4 @@
-;;; lisp-python.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;; lisp-python.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -33,4 +33,4 @@
   (pyvenv-mode 1))
 
 (provide 'lisp-python)
-;;; lisp-python.el ends here
+;; lisp-python.el ends here

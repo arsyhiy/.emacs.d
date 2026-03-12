@@ -1,4 +1,4 @@
-;;; lisp-go.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;; lisp-go.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -27,4 +27,4 @@
 (add-hook 'go-mode-hook 'lsp-deferred)
 
 (provide 'lisp-go)
-;;; lisp-go.el ends here
+;; lisp-go.el ends here

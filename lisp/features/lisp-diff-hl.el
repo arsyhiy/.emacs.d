@@ -1,4 +1,4 @@
-;;; lisp-diff-hl.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;; lisp-diff-hl.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -23,4 +23,4 @@
   :init (global-diff-hl-mode))
 
 (provide 'lisp-diff-hl)
-;;; lisp-diff-hl.el ends here
+;; lisp-diff-hl.el ends here

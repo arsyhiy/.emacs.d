@@ -1,4 +1,4 @@
-;;; lisp-themes.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;; lisp-themes.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -18,4 +18,4 @@
   :config (load-theme 'ef-cyprus t))
 
 (provide 'lisp-themes)
-;;; lisp-themes.el ends here
+;; lisp-themes.el ends here

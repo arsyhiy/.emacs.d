@@ -1,4 +1,4 @@
-;;; lisp-completion.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;; lisp-completion.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0

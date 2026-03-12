@@ -1,4 +1,4 @@
-;;; lisp-org.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;; lisp-org.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; Copyright (C) 2025
 ;; Version: 1.0
@@ -46,4 +46,4 @@
   :hook (org-mode . org-superstar-mode))
 
 (provide 'lisp-org)
-;;; lisp-org-mode.el ends here
+;; lisp-org-mode.el ends here

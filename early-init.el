@@ -1,6 +1,5 @@
 ;; -*- coding: utf-8; lexical-binding: t -*-
 
-
 (setq gc-cons-threshold most-positive-fixnum
       gc-cons-percentage 0.6)
 (add-hook 'emacs-startup-hook
