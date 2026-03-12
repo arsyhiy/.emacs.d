@@ -37,7 +37,7 @@
   (set-fringe-mode 10)               ;; give some breathing room
   (blink-cursor-mode 0)              ;; disable blinking cursor		      
   (menu-bar-mode -1)      
-  (toggle-frame-fullscreen)
+  ;;(toggle-frame-fullscreen)
 )
    
 (lisp-configure-gui)
