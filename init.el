@@ -38,6 +38,7 @@
 (require 'lisp-which-key)
 (require 'lisp-evil)
 (require 'lisp-modeline)
+(require 'lisp-treemacs)
 
 ;; modes
 

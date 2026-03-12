@@ -30,7 +30,7 @@
 
   ;; How tall the mode-line should be. It's only respected in GUI.
   ;; If the actual char height is larger, it respects the actual height.
-  (doom-modeline-height 40)
+  (doom-modeline-height 70)
 
   ;; Whether display the time icon. It respects option `doom-modeline-icon'.
   (doom-modeline-time-icon t)
@@ -46,8 +46,7 @@
   (doom-modeline-indent-info t)
 
   ;; The maximum displayed length of the branch name of version control.
-  (doom-modeline-vcs-max-length 100)
-
+  (doom-modeline-vcs-max-length 200)
   ;; The function to display the branch name.
   (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)
 
