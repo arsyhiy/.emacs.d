@@ -39,6 +39,7 @@
 (require 'lisp-evil)
 (require 'lisp-modeline)
 (require 'lisp-treemacs)
+(require 'lisp-terminal)
 
 ;; modes
 
@@ -49,4 +50,5 @@
 (require 'lisp-cc)
 (require 'lisp-go)
 (require 'lisp-javascript)
+(require 'minimal)
 

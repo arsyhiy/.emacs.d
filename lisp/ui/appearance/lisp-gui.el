@@ -37,6 +37,7 @@
   (set-fringe-mode 10)               ;; give some breathing room
   (blink-cursor-mode 0)              ;; disable blinking cursor		      
   (menu-bar-mode -1)      
+  (push '(fullscreen . maximized) default-frame-alist)
   ;;(toggle-frame-fullscreen)
 )
    
