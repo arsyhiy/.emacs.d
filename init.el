@@ -41,6 +41,7 @@
 (require 'lisp-treemacs)
 (require 'lisp-terminal)
 
+
 ;; modes
 
 (require 'lisp-lsp)	
@@ -51,4 +52,4 @@
 (require 'lisp-go)
 (require 'lisp-javascript)
 (require 'minimal)
-
+(require 'lisp-web)
