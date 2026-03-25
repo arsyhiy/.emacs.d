@@ -17,5 +17,5 @@
   :straight t
   :config (load-theme 'ef-cyprus t))
 
-(provide 'lisp-themes)
+(provide 'themes)
 ;; lisp-themes.el ends here

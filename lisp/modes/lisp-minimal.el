@@ -30,5 +30,5 @@
   "Restore minimal-vi changes (does not auto-enable LSP)."
   (setq-local mode-line-format (default-value 'mode-line-format)))
 
-(provide 'minimal)
+(provide 'lisp-minimal)
 ;;; minimal-vi-mode.el ends here

@@ -45,5 +45,5 @@
 ;; Применяем для текущего фрейма при запуске
 ;;(my/update-font-based-on-monitor)
 									      
-(provide 'lisp-fonts)
+(provide 'fonts)
 ;; lisp-fonts.el ends here

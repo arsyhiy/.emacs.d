@@ -54,5 +54,5 @@
 )
 
 
-(provide 'lisp-modeline)
+(provide 'modeline)
 ;; lisp-modeline.el ends here

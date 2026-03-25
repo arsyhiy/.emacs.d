@@ -43,5 +43,5 @@
    
 (lisp-configure-gui)
 
-(provide 'lisp-gui)
+(provide 'gui)
 ;; lisp-gui.el ends here

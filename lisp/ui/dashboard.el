@@ -58,5 +58,5 @@
   (dashboard-setup-startup-hook))
 
 (require 'dashboard)
-(provide 'lisp-dashboard)
+(provide 'dashboard)
 ;; lisp-dashboard.el ends here

@@ -1,20 +1,17 @@
-;; -*- coding: utf-8; lexical-binding: t -*-
+;;; -*- coding: utf-8; lexical-binding: t; -*-
 
-;; Paths & packages
+;; adding all directories in lisp into load-path automatically
+(let ((default-directory (expand-file-name "lisp/" user-emacs-directory)))
+  (normal-top-level-add-subdirs-to-load-path))
 
-(add-to-list 'load-path "~/.emacs.d/lisp/features")
-(add-to-list 'load-path "~/.emacs.d/lisp/ui/appearance")
-(add-to-list 'load-path "~/.emacs.d/lisp/ui/themes")
-(add-to-list 'load-path "~/.emacs.d/lisp/modes")
-(add-to-list 'load-path "~/.emacs.d/lisp/settings")
-(add-to-list 'load-path "~/.emacs.d/lisp/utils")
+;; ────── Ui ──────
 
-;; ui
-
-(require 'lisp-themes)
-(require 'lisp-dashboard)	
-(require 'lisp-fonts)
-(require 'lisp-gui)
+(require 'fonts)  ; ui/fonts.el
+(require 'themes) ; ui/themes.el
+(require 'dashboard)	
+(require 'gui)
+(require 'modeline)
+ 
 
 ;; settings
 
@@ -37,10 +34,8 @@
 (require 'lisp-rainbow-delimiters)
 (require 'lisp-which-key)
 (require 'lisp-evil)
-(require 'lisp-modeline)
 (require 'lisp-treemacs)
 (require 'lisp-terminal)
-
 
 ;; modes
 
@@ -51,5 +46,6 @@
 (require 'lisp-cc)
 (require 'lisp-go)
 (require 'lisp-javascript)
-(require 'minimal)
+(require 'lisp-minimal)
 (require 'lisp-web)
+
