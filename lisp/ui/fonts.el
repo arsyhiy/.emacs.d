@@ -2,7 +2,7 @@
 
 (defvar my/monitor-font-alist
   '((350 . "JetBrainsMonoNL NF-18")
-    (9999 . "JetBrainsMonoNL NF-12")))
+    (9999 . "JetBrainsMonoNL NF-15")))
 
 (defun my/get-font-by-width (width)
   (cdr (seq-find (lambda (entry) (<= width (car entry)))
