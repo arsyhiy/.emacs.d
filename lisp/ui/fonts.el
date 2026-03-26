@@ -17,7 +17,7 @@
              (font (my/get-font-by-width width-mm)))
         (when font
           (set-face-attribute 'default frame :font font)
-          (message "Font → %s (%dmm)" font width-mm))))))
+          )))))
 
 (add-hook 'after-make-frame-functions #'my/update-font-based-on-monitor)
 (add-hook 'server-after-make-frame-hook #'my/update-font-based-on-monitor)
