@@ -4,14 +4,10 @@
   (interactive)
   (find-file (expand-file-name "init.el" user-emacs-directory)))
 
-
-
-														 
 (global-set-key (kbd "C-x t")											 
                 (lambda ()											 
                   (interactive)											 
                   (start-process "gnome-terminal" nil "gnome-terminal" "--working-directory" default-directory)))
-
 
 (use-package emacs
   :straight t
@@ -23,7 +19,6 @@
 
 (setq-default use-short-answers t
   confirm-nonexistent-file-or-buffer nil)
-
 
 (setq-default mouse-yank-at-point t)
 (mouse-avoidance-mode 'exile)

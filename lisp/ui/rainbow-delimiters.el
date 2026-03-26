@@ -7,4 +7,4 @@
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (provide 'rainbow-delimiters)
-;; rainbow-delimiters.el ends here
+;;; rainbow-delimiters.el ends here

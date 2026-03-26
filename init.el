@@ -4,7 +4,7 @@
 (let ((default-directory (expand-file-name "lisp/" user-emacs-directory)))
   (normal-top-level-add-subdirs-to-load-path))
 
-;; ────── Ui ──────
+;; ────── ui ──────
 
 (require 'fonts)              ; ui/fonts.el
 (require 'themes)             ; ui/themes.el
@@ -16,10 +16,10 @@
 (require 'hl-todo)            ; ui/hl-todo.el
 (require 'diff-hl)            ; ui/diff-hl 
 
-;; settings
+;; ────── Settings ──────
 
-(require 'lisp-defaults)
-(require 'lisp-performance)
+(require  'defaults)
+(require 'performance)
 
 ;; ────── Utils ──────
 

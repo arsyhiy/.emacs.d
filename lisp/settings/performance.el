@@ -1,15 +1,4 @@
-;; lisp-performance.el  ---  -*- coding: utf-8; lexical-binding: t -*-
-
-;; Copyright (C) 2025
-;; Version: 1.0
-;; packages-Requires: ((emacs "30"))
-;; Keywords: no keywords
-
-;; Commentary:
-
-;; no comment
-
-;; Code:
+;;; performance.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 ;; https://emacs-lsp.github.io/lsp-mode/page/performance/
 (setq gc-cons-threshold 100000000
@@ -44,5 +33,5 @@
 ;;             (setq gc-cons-threshold 100000000
 ;;                   gc-cons-percentage 0.1)))
 
-(provide 'lisp-performance)
-;; lisp-performance.el ends here
+(provide 'performance)
+;;; performance.el ends here
