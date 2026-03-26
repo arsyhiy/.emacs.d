@@ -24,5 +24,9 @@
 (add-hook 'focus-in-hook #'my/update-font-based-on-monitor)
 (my/update-font-based-on-monitor)
 
+(use-package nerd-icons
+  :straight t
+  :ensure t)
+
 (provide 'fonts)
 ;;; fonts.el ends here
