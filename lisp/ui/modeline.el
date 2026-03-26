@@ -1,4 +1,4 @@
-;; modeline.el --- -*- coding: utf-8; lexical-binding: t -*-
+;;; modeline.el --- -*- coding: utf-8; lexical-binding: t -*-
 
 (use-package doom-modeline
   :straight t

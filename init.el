@@ -6,12 +6,15 @@
 
 ;; ────── Ui ──────
 
-(require 'fonts)     ; ui/fonts.el
-(require 'themes)    ; ui/themes.el
-(require 'dashboard) ; ui/dashboard.el	
-(require 'gui)       ; ui/gui.el
-(require 'modeline)  ; ui/modeline.el
- 
+(require 'fonts)              ; ui/fonts.el
+(require 'themes)             ; ui/themes.el
+(require 'dashboard)          ; ui/dashboard.el	
+(require 'gui)                ; ui/gui.el
+(require 'modeline)           ; ui/modeline.el
+(require 'nerd-icons)         ; ui/nerd-icons.el
+(require 'rainbow-delimiters) ; ui/rainbow-delimiters.el
+(require 'hl-todo)            ; ui/hl-todo.el
+(require 'diff-hl)            ; ui/diff-hl 
 
 ;; settings
 
@@ -28,10 +31,8 @@
 (require 'lisp-magit)   
 (require 'lisp-completion)	 
 (require 'lisp-orderless)
-(require 'lisp-diff-hl)             
 (require 'lisp-flycheck)
 (require 'lisp-general)
-(require 'lisp-rainbow-delimiters)
 (require 'lisp-which-key)
 (require 'lisp-evil)
 (require 'lisp-treemacs)
