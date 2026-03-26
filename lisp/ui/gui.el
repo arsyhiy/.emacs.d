@@ -1,4 +1,4 @@
-;; gui.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;;; gui.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
 (defun my/configure-gui ()
   (when (display-graphic-p)
@@ -40,4 +40,4 @@
 (my/configure-gui)
 
 (provide 'gui)
-;; lisp-gui.el ends here
+;;; lisp-gui.el ends here

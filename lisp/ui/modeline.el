@@ -1,17 +1,9 @@
-;; lisp-modeline.el --- -*- coding: utf-8; lexical-binding: t -*-
-
-;; Version: 1.0
-;; Package-Requires: ((emacs "30.1"))
-;; Keywords: modeline ui
-
-;; Commentary:
-;; doom-modeline configuration
-
-;; Code:
+;; modeline.el --- -*- coding: utf-8; lexical-binding: t -*-
 
 (use-package doom-modeline
   :straight t
-  :init (doom-modeline-mode)
+  :init
+  :hook (after-init . doom-modeline-mode)
   :custom
 
   ;; Whether display icons in the mode-line.
@@ -48,11 +40,8 @@
   ;; The maximum displayed length of the branch name of version control.
   (doom-modeline-vcs-max-length 200)
   ;; The function to display the branch name.
-  (doom-modeline-vcs-display-function #'doom-modeline-vcs-name)
-
-
-)
+  (doom-modeline-vcs-display-function #'doom-modeline-vcs-name))
 
 
 (provide 'modeline)
-;; lisp-modeline.el ends here
+;;; modeline.el ends here

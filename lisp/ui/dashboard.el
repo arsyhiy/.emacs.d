@@ -38,4 +38,4 @@
   (dashboard-heading-icon-v-adjust -0.125))
 
 (provide 'dashboard)
-;; dashboard.el ends here
+;;; dashboard.el ends here
