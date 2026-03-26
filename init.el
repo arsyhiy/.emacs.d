@@ -6,11 +6,11 @@
 
 ;; ────── Ui ──────
 
-(require 'fonts)  ; ui/fonts.el
-(require 'themes) ; ui/themes.el
-(require 'dashboard)	
-(require 'gui)
-(require 'modeline)
+(require 'fonts)     ; ui/fonts.el
+(require 'themes)    ; ui/themes.el
+(require 'dashboard) ; ui/dashboard.el	
+(require 'gui)       ; ui/gui.el
+(require 'modeline)  ; ui/modeline.el
  
 
 ;; settings
