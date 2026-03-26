@@ -21,10 +21,10 @@
 (require 'lisp-defaults)
 (require 'lisp-performance)
 
-;; utils
+;; ────── Utils ──────
 
-(require 'lisp-utils)     
-(require 'lisp-editing)
+(require 'utils)     
+(require 'editing)
 
 ;; features
 
