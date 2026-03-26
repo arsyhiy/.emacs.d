@@ -1,47 +1,43 @@
-;; lisp-gui.el  ---  -*- coding: utf-8; lexical-binding: t -*-
+;; gui.el  ---  -*- coding: utf-8; lexical-binding: t -*-
 
-;; Copyright (C) 2025
-;; Version: 1.0
-;; packages-Requires: ((emacs "30"))
-;; Keywords: no keywords
+(defun my/configure-gui ()
+  (when (display-graphic-p)
 
-;; Commentary:
+    (menu-bar-mode -1)
+    (tool-bar-mode -1)
+    (scroll-bar-mode -1)
+    (tooltip-mode -1)
+    (set-fringe-mode 10)
+    (blink-cursor-mode 0)
 
-;; no comment
+    (setq use-file-dialog nil
+          use-dialog-box nil
+          show-help-function nil
+          mouse-wheel-progressive-speed t
+          scroll-conservatively 10
+          frame-resize-pixelwise t
+          inhibit-startup-message t)
 
-;; Code 
+    (global-display-line-numbers-mode t)
 
-(defun lisp-configure-gui()
-  (setq show-help-function nil)    ; No help text
-  (setq use-file-dialog nil)       ; No file dialog
-  (setq use-dialog-box nil)        ; No dialog box
-  (setq pop-up-windows nil)       ; No popup windows
-  (setq menu-bar-mode nil)         ;; Disable the menu bar
-  (setq tool-bar-mode nil)         ;; Disable the tool bar
-  ;;(setq inhibit-startup-screen t)  ;; Disable welcome screen
-  (setq scroll-bar-mode nil)                    ; No scroll bars
-  (blink-cursor-mode t)     ;; Don't blink cursor
-  ;;(global-visual-line-mode t)           ;; Enable truncated lines
-  ;;(display-line-numbers-type 'relative) ;; Relative line numbers
-  (global-display-line-numbers-mode t)  ;; Display line numbers
-  (setq mouse-wheel-progressive-speed t) ;; Disable progressive speed when scrolling
-  (setq scroll-conservatively 10) ;; Smooth scrolling
-  ;;(setq scroll-margin 8)
-  (setq package-enable-at-startup nil
-  inhibit-startup-message   t
-  frame-resize-pixelwise    t        ;; fine resize
-  package-native-compile    t)       ;; native compile packages
-  (scroll-bar-mode -1)               ;; disable scrollbar
-  (tool-bar-mode -1)                 ;; disable toolbar
-  (tooltip-mode -1)                  ;; disable tooltips
-  (set-fringe-mode 10)               ;; give some breathing room
-  (blink-cursor-mode 0)              ;; disable blinking cursor		      
-  (menu-bar-mode -1)      
-  (push '(fullscreen . maximized) default-frame-alist)
-  ;;(toggle-frame-fullscreen)
-)
-   
-(lisp-configure-gui)
+    (setq-default
+     inhibit-compacting-font-caches t
+     cursor-in-non-selected-windows nil)
+
+    (setq scroll-step 1
+      scroll-margin 3
+      scroll-preserve-screen-position t)
+    
+    (setq ring-bell-function 'ignore)
+    (setq-default truncate-lines t)
+    (setq redisplay-dont-pause t)
+
+    (when (fboundp 'pixel-scroll-precision-mode)
+      (pixel-scroll-precision-mode 1))
+
+    (add-to-list 'default-frame-alist '(fullscreen . maximized))))
+
+(my/configure-gui)
 
 (provide 'gui)
 ;; lisp-gui.el ends here
