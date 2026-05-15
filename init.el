@@ -12,6 +12,7 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp/personal"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp/ui"))
 
+
 ;; load files
 
 ;; options
