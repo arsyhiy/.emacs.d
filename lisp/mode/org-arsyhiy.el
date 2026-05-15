@@ -10,5 +10,15 @@
   :ensure nil
   :defer t)
 
+
+(global-set-key (kbd "C-c o")
+  (lambda ()
+    (interactive)
+    (org-agenda nil "a")))
+(global-set-key (kbd "C-c t")
+  (lambda ()
+    (interactive)
+    (find-file "~/NOTES/orgfiles/todo.org")))
+
 (provide 'org-arsyhiy)
 ;;; org-arsyhiy.el ends here

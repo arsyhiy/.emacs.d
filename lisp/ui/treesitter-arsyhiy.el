@@ -1,4 +1,4 @@
-;;; treesitter-arsyhiy.el --- treesitter support -*- lexical-binding: t; -*-
+;;; treesitter-asryhiy.el --- treesitter support -*- lexical-binding: t; -*-
 ;; Author: arsyhiy
 ;; Package-Requires: ((emacs "30.1"))
 
@@ -15,5 +15,5 @@
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode t))
 
-(provide 'treesitter-asryhiy)
+(provide 'treesitter-arsyhiy)
 ;;; treesitter-arsyhiy.el ends here

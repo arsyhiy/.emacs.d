@@ -43,11 +43,11 @@
 ;; programming languages
 (require 'python-arsyhiy)
 (require 'elisp-arsyhiy)
+(require 'cc-arsyhiy)
 
 ;; === personal ==========================================================================
 
 (require 'run-program)
-
 ;; === ui ================================================================================
 
 (require 'diff-hl-arsyhiy)

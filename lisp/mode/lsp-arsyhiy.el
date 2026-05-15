@@ -17,6 +17,7 @@
            typescript-ts-base-mode
            css-mode
            go-ts-mode
+           cc-ts-mode
            js-ts-mode
            prisma-mode
            python-ts-mode
