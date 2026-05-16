@@ -20,5 +20,11 @@
     (interactive)
     (find-file "~/NOTES/orgfiles/todo.org")))
 
+
+
+
+
+
+
 (provide 'org-arsyhiy)
 ;;; org-arsyhiy.el ends here
